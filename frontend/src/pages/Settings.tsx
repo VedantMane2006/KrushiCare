@@ -5,6 +5,7 @@ import { loadSettings, saveSettings } from '../services/settings';
 import type { Lang, SoilCard } from '../services/types';
 import { LANGS } from './Home';
 import DistrictSelect from '../components/DistrictSelect';
+import InstallButton from '../components/InstallButton';
 
 const FIELDS: { key: keyof SoilCard; step: string }[] = [
   { key: 'ph', step: '0.1' },
@@ -102,6 +103,8 @@ export default function Settings() {
         </div>
         <button className="btn-primary" type="submit">{saved ? `✓ ${t('settings.saved')}` : t('settings.save')}</button>
       </form>
+
+      <InstallButton />
 
       <button className="btn-danger" onClick={() => void clearHistory()}>{t('settings.clear_history')}</button>
     </div>

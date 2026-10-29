@@ -157,5 +157,9 @@
   "gradcam.alt": "Leaf photo with a heatmap over the parts that look diseased",
   "gradcam.help": "Red and yellow areas are the parts of the leaf the check focused on.",
   "gradcam.demo": "Demo heatmap: it marks brown and yellow patches until the trained model is added.",
-  "home.desktop_hint": "Take a clear photo of one leaf, or upload one from your computer. You'll get a diagnosis, weather risk and what to do next."
+  "home.desktop_hint": "Take a clear photo of one leaf, or upload one from your computer. You'll get a diagnosis, weather risk and what to do next.",
+  "install.title": "Install AgriSense on this device",
+  "install.help": "Opens like an app from your home screen, full screen, and works without internet. No app store needed.",
+  "install.button": "Install app",
+  "install.ios_steps": "On iPhone: tap the Share button (square with an arrow) at the bottom of Safari, then tap \"Add to Home Screen\"."
 }

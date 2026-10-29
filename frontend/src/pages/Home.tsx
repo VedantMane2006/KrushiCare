@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { loadSettings, saveSettings } from '../services/settings';
 import type { Crop, Lang } from '../services/types';
 import KccButton from '../components/KccButton';
+import InstallButton from '../components/InstallButton';
 
 const CROPS: { id: Crop; emoji: string }[] = [
   { id: 'tomato', emoji: '🍅' },
@@ -94,6 +95,7 @@ export default function Home({ pending }: { pending: number }) {
         <p className="mb-2 text-center text-sm text-gray-600">{t('home.kcc_help')}</p>
         <KccButton />
       </div>
+      <InstallButton />
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ import History from './pages/History';
 import Schemes from './pages/Schemes';
 import Settings from './pages/Settings';
 import Report from './pages/Report';
+import InstallButton from './components/InstallButton';
 
 registerSW({ immediate: true });
 
@@ -74,6 +75,7 @@ export default function App() {
                 )}
               </NavLink>
             ))}
+            <span className="ml-2"><InstallButton compact /></span>
             <NavLink to="/capture" className="ml-2 rounded-xl bg-leaf-800 px-4 py-2 font-semibold text-white shadow-sm hover:bg-leaf-900">
               📷 {t('home.check_leaf')}
             </NavLink>
