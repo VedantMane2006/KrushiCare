@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AgriSense Browser Parity Verification Suite</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 2rem; background: #f7f7f2; color: #1e293b; }
+    h1 { color: #14532d; }
+    table { border-collapse: collapse; width: 100%; max-width: 900px; margin-top: 1rem; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
+    th, td { padding: 12px 16px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+    th { background: #f1f5f9; font-weight: 600; }
+    .pass { color: #15803d; font-weight: bold; }
+    .fail { color: #b91c1c; font-weight: bold; }
+    #status { padding: 12px; margin-top: 1rem; border-radius: 6px; font-weight: 600; display: inline-block; }
+    .running { background: #e0f2fe; color: #0369a1; }
+    .all-passed { background: #dcfce7; color: #15803d; }
+    .has-failed { background: #fee2e2; color: #b91c1c; }
+  </style>
+  <!-- Load ONNX Runtime Web WASM distribution -->
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+</head>
+<body>
+  <h1>AgriSense On-Device Parity Check (Browser WASM)</h1>
+  <p>Verifies browser-side ONNX Runtime Web predictions against Krisha's training baseline (<code>expected.json</code>) with 0.02 probability tolerance and exact top-1 match.</p>
+
+  <div id="status" class="running">Initializing tests...</div>
+
+  <table id="resultsTable">
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Ground Truth</th>
+        <th>Browser Top-1</th>
+        <th>Expected Top-1</th>
+        <th>Max Prob Diff</th>
+        <th>Status (Tol &le; 0.02)</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script type="module">
+    import { loadModel, predict } from './predict.js';
+
+    const statusEl = document.getElementById('status');
+    const tbody = document.querySelector('#resultsTable tbody');
+
+    async function runParity() {
+      try {
+        statusEl.textContent = 'Loading model.onnx and model_meta.json...';
+        await loadModel('../models/model.onnx', '../models/model_meta.json');
+
+        statusEl.textContent = 'Fetching expected.json...';
+        const expectedRes = await fetch('../parity/expected.json');
+        const expectedList = await expectedRes.json();
+
+        let allPassed = true;
+
+        for (const item of expectedList) {
+          const imgRes = await fetch(`../parity/${item.file}`);
+          const blob = await imgRes.blob();
+
+          const result = await predict(blob);
+          const top1Pred = result.top3[0]?.label ?? 'none';
+
+          // Expected top 1
+          const maxProbIndex = item.probs.indexOf(Math.max(...item.probs));
+          const metaRes = await fetch('../models/model_meta.json');
+          const meta = await metaRes.json();
+          const expectedTop1 = meta.labels[maxProbIndex];
+
+          // Compute max absolute difference across top 1 probability
+          const expectedProb = item.probs[maxProbIndex];
+          const actualProb = result.top3[0]?.prob ?? 0;
+          const diff = Math.abs(actualProb - expectedProb);
+
+          const isTop1Match = top1Pred === expectedTop1;
+          const isDiffOk = diff <= 0.02;
+          const pass = isTop1Match && isDiffOk;
+
+          if (!pass) allPassed = false;
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><code>${item.file}</code></td>
+            <td><code>${expectedTop1}</code></td>
+            <td><code>${top1Pred}</code> (${actualProb.toFixed(4)})</td>
+            <td><code>${expectedTop1}</code> (${expectedProb.toFixed(4)})</td>
+            <td>${diff.toFixed(6)}</td>
+            <td class="${pass ? 'pass' : 'fail'}">${pass ? 'PASSED' : 'FAILED'}</td>
+          `;
+          tbody.appendChild(tr);
+        }
+
+        if (allPassed) {
+          statusEl.className = 'all-passed';
+          statusEl.textContent = 'All 5 Parity Fixtures Passed (Top-1 matches, tolerance <= 0.02)';
+        } else {
+          statusEl.className = 'has-failed';
+          statusEl.textContent = 'Some fixtures failed parity check.';
+        }
+      } catch (err) {
+        statusEl.className = 'has-failed';
+        statusEl.textContent = `Error: ${err.message}`;
+      }
+    }
+
+    runParity();
+  </script>
+</body>
+</html>
+
