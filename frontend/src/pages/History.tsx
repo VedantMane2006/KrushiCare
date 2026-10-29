@@ -6,6 +6,7 @@ import { db } from '../services/db';
 import { syncPending } from '../services/sync';
 import Thumb from '../components/Thumb';
 import type { Check } from '../services/types';
+import Icon from '../components/Icon';
 
 const STATUS_TONE = {
   pending: 'bg-amber-100 text-amber-950',
@@ -39,7 +40,7 @@ export default function History() {
       <h1 className="text-2xl font-bold text-leaf-900">{t('queue.title')}</h1>
       {hasUnsent && (
         <button className="btn-primary md:w-auto" disabled={syncing} onClick={() => void sendNow()}>
-          {syncing ? t('queue.syncing') : `⬆️ ${t('queue.sync_now')}`}
+          {syncing ? t('queue.syncing') : <><Icon name="upload" /> {t('queue.sync_now')}</>}
         </button>
       )}
       {checks.length === 0 && <p className="card text-center text-gray-600">{t('queue.empty')}</p>}

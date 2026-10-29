@@ -3,6 +3,7 @@
 Run from backend/:  uvicorn main:app --reload --port 8000
 """
 import asyncio
+import hashlib
 import io
 import json
 import logging
@@ -12,13 +13,16 @@ import time
 import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
+from urllib.parse import urlparse
 
-from fastapi import FastAPI, HTTPException, Query, Request
+import httpx
+from fastapi import BackgroundTasks, FastAPI, HTTPException, Query, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image, ImageOps, UnidentifiedImageError
 
 from database import db
 from services import fakes
+from services import whatsapp as wa
 from services.verdict import CONTRACT_VERSION, NOT_ASSESSED_CONTEXT, build_result, decide, load_thresholds, pick_advice
 
 BACKEND = Path(__file__).resolve().parent
@@ -47,6 +51,7 @@ class State:
     thresholds: dict = {}
     advice_pack: dict = {}
     schemes: dict = {}
+    wa_strings: dict = {}
     using_fakes: list[str] = []
 
 
@@ -55,6 +60,10 @@ S = State()
 
 def _read_json(p: Path, default):
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
+
+
+def _model_labels() -> list[str]:
+    return _read_json(ROOT / "ml/models/model_meta.json", {}).get("labels", [])
 
 
 def _load_components() -> None:
@@ -86,13 +95,22 @@ def _load_components() -> None:
         return m.get_context
 
     def real_climate():
-        from services import context as m
+        from services import climate as m
         return m.get_climate
 
     def real_explain():
         from ml.inference import predict as m
         target = m.Predictor() if hasattr(m, "Predictor") else m
-        return target.explain  # AttributeError until Vedant adds it: the demo map is used
+        if hasattr(target, "explain"):
+            return target.explain
+        # Real Grad-CAM read straight from the exported model; the demo map if there is no model yet.
+        from ml.inference.gradcam import OnnxGradCam
+        model = ROOT / "ml/models/model.onnx"
+        if not model.exists() or getattr(target, "is_stub", False):
+            raise FileNotFoundError("no trained model.onnx yet")
+        cam = OnnxGradCam(model, m.preprocess)
+        labels = _model_labels()
+        return lambda image, label: cam.explain(image, labels.index(label))
 
     S.predict = load("predict", real_predict, fakes.predict)
     S.explain = load("gradcam", real_explain, fakes.explain)
@@ -103,6 +121,7 @@ def _load_components() -> None:
     S.thresholds = load_thresholds(ROOT / "ml/models/thresholds.json")
     S.advice_pack = _read_json(BACKEND / "knowledge_base/advice_pack.json", {})
     S.schemes = _read_json(BACKEND / "knowledge_base/schemes.json", {})
+    S.wa_strings = wa.load_strings(ROOT / "frontend/src/i18n")
 
 
 @asynccontextmanager
@@ -347,3 +366,102 @@ async def context(lat: float = Query(..., ge=-90, le=90), lon: float = Query(...
 @app.get("/api/labels")
 def labels():
     return {"model_version": S.model_meta.get("model_version"), "labels": S.model_meta.get("labels", [])}
+
+
+# ---------- WhatsApp bot (Twilio webhook, stretch) ----------
+
+TWILIO_MEDIA_HOSTS = (".twilio.com", ".twiliocdn.com")
+
+
+class _Upload:
+    """Bytes that look like an UploadFile to diagnose_one."""
+
+    def __init__(self, data: bytes):
+        self.data = data
+
+    async def read(self, n: int = -1) -> bytes:
+        return self.data if n < 0 else self.data[:n]
+
+
+async def _twilio_media(url: str) -> bytes:
+    host = urlparse(url).hostname or ""
+    if urlparse(url).scheme != "https" or not host.endswith(TWILIO_MEDIA_HOSTS):
+        _bad("media url is not from Twilio")
+    sid, token = os.environ.get("TWILIO_ACCOUNT_SID"), os.environ.get("TWILIO_AUTH_TOKEN")
+    async with httpx.AsyncClient(timeout=8, follow_redirects=True, auth=(sid, token) if sid and token else None) as c:
+        r = await c.get(url)
+        r.raise_for_status()
+        return r.content[: MAX_IMAGE_BYTES + 1]
+
+
+async def _twilio_send(form: dict, body: str) -> None:
+    """Sends the reply through Twilio's Messages API, back to whoever wrote, from the number they wrote to."""
+    sid, token = os.environ["TWILIO_ACCOUNT_SID"], os.environ["TWILIO_AUTH_TOKEN"]
+    async with httpx.AsyncClient(timeout=15, auth=(sid, token)) as c:
+        r = await c.post(f"https://api.twilio.com/2010-04-01/Accounts/{sid}/Messages.json",
+                         data={"From": form.get("To", ""), "To": form.get("From", ""), "Body": body})
+        if r.status_code >= 400:
+            log.warning("twilio send failed %s: %s", r.status_code, r.text[:300])
+
+
+async def _wa_answer_later(form: dict) -> None:
+    try:
+        await _twilio_send(form, await _wa_reply(form))
+    except Exception as e:
+        log.warning("whatsapp reply failed (%s): %s", type(e).__name__, e)
+
+
+@app.post("/api/whatsapp")
+async def whatsapp(request: Request, background: BackgroundTasks):
+    """Twilio WhatsApp webhook. Set TWILIO_AUTH_TOKEN (and WHATSAPP_WEBHOOK_URL, the exact URL configured
+    in Twilio) to check signatures; without the token anyone can post here. With TWILIO_ACCOUNT_SID too,
+    the reply goes out through the Messages API after Twilio gets an empty 200 (the WhatsApp trial number
+    ignores TwiML replies, and a cold start plus a diagnosis can pass Twilio's 15 s webhook timeout).
+    Without it, the reply is TwiML."""
+    form = {k: v for k, v in (await request.form()).items() if isinstance(v, str)}
+    token = os.environ.get("TWILIO_AUTH_TOKEN")
+    if token:
+        url = os.environ.get("WHATSAPP_WEBHOOK_URL") or str(request.url)
+        if not wa.valid_signature(token, url, form, request.headers.get("X-Twilio-Signature", "")):
+            raise HTTPException(status_code=403, detail="bad signature")
+        if os.environ.get("TWILIO_ACCOUNT_SID"):
+            background.add_task(_wa_answer_later, form)
+            return Response(wa.twiml(""), media_type="application/xml")
+    return Response(wa.twiml(await _wa_reply(form)), media_type="application/xml")
+
+
+async def _wa_reply(form: dict) -> str:
+    salt = os.environ.get("WA_SALT", "agrisense")
+    user_key = hashlib.sha256((salt + form.get("From", "")).encode()).hexdigest()
+    prefs = db.wa_get(user_key)
+    first_time = prefs["lang"] is None and prefs["crop"] is None
+    prefs.update(wa.parse_command(form.get("Body", "")))
+    if form.get("Latitude") and form.get("Longitude"):
+        try:
+            prefs["lat"], prefs["lon"] = float(form["Latitude"]), float(form["Longitude"])
+        except ValueError:
+            pass
+    prefs["crop"] = prefs["crop"] or "tomato"
+    prefs["lang"] = prefs["lang"] or "en"
+    db.wa_put(user_key, prefs)
+    t = wa.Text(S.wa_strings, prefs["lang"])
+
+    media = form.get("MediaUrl0") if form.get("NumMedia", "0") != "0" else None
+    if media and form.get("MediaContentType0", "").startswith("image/"):
+        try:
+            data = await _twilio_media(media)
+            # One result per Twilio message, so a webhook retry returns the same answer.
+            client_id = str(uuid.uuid5(uuid.NAMESPACE_URL, "twilio:" + form.get("MessageSid", str(uuid.uuid4()))))
+            fields = {"client_id": client_id, "crop": prefs["crop"], "lang": prefs["lang"], "lat": prefs["lat"],
+                      "lon": prefs["lon"], "captured_at": None, "soil_card": None}
+            reply = wa.format_result(await diagnose_one(fields, _Upload(data)), t)
+        except HTTPException as e:
+            reply = t("wa.bad_image") if e.status_code in (400, 413) else t("app.error_generic")
+        except Exception as e:
+            log.warning("whatsapp image failed (%s): %s", type(e).__name__, e)
+            reply = t("app.error_generic")
+    elif form.get("Latitude"):
+        reply = t("wa.location_saved")
+    else:
+        reply = t("wa.welcome" if first_time else "wa.help", crop=t(f"home.crop_{prefs['crop']}"))
+    return reply

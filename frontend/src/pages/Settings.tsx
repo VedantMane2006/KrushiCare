@@ -6,6 +6,7 @@ import type { Lang, SoilCard } from '../services/types';
 import { LANGS } from './Home';
 import DistrictSelect from '../components/DistrictSelect';
 import InstallButton from '../components/InstallButton';
+import Icon from '../components/Icon';
 
 const FIELDS: { key: keyof SoilCard; step: string }[] = [
   { key: 'ph', step: '0.1' },
@@ -66,7 +67,7 @@ export default function Settings() {
       </section>
 
       <section className="card space-y-2">
-        <h2 className="text-lg font-bold">📍 {t('settings.location')}</h2>
+        <h2 className="flex items-center gap-2 text-lg font-bold"><Icon name="pin" className="h-5 w-5 text-field" />{t('settings.location')}</h2>
         <p className="text-sm text-gray-600">{t('settings.location_help')}</p>
         <label className="block">
           <span className="text-sm font-semibold text-gray-700">{t('settings.district')}</span>

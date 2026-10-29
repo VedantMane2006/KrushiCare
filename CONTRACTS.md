@@ -13,6 +13,7 @@ Owner: Saad. Change this file, `backend/knowledge_base/schemas/`, `backend/tests
 | GET | `/api/health` | | `{"ok": true, "model_version": "v1", "contract_version": 1, "fakes": []}` |
 | GET | `/api/context?lat=..&lon=..&crop=..` | | weather risk and soil for a place without a photo (`{"weather_risk", "soil"}`); used when a check had no location and the farmer picks a district afterwards; 503 if weather is down |
 | GET | `/api/climate?lat=..&lon=..` | | climate card: this season so far vs the 1991-2020 normal for the same dates (schema `climate.schema.json`); 503 if unavailable |
+| POST | `/api/whatsapp` | Twilio form fields (`From`, `Body`, `NumMedia`, `MediaUrl0`, `MediaContentType0`, `Latitude`, `Longitude`, `MessageSid`) | WhatsApp bot webhook, replies with TwiML text: a photo gets the diagnosis, advice, blight risk and KCC; "tomato"/"potato" and "english"/"hindi"/"marathi" set preferences; a shared location turns on weather. Signature checked when `TWILIO_AUTH_TOKEN` is set. Reply text uses the `wa.*`, `label.*`, `result.*`, `risk.*`, `soil.*` i18n keys |
 | GET | `/api/labels` | | `{"model_version", "labels"}` from `model_meta.json` |
 | POST | `/api/whatsapp` | Twilio webhook | TwiML (stretch) |
 
@@ -51,6 +52,7 @@ The repo layout wins over the paths in the plan and briefs. Where a brief says `
 | `ml/inference/predict.py` | `predict(image: PIL.Image) -> {"model_version", "top3": [{"label", "prob"}], "margin"}` (a `Predictor` class with `.predict` also works) | Vedant |
 | `ml/preprocessing/quality.py` | `check(image: PIL.Image) -> {"ok", "blur", "brightness", "leaf_ratio", "reason_key"}` | Vedant |
 | `ml/inference/predict.ts` | `predict(file: Blob): Promise<same as predict.py>`; throw when no model (the stub does), and the app just queues the photo. Imported by `frontend/src/services/onDevice.ts` | Vedant |
+| `backend/services/climate.py` | `get_climate(lat, lon)` for the climate card (Open-Meteo ERA5 archive vs the 1991-2020 normal), tests in `backend/tests/test_climate.py` | Saad |
 | `backend/services/context.py` | `get_context(lat, lon, crop, soil_card=None) -> {"weather_risk", "soil"}` in the exact result shape. Rules: `backend/services/CONTEXT_RULES.md` | Krisha |
 | `ml/models/model.onnx`, `model_int8.onnx`, `model_meta.json` | input `[1,3,224,224]`, output probs `[1,13]`, calibration built in. Schema `model_meta.schema.json` | Krisha |
 | `ml/models/thresholds.json` | schema `thresholds.schema.json` | Krisha |

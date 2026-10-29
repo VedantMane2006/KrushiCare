@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import type { DiagnosisResult } from '../services/types';
+import Icon from './Icon';
 
 const LEVEL_TONE = {
   high: 'bg-red-600 text-white',
@@ -13,8 +14,8 @@ export default function RiskCard({ risk }: { risk: DiagnosisResult['weather_risk
   const fmt = new Intl.DateTimeFormat(i18n.language, { weekday: 'short', day: 'numeric' });
   return (
     <section className="card">
-      <div className="flex items-center justify-between gap-2">
-        <h2 className="text-lg font-bold">🌦️ {t('risk.title')}</h2>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 className="flex items-center gap-2 text-lg font-bold"><Icon name="cloud" className="h-5 w-5 text-field" />{t('risk.title')}</h2>
         <span className={`chip shrink-0 whitespace-nowrap ${LEVEL_TONE[risk.level]}`}>{t(`risk.${risk.level}`)}</span>
       </div>
       {risk.days.length > 0 && (

@@ -4,6 +4,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../services/db';
 import { KCC_DISPLAY } from '../services/kcc';
 import Thumb from '../components/Thumb';
+import Icon from '../components/Icon';
 
 /** One-page summary of a check, laid out to print or save as PDF. */
 export default function Report() {
@@ -103,20 +104,20 @@ export default function Report() {
           {r.soil.temperature_c != null && <p className="text-sm">{t('soil.temperature')}: {r.soil.temperature_c.toFixed(1)}°C</p>}
           <p className="text-sm">{t(`soil.irrigation.${r.soil.irrigation_key}`)}</p>
           {r.soil.flags.map((f) => (
-            <p key={f} className="text-sm text-amber-900">⚠️ {t(`soil.flag.${f}`, { defaultValue: f })}</p>
+            <p key={f} className="text-sm text-amber-900">{t(`soil.flag.${f}`, { defaultValue: f })}</p>
           ))}
         </div>
       </section>
 
       <footer className="border-t border-gray-300 pt-3 text-sm">
-        <p>📞 {t('result.call_kcc')}: <strong>{KCC_DISPLAY}</strong></p>
+        <p>{t('result.call_kcc')}: <strong>{KCC_DISPLAY}</strong></p>
         <p className="mt-1 text-xs text-gray-500">{t('result.disclaimer')}</p>
         <p className="mt-1 text-xs text-gray-400">ID {check.client_id}</p>
       </footer>
 
       <div className="space-y-3 print:hidden">
-        <button className="btn-primary" onClick={() => window.print()}>🖨️ {t('report.print')}</button>
-        <button className="btn-secondary" onClick={() => void share()}>📤 {t('report.share')}</button>
+        <button className="btn-primary" onClick={() => window.print()}><Icon name="print" /> {t('report.print')}</button>
+        <button className="btn-secondary" onClick={() => void share()}><Icon name="share" /> {t('report.share')}</button>
         <Link to={`/result/${check.client_id}`} className="block py-2 text-center text-gray-700 underline">{t('report.back')}</Link>
       </div>
     </article>

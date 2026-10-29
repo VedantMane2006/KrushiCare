@@ -172,29 +172,57 @@ export default function FarmerSplash({ onDone }: { onDone: () => void }) {
           ))}
         </g>
 
-        {/* the farmer */}
+        {/* the farmer: kurta, dhoti, safa (turban) and a gamcha on the shoulder */}
         <g className="farm-farmer">
-          <ellipse cx="140" cy="563" rx="40" ry="5" fill="#3d2615" opacity="0.25" />
-          <g stroke="#2a1d14" strokeLinecap="round">
-            <line x1="130" y1="500" x2="112" y2="559" strokeWidth="10" />
-            <line x1="130" y1="500" x2="153" y2="557" strokeWidth="10" />
-          </g>
-          <ellipse cx="109" cy="561" rx="8" ry="3.5" fill="#2a1d14" />
-          <ellipse cx="157" cy="559" rx="8" ry="3.5" fill="#2a1d14" />
-          <path d="M116 490 L145 490 L153 530 L108 530 Z" fill="#f1e8d8" />
-          <path d="M131 492 L131 530" stroke="#d9cbb3" strokeWidth="1.5" />
+          <ellipse cx="136" cy="562" rx="42" ry="5" fill="#3d2615" opacity="0.28" />
+          {/* legs: calves below the dhoti, bare feet in chappals */}
+          <path d="M113 528 Q118 531 121 533 L116 556 L109 556 Z" fill="#6f4224" />
+          <path d="M141 528 L150 528 L156 554 L149 555 Z" fill="#8a5631" />
+          <path d="M103 557 Q103 553 108 553 L118 554 Q120 558 117 559 L104 559 Z" fill="#5a3a22" />
+          <path d="M147 552 L158 552 Q164 554 163 557 L147 557 Z" fill="#5a3a22" />
+          <path d="M148 553 Q152 551 157 552" stroke="#8a5631" strokeWidth="2" fill="none" />
+          {/* dhoti */}
+          <path d="M114 494 L147 494 L153 532 Q145 535 138 530 L133 510 L126 532 Q117 535 109 531 Z" fill="#f4ecdc" />
+          <path d="M133 510 L138 530 Q145 535 153 532 L150 518 Z" fill="#e3d6bd" />
+          <path d="M119 499 Q121 515 116 530 M128 498 Q131 506 133 510 M141 499 Q143 512 147 528" stroke="#d6c7aa" strokeWidth="1.3" fill="none" />
+          <path d="M114 494 L147 494 L147 498 L114 498 Z" fill="#d9caa9" />
           <g className="farm-torso">
-            <line x1="130" y1="498" x2="144" y2="452" stroke="#2a1d14" strokeWidth="18" strokeLinecap="round" />
-            <circle cx="151" cy="433" r="11" fill="#2a1d14" />
-            <ellipse cx="150" cy="424" rx="13.5" ry="7" fill="#e2702a" />
-            <path d="M138 425 q-11 4 -13 15 l5 1 q2 -8 10 -11 Z" fill="#e2702a" />
+            {/* back arm (behind the body) */}
+            {/* kurta torso, leaning into the stroke */}
+            <path d="M117 500 Q118 476 128 458 Q134 447 145 446 Q155 447 156 457 Q153 478 148 500 Z" fill="#4f78a8" />
+            <path d="M117 500 Q118 476 128 458 Q132 451 138 448 Q128 470 126 500 Z" fill="#3e6491" />
+            <path d="M146 452 Q150 462 147 474" stroke="#2f5079" strokeWidth="1.4" fill="none" />
+            {/* gamcha over the shoulder */}
+            <path d="M131 452 Q142 444 154 450 L152 456 Q142 451 133 459 Z" fill="#c23b2b" />
+            <path d="M133 455 Q128 468 126 480 L121 479 Q124 465 129 453 Z" fill="#c23b2b" />
+            <path d="M136 452 L131 470 M142 450 L139 455 M127 470 L123 478" stroke="#f4d36a" strokeWidth="1.2" />
+            {/* neck and head */}
+            <path d="M146 449 L148 440 L154 441 L153 450 Z" fill="#7d4c2b" />
+            <ellipse cx="152" cy="433" rx="9" ry="10" fill="#8f5a33" />
+            <path d="M160 430 Q164 434 161 437 L159 437 Z" fill="#8f5a33" />
+            <circle cx="157.5" cy="431" r="1.1" fill="#2a1d14" />
+            <path d="M155 439 Q158 437 162 439 Q159 441 155 440 Z" fill="#2a1d14" />
+            <path d="M144 431 Q143 440 147 444 Q151 445 149 438" fill="#2a1d14" opacity="0.55" />
+            <ellipse cx="146" cy="434" rx="2" ry="3" fill="#7d4c2b" />
+            {/* safa */}
+            <path d="M140 429 Q139 419 150 417 Q162 417 163 426 Q156 423 150 424 Q144 425 140 429 Z" fill="#e8762d" />
+            <path d="M140 429 Q145 425 152 425 Q159 425 163 426 Q163 430 160 429 Q152 427 141 431 Z" fill="#d05f1f" />
+            <path d="M143 421 Q151 418 160 421 M141 425 Q151 421 162 424" stroke="#b8501a" strokeWidth="1.2" fill="none" />
+            <path d="M140 427 q-10 5 -12 17 l5 1 q2 -9 10 -13 Z" fill="#e8762d" />
             <g className="farm-arms">
-              <line x1="156" y1="459" x2="206" y2="545" stroke="#7a4b25" strokeWidth="4.5" strokeLinecap="round" />
-              <path d="M206 545 L195 563" stroke="#7d8590" strokeWidth="8" />
-              <g stroke="#2a1d14" strokeWidth="7.5" strokeLinecap="round">
-                <line x1="144" y1="452" x2="171" y2="485" />
-                <line x1="144" y1="452" x2="181" y2="501" />
-              </g>
+              {/* hoe: wooden handle and an iron blade */}
+              <line x1="156" y1="459" x2="206" y2="545" stroke="#8a5a2b" strokeWidth="4.5" strokeLinecap="round" />
+              <line x1="157" y1="460" x2="205" y2="543" stroke="#b07a40" strokeWidth="1.2" strokeLinecap="round" />
+              <path d="M201 541 L211 547 L199 566 L190 561 Z" fill="#6f7782" />
+              <path d="M199 566 L190 561 L192 558 L201 563 Z" fill="#aab2bc" />
+              {/* back arm */}
+              <path d="M141 452 Q154 466 168 480 L172 476 Q158 460 147 449 Z" fill="#3e6491" />
+              <path d="M166 478 L173 474 L183 497 L178 500 Z" fill="#6f4224" />
+              <circle cx="180" cy="500" r="4" fill="#6f4224" />
+              {/* front arm: sleeve to the elbow, then forearm and hand */}
+              <path d="M140 450 Q150 462 160 472 L165 466 Q155 455 148 446 Z" fill="#4f78a8" />
+              <path d="M158 470 L165 465 L174 482 L168 486 Z" fill="#8f5a33" />
+              <circle cx="171" cy="485" r="4.3" fill="#8f5a33" />
             </g>
           </g>
           <g className="farm-dust" fill="#a57447">
@@ -206,8 +234,7 @@ export default function FarmerSplash({ onDone }: { onDone: () => void }) {
       </svg>
 
       <div className="farm-brand absolute inset-x-0 top-[11%] px-6 text-center">
-        <p className="text-5xl font-bold tracking-tight text-leaf-900">{t('app.name')}</p>
-        <p className="mt-2 text-lg font-medium text-[#5b4636]">{t('app.tagline')}</p>
+        <p className="font-display text-6xl font-bold tracking-tight text-forest">{t('app.name')}</p>
       </div>
 
       <button

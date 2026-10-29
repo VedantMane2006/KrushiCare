@@ -14,6 +14,7 @@ import KccButton from '../components/KccButton';
 import Thumb from '../components/Thumb';
 import LeafPhoto from '../components/LeafPhoto';
 import LocationFix from '../components/LocationFix';
+import Icon from '../components/Icon';
 
 function shareText(r: DiagnosisResult, t: TFunction) {
   const v = r.verdict;
@@ -54,7 +55,7 @@ export default function Result() {
       )}
       {!r && check.status === 'pending' && (
         <section className="rounded-2xl bg-amber-100 p-5 text-amber-950">
-          <p className="text-xl font-bold">⏳ {t('queue.status.pending')}</p>
+          <p className="text-xl font-bold"><Icon name="clock" className="mr-2 inline h-6 w-6 align-[-4px]" />{t('queue.status.pending')}</p>
           <p className="mt-1">{t('capture.saved_offline')}</p>
         </section>
       )}
@@ -77,7 +78,7 @@ export default function Result() {
               </div>
             )}
             {r.verdict.status === 'retake' && (
-              <button className="btn-primary" onClick={() => navigate('/capture')}>📷 {t('result.retake_button')}</button>
+              <button className="btn-primary" onClick={() => navigate('/capture')}><Icon name="camera" /> {t('result.retake_button')}</button>
             )}
             {(r.verdict.status === 'uncertain' || r.verdict.status === 'unsupported') && <KccButton variant="primary" />}
             {r.verdict.status !== 'retake' && <AdviceList advice={r.advice} />}
@@ -90,7 +91,7 @@ export default function Result() {
             {r.verdict.status === 'likely' && <KccButton />}
             <div className="grid gap-3 sm:grid-cols-2">
               <Link to={`/report/${check.client_id}`} className="btn-secondary">
-                📄 {t('report.open')}
+                <Icon name="file" /> {t('report.open')}
               </Link>
               <a
                 className="btn-secondary"
@@ -98,15 +99,15 @@ export default function Result() {
                 target="_blank"
                 rel="noreferrer"
               >
-                💬 {t('result.share')}
+                <Icon name="chat" /> {t('result.share')}
               </a>
             </div>
-            <Link to="/capture" className="btn-primary">📷 {t('result.new_check')}</Link>
+            <Link to="/capture" className="btn-primary"><Icon name="camera" /> {t('result.new_check')}</Link>
           </div>
         </div>
       )}
 
-      {!r && <Link to="/capture" className="btn-primary">📷 {t('result.new_check')}</Link>}
+      {!r && <Link to="/capture" className="btn-primary"><Icon name="camera" /> {t('result.new_check')}</Link>}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { districtById } from '../services/districts';
 import { loadSettings, saveSettings } from '../services/settings';
 import type { Check } from '../services/types';
 import DistrictSelect from './DistrictSelect';
+import Icon from './Icon';
 
 /** For a check made without location: pick a district, then fill in weather risk, soil and the climate card. */
 export default function LocationFix({ check }: { check: Check }) {
@@ -33,7 +34,7 @@ export default function LocationFix({ check }: { check: Check }) {
 
   return (
     <section className="card space-y-2 border-2 border-dashed border-leaf-600/40">
-      <h2 className="text-lg font-bold">📍 {t('locfix.title')}</h2>
+      <h2 className="flex items-center gap-2 text-lg font-bold"><Icon name="pin" className="h-5 w-5 text-field" />{t('locfix.title')}</h2>
       <p className="text-sm text-gray-700">{t('locfix.help')}</p>
       <DistrictSelect value={district} onChange={(id) => void apply(id)} />
       {district && state === 'idle' && (

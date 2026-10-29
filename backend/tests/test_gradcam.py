@@ -44,3 +44,28 @@ def test_demo_map_and_overlay():
     assert xs < 60 and ys < 60
     url = overlay_jpeg(img, m)
     assert url.startswith("data:image/jpeg;base64,") and len(url) < 60_000
+
+
+def test_onnx_gradcam_matches_the_model():
+    """The head read out of model.onnx must reproduce the model's own probabilities."""
+    import json
+    from pathlib import Path
+
+    import pytest
+    root = Path(__file__).resolve().parents[2]
+    model, meta = root / "ml/models/model.onnx", json.loads((root / "ml/models/model_meta.json").read_text())
+    if not model.exists() or meta.get("model_version") == "stub":
+        pytest.skip("no trained model in this checkout")
+    pytest.importorskip("onnx")
+    from ml.inference.gradcam import OnnxGradCam
+    from ml.inference.predict import Predictor, preprocess
+
+    cam, pred = OnnxGradCam(model, preprocess), Predictor()
+    img = Image.new("RGB", (200, 150), (40, 140, 40))
+    img.paste((140, 90, 30), (20, 20, 70, 70))
+    feats = cam.session.run([cam.features_name], {cam.input_name: preprocess(img)})[0][0]
+    z = head_logits(cam.head, feats.mean(axis=(1, 2))) / meta["output"].get("temperature", 1.0)
+    p = np.exp(z - z.max())
+    assert np.allclose(p / p.sum(), pred.predict_probs(img), atol=1e-5)
+    m = cam.explain(img, int(np.argmax(z)))
+    assert m.shape == feats.shape[1:] and m.max() <= 1.0

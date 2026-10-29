@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import type { Advice } from '../services/types';
+import Icon from './Icon';
 
 export default function AdviceList({ advice }: { advice: Advice }) {
   const { t } = useTranslation();
@@ -7,7 +8,7 @@ export default function AdviceList({ advice }: { advice: Advice }) {
   const num = new Map(advice.citations.map((c, i) => [c.id, i + 1]));
   return (
     <section className="card space-y-3">
-      <h2 className="text-lg font-bold">✅ {t('result.next_steps')}</h2>
+      <h2 className="flex items-center gap-2 text-lg font-bold"><Icon name="check" className="h-5 w-5 text-field" />{t('result.next_steps')}</h2>
       {advice.summary && <p className="text-gray-800">{advice.summary}</p>}
       <ol className="list-decimal space-y-2 pl-6">
         {advice.steps.map((s, i) => (
