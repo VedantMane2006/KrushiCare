@@ -136,3 +136,20 @@ def test_advice_pack_and_schemes(client):
     schemes = client.get("/api/schemes", params={"lang": "hi"}).json()
     assert isinstance(schemes, list) and schemes
     assert client.get("/api/schemes", params={"lang": "xx"}).status_code == 400
+
+
+def test_climate_endpoint(client, monkeypatch):
+    import jsonschema as js
+    from pathlib import Path
+    schema = json.loads((Path(__file__).resolve().parents[1] / "knowledge_base/schemas/climate.schema.json").read_text())
+    from services import fakes
+    monkeypatch.setattr(client.state, "get_climate", fakes.get_climate)
+    r = client.get("/api/climate", params={"lat": 18.52, "lon": 73.86})
+    assert r.status_code == 200
+    js.validate(r.json(), schema)
+
+    def boom(lat, lon):
+        raise RuntimeError("archive down")
+    monkeypatch.setattr(client.state, "get_climate", boom)
+    assert client.get("/api/climate", params={"lat": 18.52, "lon": 73.86}).status_code == 503
+    assert client.get("/api/climate", params={"lat": 100, "lon": 0}).status_code == 422

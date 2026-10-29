@@ -3,6 +3,7 @@
 // after 5 failed tries an item is marked failed. Server idempotency on client_id makes
 // every retry safe.
 import { ApiError, diagnose, diagnoseBatch, NetworkError } from './api';
+import { offlineCheck } from './onDevice';
 import { db } from './db';
 import { loadSettings } from './settings';
 import type { Check, Crop, Lang } from './types';
@@ -36,9 +37,16 @@ export async function sendNow(check: Check, onSlow?: () => void): Promise<Check>
       await db.checks.update(check.client_id, { status: 'failed', error: e.message });
     } else {
       await markRetry(check, e instanceof Error ? e.message : 'network error');
+      await tryOffline(check);
     }
   }
   return (await db.checks.get(check.client_id))!;
+}
+
+/** No server: show the on-phone result now (still pending, so the server re-checks it on sync). */
+export async function tryOffline(check: Check): Promise<void> {
+  const result = await offlineCheck(check);
+  if (result) await db.checks.update(check.client_id, { result });
 }
 
 async function markRetry(check: Check, error: string) {

@@ -7,6 +7,7 @@ import { db } from './services/db';
 import { useOnline } from './hooks/useOnline';
 import { prefetchAdvicePack, USE_FIXTURES, warmUp } from './services/api';
 import { startAutoSync } from './services/sync';
+import { storeAdvicePack } from './services/onDevice';
 import { loadSettings } from './services/settings';
 import Home from './pages/Home';
 import Capture from './pages/Capture';
@@ -14,6 +15,7 @@ import Result from './pages/Result';
 import History from './pages/History';
 import Schemes from './pages/Schemes';
 import Settings from './pages/Settings';
+import Report from './pages/Report';
 import IntroSplash, { shouldPlayIntro } from './components/intro/IntroSplash';
 
 registerSW({ immediate: true });
@@ -28,7 +30,10 @@ export default function App() {
     warmUp();
     return startAutoSync();
   }, []);
-  useEffect(() => prefetchAdvicePack(loadSettings().lang), [i18n.language]);
+  useEffect(() => {
+    const lang = loadSettings().lang;
+    prefetchAdvicePack(lang, (pack) => storeAdvicePack(lang, pack));
+  }, [i18n.language]);
 
   const tabs = [
     { to: '/', label: t('nav.home'), icon: '🏠', end: true },
@@ -53,12 +58,13 @@ export default function App() {
           <Route path="/" element={<Home pending={pending} />} />
           <Route path="/capture" element={<Capture />} />
           <Route path="/result/:id" element={<Result />} />
+          <Route path="/report/:id" element={<Report />} />
           <Route path="/history" element={<History />} />
           <Route path="/schemes" element={<Schemes />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </main>
-      <nav className="fixed inset-x-0 bottom-0 border-t border-black/10 bg-white pb-[env(safe-area-inset-bottom)]">
+      <nav className="fixed inset-x-0 bottom-0 print:hidden border-t border-black/10 bg-white pb-[env(safe-area-inset-bottom)]">
         <ul className="mx-auto grid max-w-md grid-cols-4">
           {tabs.map((tab) => (
             <li key={tab.to}>

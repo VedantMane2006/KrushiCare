@@ -28,6 +28,7 @@ sys.path.insert(0, str(ROOT))
 MAX_IMAGE_BYTES = 8 * 1024 * 1024
 MAX_BATCH = 10
 CONTEXT_TIMEOUT_S = float(os.environ.get("CONTEXT_TIMEOUT_S", "8"))
+CLIMATE_TIMEOUT_S = float(os.environ.get("CLIMATE_TIMEOUT_S", "25"))
 CROPS = {"tomato", "potato"}
 LANGS = {"en", "hi", "mr"}
 SOIL_CARD_KEYS = {"ph", "n", "p", "k", "oc"}
@@ -40,6 +41,7 @@ class State:
     predict = None
     check = None
     get_context = None
+    get_climate = None
     model_meta: dict = {}
     thresholds: dict = {}
     advice_pack: dict = {}
@@ -82,9 +84,14 @@ def _load_components() -> None:
         from services import context as m
         return m.get_context
 
+    def real_climate():
+        from services import context as m
+        return m.get_climate
+
     S.predict = load("predict", real_predict, fakes.predict)
     S.check = load("quality", real_check, fakes.check)
     S.get_context = load("context", real_context, fakes.get_context)
+    S.get_climate = load("climate", real_climate, fakes.get_climate)
     S.model_meta = _read_json(ROOT / "ml/models/model_meta.json", {"model_version": "unknown"})
     S.thresholds = load_thresholds(ROOT / "ml/models/thresholds.json")
     S.advice_pack = _read_json(BACKEND / "knowledge_base/advice_pack.json", {})
@@ -287,6 +294,16 @@ def schemes(lang: str = Query("en")):
     if lang not in LANGS:
         _bad("lang must be en, hi or mr")
     return S.schemes.get(lang) or S.schemes.get("en", [])
+
+
+@app.get("/api/climate")
+async def climate(lat: float = Query(..., ge=-90, le=90), lon: float = Query(..., ge=-180, le=180)):
+    """This season's rain and temperature vs the 1991-2020 normal (the climate card). 503 if unavailable."""
+    try:
+        return await asyncio.wait_for(asyncio.to_thread(S.get_climate, lat, lon), CLIMATE_TIMEOUT_S)
+    except Exception as e:
+        log.warning("climate failed (%s): %s", type(e).__name__, e)
+        raise HTTPException(status_code=503, detail="climate unavailable")
 
 
 @app.get("/api/labels")

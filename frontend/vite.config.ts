@@ -43,7 +43,8 @@ export default defineConfig({
       devOptions: { enabled: false },
     }),
   ],
-  server: { proxy: { '/api': 'http://localhost:8000' } },
+  // fs.allow: the on-phone model code lives in ../ml/inference (Vedant's folder).
+  server: { proxy: { '/api': 'http://localhost:8000' }, fs: { allow: ['..'] } },
   preview: { proxy: { '/api': 'http://localhost:8000' } },
   test: { environment: 'node' },
 } as never);

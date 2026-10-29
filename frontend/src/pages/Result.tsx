@@ -8,6 +8,7 @@ import type { DiagnosisResult } from '../services/types';
 import VerdictBanner from '../components/VerdictBanner';
 import RiskCard from '../components/RiskCard';
 import SoilCard from '../components/SoilCard';
+import ClimateCard from '../components/ClimateCard';
 import AdviceList from '../components/AdviceList';
 import KccButton from '../components/KccButton';
 import Thumb from '../components/Thumb';
@@ -45,6 +46,9 @@ export default function Result() {
         {r?.source === 'device' && <span className="chip bg-sky-100 text-sky-900">{t('result.offline_check')}</span>}
       </div>
 
+      {r?.source === 'device' && check.status === 'pending' && (
+        <p className="rounded-xl bg-sky-50 p-3 text-sm text-sky-950">{t('result.offline_note')}</p>
+      )}
       {!r && check.status === 'pending' && (
         <section className="rounded-2xl bg-amber-100 p-5 text-amber-950">
           <p className="text-xl font-bold">⏳ {t('queue.status.pending')}</p>
@@ -69,7 +73,11 @@ export default function Result() {
           {r.verdict.status !== 'retake' && <AdviceList advice={r.advice} />}
           <RiskCard risk={r.weather_risk} />
           <SoilCard soil={r.soil} />
+          {check.lat != null && check.lon != null && <ClimateCard lat={check.lat} lon={check.lon} />}
           {r.verdict.status === 'likely' && <KccButton />}
+          <Link to={`/report/${check.client_id}`} className="btn-secondary">
+            📄 {t('report.open')}
+          </Link>
           <a
             className="btn-secondary"
             href={`https://wa.me/?text=${encodeURIComponent(shareText(r, t))}`}

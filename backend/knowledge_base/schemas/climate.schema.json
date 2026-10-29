@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Climate card (GET /api/climate)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["season", "period", "rain_mm", "normal_rain_mm", "rain_pct_of_normal", "temp_c", "normal_temp_c", "temp_anomaly_c", "baseline", "source"],
+  "properties": {
+    "season": {"enum": ["kharif", "rabi", "zaid"]},
+    "period": {
+      "type": "object", "additionalProperties": false, "required": ["start", "end"],
+      "properties": {
+        "start": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+        "end": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"}
+      }
+    },
+    "rain_mm": {"type": "number", "minimum": 0},
+    "normal_rain_mm": {"type": "number", "minimum": 0},
+    "rain_pct_of_normal": {"type": ["integer", "null"], "minimum": 0},
+    "temp_c": {"type": "number"},
+    "normal_temp_c": {"type": "number"},
+    "temp_anomaly_c": {"type": "number"},
+    "baseline": {"type": "string"},
+    "source": {"type": "string"}
+  }
+}

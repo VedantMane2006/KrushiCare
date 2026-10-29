@@ -5,7 +5,7 @@ import { downscale } from '../services/image';
 import { getLocation, type Coords } from '../services/geo';
 import { districtById } from '../services/districts';
 import { loadSettings } from '../services/settings';
-import { createCheck, sendNow } from '../services/sync';
+import { createCheck, sendNow, tryOffline } from '../services/sync';
 import { USE_FIXTURES } from '../services/api';
 
 type Phase = 'idle' | 'working' | 'slow';
@@ -38,6 +38,7 @@ export default function Capture() {
     const [blob, coords] = await Promise.all([downscale(file), locRef.current ?? Promise.resolve(null)]);
     const check = await createCheck({ blob, crop, lang, lat: coords?.lat ?? null, lon: coords?.lon ?? null });
     if (navigator.onLine || USE_FIXTURES) await sendNow(check, () => setPhase('slow'));
+    else await tryOffline(check);
     navigate(`/result/${check.client_id}`, { replace: true });
   }
 

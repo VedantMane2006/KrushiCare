@@ -6,6 +6,11 @@ html, body { background: #f7f7f2; color: #111827; -webkit-tap-highlight-color: t
 body { min-height: 100dvh; }
 :lang(hi), :lang(mr) { line-height: 1.6; }
 
+@media print {
+  html, body { background: #fff; }
+  @page { margin: 14mm; }
+}
+
 @layer components {
   .btn { @apply inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl px-5 text-lg font-semibold active:scale-[0.98] transition disabled:opacity-50; }
   .btn-primary { @apply btn bg-leaf-800 text-white shadow-md; }

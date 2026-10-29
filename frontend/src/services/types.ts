@@ -68,6 +68,20 @@ export interface DiagnosisResult {
 
 export type BatchItemResult = DiagnosisResult | { client_id: string; error: string };
 
+/** GET /api/climate: this season so far vs the 1991-2020 normal for the same dates. */
+export interface Climate {
+  season: 'kharif' | 'rabi' | 'zaid';
+  period: { start: string; end: string };
+  rain_mm: number;
+  normal_rain_mm: number;
+  rain_pct_of_normal: number | null;
+  temp_c: number;
+  normal_temp_c: number;
+  temp_anomaly_c: number;
+  baseline: string;
+  source: string;
+}
+
 export interface Scheme {
   id: string;
   name: string;

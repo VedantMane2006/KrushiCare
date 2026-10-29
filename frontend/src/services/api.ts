@@ -1,4 +1,4 @@
-import type { BatchItemResult, Check, DiagnosisResult, Lang, Scheme, SoilCard } from './types';
+import type { Advice, BatchItemResult, Check, Climate, DiagnosisResult, Lang, Scheme, SoilCard } from './types';
 
 const BASE = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
 export const USE_FIXTURES = import.meta.env.VITE_USE_FIXTURES === '1';
@@ -48,6 +48,8 @@ function appendItem(form: FormData, check: Check, soilCard: SoilCard | null, suf
     form.append(`lon${suffix}`, String(check.lon));
   }
   if (soilCard) form.append(`soil_card${suffix}`, JSON.stringify(soilCard));
+  // The phone's own result, if it made one offline; the server's result replaces it.
+  if (check.result?.source === 'device') form.append(`device_result${suffix}`, JSON.stringify(check.result));
 }
 
 export async function diagnose(check: Check, soilCard: SoilCard | null, onSlow?: () => void): Promise<DiagnosisResult> {
@@ -73,10 +75,19 @@ export async function getSchemes(lang: Lang): Promise<Scheme[]> {
   return request<Scheme[]>(`/api/schemes?lang=${lang}`);
 }
 
+export async function getClimate(lat: number, lon: number): Promise<Climate> {
+  if (USE_FIXTURES) {
+    return { season: 'rabi', period: { start: '2026-10-01', end: '2026-10-23' }, rain_mm: 42, normal_rain_mm: 61.5,
+      rain_pct_of_normal: 68, temp_c: 25.9, normal_temp_c: 25.1, temp_anomaly_c: 0.8, baseline: '1991-2020', source: 'fixture' };
+  }
+  // Two archive lookups on a cold server; the backend caches per place for a day.
+  return request<Climate>(`/api/climate?lat=${lat.toFixed(2)}&lon=${lon.toFixed(2)}`, {}, 30_000);
+}
+
 /** Warm the service-worker cache so advice works offline later. */
-export function prefetchAdvicePack(lang: Lang): void {
+export function prefetchAdvicePack(lang: Lang, onPack?: (pack: Record<string, Advice>) => void): void {
   if (USE_FIXTURES) return;
-  request(`/api/advice-pack?lang=${lang}`).catch(() => undefined);
+  request<Record<string, Advice>>(`/api/advice-pack?lang=${lang}`).then(onPack, () => undefined);
 }
 
 /** Wake a sleeping free-tier backend as soon as the app opens. */

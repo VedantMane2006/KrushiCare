@@ -41,6 +41,11 @@ N/P/K/OC cut-offs are the Soil Health Card "low" bands; pH ranges are the usual 
 
 Unit-test the rule functions on canned Open-Meteo JSON (no network in tests): a Hutton period → `high`; one favourable day → `medium`; dry warm week → `low` with `consider_irrigating`; rain ≥ 5 mm → `wait_for_rain`; each soil flag at its boundary.
 
-## Stretch: get_climate(lat, lon)
+## Climate card: get_climate(lat, lon)  (implemented)
 
-`{"season_rain_mm", "normal_rain_mm", "season_temp_c", "normal_temp_c", "period": "2026-06-01/2026-10-29"}` from the Open-Meteo archive API (this season) vs the climate API 1991–2020 mean for the same dates.
+Returns `knowledge_base/schemas/climate.schema.json`, served at `GET /api/climate`.
+
+- Season by date: zaid from 1 Mar, kharif from 1 Jun, rabi from 1 Oct (rabi runs into the next year). The window ends 6 days before today (the ERA5 archive lag); with under a week of data, use the previous season.
+- This season: Open-Meteo archive `daily=precipitation_sum,temperature_2m_mean` for the window. Total rain, mean temperature.
+- Normal: the same calendar window in each year 1991-2020 (one archive call), averaged. Needs at least 20 complete years.
+- `rain_pct_of_normal` is null when the normal is under 1 mm (a dry season). Cached per (lat, lon to 1 decimal, window) for 24 h.
