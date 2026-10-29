@@ -4,7 +4,7 @@ import { db } from '../services/db';
 import { loadSettings, saveSettings } from '../services/settings';
 import type { Lang, SoilCard } from '../services/types';
 import { LANGS } from './Home';
-import { DISTRICTS } from '../services/districts';
+import DistrictSelect from '../components/DistrictSelect';
 
 const FIELDS: { key: keyof SoilCard; step: string }[] = [
   { key: 'ph', step: '0.1' },
@@ -22,7 +22,6 @@ export default function Settings() {
   });
   const [saved, setSaved] = useState(false);
   const [district, setDistrict] = useState<string>(loadSettings().district ?? '');
-  const states = [...new Set(DISTRICTS.map((d) => d.state))];
 
   function save(e: React.FormEvent) {
     e.preventDefault();
@@ -41,7 +40,7 @@ export default function Settings() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-3xl space-y-6">
       <h1 className="text-2xl font-bold text-leaf-900">{t('settings.title')}</h1>
 
       <section className="card space-y-2">
@@ -70,23 +69,15 @@ export default function Settings() {
         <p className="text-sm text-gray-600">{t('settings.location_help')}</p>
         <label className="block">
           <span className="text-sm font-semibold text-gray-700">{t('settings.district')}</span>
-          <select
-            value={district}
-            onChange={(e) => {
-              setDistrict(e.target.value);
-              saveSettings({ district: e.target.value || null });
-            }}
-            className="mt-1 min-h-[52px] w-full rounded-xl border-2 border-gray-300 bg-white px-3 text-lg focus:border-leaf-700 focus:outline-none"
-          >
-            <option value="">{t('settings.district_none')}</option>
-            {states.map((s) => (
-              <optgroup key={s} label={s}>
-                {DISTRICTS.filter((d) => d.state === s).map((d) => (
-                  <option key={d.id} value={d.id}>{d.name}</option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
+          <div className="mt-1">
+            <DistrictSelect
+              value={district}
+              onChange={(id) => {
+                setDistrict(id);
+                saveSettings({ district: id || null });
+              }}
+            />
+          </div>
         </label>
       </section>
 

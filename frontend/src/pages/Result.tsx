@@ -12,6 +12,8 @@ import ClimateCard from '../components/ClimateCard';
 import AdviceList from '../components/AdviceList';
 import KccButton from '../components/KccButton';
 import Thumb from '../components/Thumb';
+import LeafPhoto from '../components/LeafPhoto';
+import LocationFix from '../components/LocationFix';
 
 function shareText(r: DiagnosisResult, t: TFunction) {
   const v = r.verdict;
@@ -33,10 +35,11 @@ export default function Result() {
   if (!check) return <p className="py-10 text-center">{t('app.error_generic')}</p>;
 
   const r = check.result;
+  const noPlace = check.lat == null || check.lon == null;
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3">
-        <Thumb blob={check.blob} className="h-16 w-16 rounded-xl" />
+        <Thumb blob={check.blob} className="h-16 w-16 rounded-xl lg:hidden" />
         <div className="flex-1">
           <h1 className="text-2xl font-bold text-leaf-900">{t('result.title')}</h1>
           <p className="text-sm text-gray-600">
@@ -64,32 +67,46 @@ export default function Result() {
       )}
 
       {r && (
-        <>
-          <VerdictBanner r={r} />
-          {r.verdict.status === 'retake' && (
-            <button className="btn-primary" onClick={() => navigate('/capture')}>📷 {t('result.retake_button')}</button>
-          )}
-          {(r.verdict.status === 'uncertain' || r.verdict.status === 'unsupported') && <KccButton variant="primary" />}
-          {r.verdict.status !== 'retake' && <AdviceList advice={r.advice} />}
-          <RiskCard risk={r.weather_risk} />
-          <SoilCard soil={r.soil} />
-          {check.lat != null && check.lon != null && <ClimateCard lat={check.lat} lon={check.lon} />}
-          {r.verdict.status === 'likely' && <KccButton />}
-          <Link to={`/report/${check.client_id}`} className="btn-secondary">
-            📄 {t('report.open')}
-          </Link>
-          <a
-            className="btn-secondary"
-            href={`https://wa.me/?text=${encodeURIComponent(shareText(r, t))}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            💬 {t('result.share')}
-          </a>
-        </>
+        // One column on phones; on laptops the diagnosis sits left and weather, soil and actions right.
+        <div className="space-y-4 lg:grid lg:grid-cols-2 lg:items-start lg:gap-6 lg:space-y-0">
+          <div className="space-y-4">
+            <VerdictBanner r={r} />
+            {(r.gradcam || r.verdict.status !== 'retake') && (
+              <div className={r.gradcam ? '' : 'hidden lg:block'}>
+                <LeafPhoto blob={check.blob} gradcam={r.gradcam} />
+              </div>
+            )}
+            {r.verdict.status === 'retake' && (
+              <button className="btn-primary" onClick={() => navigate('/capture')}>📷 {t('result.retake_button')}</button>
+            )}
+            {(r.verdict.status === 'uncertain' || r.verdict.status === 'unsupported') && <KccButton variant="primary" />}
+            {r.verdict.status !== 'retake' && <AdviceList advice={r.advice} />}
+          </div>
+          <div className="space-y-4">
+            {noPlace && r.source !== 'device' && <LocationFix check={check} />}
+            <RiskCard risk={r.weather_risk} />
+            <SoilCard soil={r.soil} />
+            {!noPlace && <ClimateCard lat={check.lat!} lon={check.lon!} />}
+            {r.verdict.status === 'likely' && <KccButton />}
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Link to={`/report/${check.client_id}`} className="btn-secondary">
+                📄 {t('report.open')}
+              </Link>
+              <a
+                className="btn-secondary"
+                href={`https://wa.me/?text=${encodeURIComponent(shareText(r, t))}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                💬 {t('result.share')}
+              </a>
+            </div>
+            <Link to="/capture" className="btn-primary">📷 {t('result.new_check')}</Link>
+          </div>
+        </div>
       )}
 
-      <Link to="/capture" className="btn-primary">📷 {t('result.new_check')}</Link>
+      {!r && <Link to="/capture" className="btn-primary">📷 {t('result.new_check')}</Link>}
     </div>
   );
 }

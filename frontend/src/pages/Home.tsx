@@ -30,7 +30,8 @@ export default function Home({ pending }: { pending: number }) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 md:grid md:grid-cols-2 md:items-start md:gap-10 md:space-y-0">
+      <div className="space-y-6">
       <header className="flex items-center gap-3">
         <img src="/icon.svg" alt="" className="h-12 w-12" />
         <div>
@@ -76,6 +77,9 @@ export default function Home({ pending }: { pending: number }) {
         </div>
       </section>
 
+      </div>
+      <div className="space-y-6 md:card md:p-8">
+      <p className="hidden text-lg text-gray-700 md:block">{t('home.desktop_hint')}</p>
       <button className="btn-primary min-h-[72px] text-xl" onClick={() => navigate('/capture')}>
         <span aria-hidden>📷</span> {t('home.check_leaf')}
       </button>
@@ -89,6 +93,7 @@ export default function Home({ pending }: { pending: number }) {
       <div className="pt-2">
         <p className="mb-2 text-center text-sm text-gray-600">{t('home.kcc_help')}</p>
         <KccButton />
+      </div>
       </div>
     </div>
   );

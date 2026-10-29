@@ -11,6 +11,7 @@ Owner: Saad. Change this file, `backend/knowledge_base/schemas/`, `backend/tests
 | GET | `/api/advice-pack?lang=hi` | | `advice_pack.json["hi"]` (falls back to `en`) |
 | GET | `/api/schemes?lang=hi` | | `schemes.json["hi"]` |
 | GET | `/api/health` | | `{"ok": true, "model_version": "v1", "contract_version": 1, "fakes": []}` |
+| GET | `/api/context?lat=..&lon=..&crop=..` | | weather risk and soil for a place without a photo (`{"weather_risk", "soil"}`); used when a check had no location and the farmer picks a district afterwards; 503 if weather is down |
 | GET | `/api/climate?lat=..&lon=..` | | climate card: this season so far vs the 1991-2020 normal for the same dates (schema `climate.schema.json`); 503 if unavailable |
 | GET | `/api/labels` | | `{"model_version", "labels"}` from `model_meta.json` |
 | POST | `/api/whatsapp` | Twilio webhook | TwiML (stretch) |
@@ -26,7 +27,7 @@ Schema: `backend/knowledge_base/schemas/diagnosis_result.schema.json`. Examples:
 - `classifier` is `null` when quality fails.
 - `weather_risk.level`: `high` | `medium` | `low` | `not_assessed` (no location or the weather call failed; then `days` is `[]`).
 - `soil.irrigation_key`: `wait_for_rain` | `consider_irrigating` | `no_action` | `unknown`. `soil.flags` are i18n suffixes for `soil.flag.*` (e.g. `ph_low`).
-- Optional extras: `source` (`server` | `device`), `captured_at`.
+- Optional extras: `source` (`server` | `device`), `captured_at`, `gradcam` (`null` or `{"method": "gradcam" | "demo", "label", "image": "data:image/jpeg;base64,..."}`, only for a `likely` non-healthy verdict).
 
 ## Verdict rules (backend/services/verdict.py, copied in frontend/src/services/verdict.ts)
 
@@ -53,6 +54,7 @@ The repo layout wins over the paths in the plan and briefs. Where a brief says `
 | `backend/services/context.py` | `get_context(lat, lon, crop, soil_card=None) -> {"weather_risk", "soil"}` in the exact result shape. Rules: `backend/services/CONTEXT_RULES.md` | Krisha |
 | `ml/models/model.onnx`, `model_int8.onnx`, `model_meta.json` | input `[1,3,224,224]`, output probs `[1,13]`, calibration built in. Schema `model_meta.schema.json` | Krisha |
 | `ml/models/thresholds.json` | schema `thresholds.schema.json` | Krisha |
+| `ml/inference/gradcam.py` (Grad-CAM, optional) | numpy Grad-CAM, no PyTorch on the server. Krisha: add a second ONNX output `features` = `model.features(x)` `[1,960,7,7]`, and save the head as `ml/models/head.npz` (`W1,b1` = `classifier[0]`, `W2,b2` = `classifier[3]`). Vedant: add `explain(image, label) -> np.ndarray` to `predict.py`: run the model, take `features[0]`, return `gradcam(features, load_head(), labels.index(label))`. Until `explain` exists the API sends a demo map marked `method: "demo"` | Krisha, Vedant |
 | `ml/models/labels.json` | 13 label ids, fixed order, never reordered | Krisha |
 | `backend/knowledge_base/advice_pack.json` | `{lang: {label_id/uncertain/unsupported: {summary, steps:[{text, citation_id}], citations:[{id,title,url}]}}}` | Vedant |
 | `backend/knowledge_base/schemes.json` | `{lang: [{id, name, benefit, eligibility[], documents[], official_url, last_checked}]}` | Vedant |

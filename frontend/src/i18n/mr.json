@@ -147,5 +147,16 @@
   "label.tomato__healthy": "Healthy tomato leaf",
   "label.potato__early_blight": "Potato early blight",
   "label.potato__late_blight": "Potato late blight",
-  "label.potato__healthy": "Healthy potato leaf"
+  "label.potato__healthy": "Healthy potato leaf",
+  "locfix.title": "Add your location",
+  "locfix.help": "This check was made without location, so weather risk and soil were not checked. Pick your district to add them.",
+  "locfix.use": "Use this district",
+  "locfix.failed": "Couldn't get the weather right now. Try again in a minute.",
+  "gradcam.title": "Where the disease shows",
+  "gradcam.show": "Show disease spots",
+  "gradcam.photo": "Photo only",
+  "gradcam.alt": "Leaf photo with a heatmap over the parts that look diseased",
+  "gradcam.help": "Red and yellow areas are the parts of the leaf the check focused on.",
+  "gradcam.demo": "Demo heatmap: it marks brown and yellow patches until the trained model is added.",
+  "home.desktop_hint": "Take a clear photo of one leaf, or upload one from your computer. You'll get a diagnosis, weather risk and what to do next."
 }

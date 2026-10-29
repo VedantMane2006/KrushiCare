@@ -43,7 +43,7 @@ export default function App() {
   ];
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-md flex-col">
+    <div className="flex min-h-dvh flex-col">
       {intro && <IntroSplash onDone={() => setIntro(false)} />}
       {!online && (
         <div role="status" className="bg-amber-200 px-4 py-2 text-center text-sm font-semibold text-amber-950">
@@ -53,7 +53,37 @@ export default function App() {
       {USE_FIXTURES && (
         <div className="bg-sky-100 px-4 py-1 text-center text-xs text-sky-900">Fixtures mode (no backend)</div>
       )}
-      <main className="flex-1 px-4 pb-28 pt-4">
+      {/* Laptop and tablet: a top bar. Phones use the bottom tab bar below. */}
+      <header className="sticky top-0 z-30 hidden border-b border-black/10 bg-white/95 backdrop-blur print:hidden md:block">
+        <div className="mx-auto flex max-w-6xl items-center gap-6 px-6">
+          <NavLink to="/" className="flex items-center gap-2 py-3 text-xl font-bold text-leaf-900">
+            <img src="/icon.svg" alt="" className="h-8 w-8" />
+            {t('app.name')}
+          </NavLink>
+          <nav className="ml-auto flex items-center gap-1">
+            {tabs.map((tab) => (
+              <NavLink
+                key={tab.to}
+                to={tab.to}
+                end={tab.end}
+                className={({ isActive }) =>
+                  `relative flex items-center gap-2 rounded-xl px-4 py-2 font-semibold ${isActive ? 'bg-leaf-50 text-leaf-900' : 'text-gray-600 hover:bg-gray-100'}`
+                }
+              >
+                <span aria-hidden>{tab.icon}</span>
+                {tab.label}
+                {!!tab.badge && (
+                  <span className="min-w-[20px] rounded-full bg-amber-500 px-1 text-center text-[11px] text-white">{tab.badge}</span>
+                )}
+              </NavLink>
+            ))}
+            <NavLink to="/capture" className="ml-2 rounded-xl bg-leaf-800 px-4 py-2 font-semibold text-white shadow-sm hover:bg-leaf-900">
+              📷 {t('home.check_leaf')}
+            </NavLink>
+          </nav>
+        </div>
+      </header>
+      <main className="mx-auto w-full max-w-md flex-1 px-4 pb-28 pt-4 md:max-w-6xl md:px-6 md:pb-12 md:pt-8">
         <Routes>
           <Route path="/" element={<Home pending={pending} />} />
           <Route path="/capture" element={<Capture />} />
@@ -64,7 +94,7 @@ export default function App() {
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </main>
-      <nav className="fixed inset-x-0 bottom-0 print:hidden border-t border-black/10 bg-white pb-[env(safe-area-inset-bottom)]">
+      <nav className="fixed inset-x-0 bottom-0 z-30 border-t print:hidden md:hidden border-black/10 bg-white pb-[env(safe-area-inset-bottom)]">
         <ul className="mx-auto grid max-w-md grid-cols-4">
           {tabs.map((tab) => (
             <li key={tab.to}>

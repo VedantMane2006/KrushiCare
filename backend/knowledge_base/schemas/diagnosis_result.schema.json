@@ -367,6 +367,38 @@
           "const": "1800-180-1551"
         }
       }
+    },
+    "gradcam": {
+      "description": "Optional heatmap of where the disease shows (likely verdicts only). method=demo until the trained model's Grad-CAM is wired.",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "method",
+            "label",
+            "image"
+          ],
+          "properties": {
+            "method": {
+              "enum": [
+                "gradcam",
+                "demo"
+              ]
+            },
+            "label": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string",
+              "pattern": "^data:image/jpeg;base64,"
+            }
+          }
+        }
+      ]
     }
   },
   "$defs": {

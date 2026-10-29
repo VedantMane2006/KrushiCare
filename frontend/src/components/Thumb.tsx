@@ -7,5 +7,5 @@ export default function Thumb({ blob, className = '' }: { blob: Blob; className?
     setUrl(u);
     return () => URL.revokeObjectURL(u);
   }, [blob]);
-  return url ? <img src={url} alt="" className={`object-cover ${className}`} /> : <div className={`bg-gray-200 ${className}`} />;
+  return url ? <img src={url} alt="" className={`${className.includes('object-') ? '' : 'object-cover '}${className}`} /> : <div className={`bg-gray-200 ${className}`} />;
 }

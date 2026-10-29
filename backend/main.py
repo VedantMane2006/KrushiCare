@@ -42,6 +42,7 @@ class State:
     check = None
     get_context = None
     get_climate = None
+    explain = None
     model_meta: dict = {}
     thresholds: dict = {}
     advice_pack: dict = {}
@@ -88,7 +89,13 @@ def _load_components() -> None:
         from services import context as m
         return m.get_climate
 
+    def real_explain():
+        from ml.inference import predict as m
+        target = m.Predictor() if hasattr(m, "Predictor") else m
+        return target.explain  # AttributeError until Vedant adds it: the demo map is used
+
     S.predict = load("predict", real_predict, fakes.predict)
+    S.explain = load("gradcam", real_explain, fakes.explain)
     S.check = load("quality", real_check, fakes.check)
     S.get_context = load("context", real_context, fakes.get_context)
     S.get_climate = load("climate", real_climate, fakes.get_climate)
@@ -201,6 +208,22 @@ def _classify(img: Image.Image, crop: str) -> tuple[dict, dict | None, dict]:
     return quality, classifier, decide(classifier, quality, crop, S.thresholds)
 
 
+def _gradcam(img: Image.Image, verdict: dict) -> dict | None:
+    """Heatmap of where the disease shows, for a 'likely' diagnosis. Never fails the request."""
+    if verdict["status"] != "likely" or not verdict.get("label") or verdict["label"].endswith("__healthy"):
+        return None
+    try:
+        from ml.inference.gradcam import overlay_jpeg
+        cam = S.explain(img, verdict["label"])
+        if cam is None:
+            return None
+        method = "demo" if "gradcam" in S.using_fakes else "gradcam"
+        return {"method": method, "label": verdict["label"], "image": overlay_jpeg(img, cam)}
+    except Exception as e:
+        log.warning("gradcam failed (%s): %s", type(e).__name__, e)
+        return None
+
+
 async def diagnose_one(fields: dict, upload) -> dict:
     t0 = time.perf_counter()
     stored = db.get(fields["client_id"])
@@ -219,6 +242,7 @@ async def diagnose_one(fields: dict, upload) -> dict:
         quality=quality, classifier=classifier, verdict=verdict, context=context,
         advice=pick_advice(S.advice_pack, fields["lang"], verdict),
     )
+    result["gradcam"] = await asyncio.to_thread(_gradcam, img, verdict)
     result = db.put(fields["client_id"], result)
     lat2 = round(fields["lat"], 2) if fields["lat"] is not None else None
     lon2 = round(fields["lon"], 2) if fields["lon"] is not None else None
@@ -304,6 +328,20 @@ async def climate(lat: float = Query(..., ge=-90, le=90), lon: float = Query(...
     except Exception as e:
         log.warning("climate failed (%s): %s", type(e).__name__, e)
         raise HTTPException(status_code=503, detail="climate unavailable")
+
+
+@app.get("/api/context")
+async def context(lat: float = Query(..., ge=-90, le=90), lon: float = Query(..., ge=-180, le=180),
+                  crop: str = Query("tomato")):
+    """Weather risk and soil for a place, without a photo. Used when a check was made with no location
+    and the farmer picks a district afterwards. 503 if the weather service is down."""
+    if crop not in CROPS:
+        _bad("crop must be tomato or potato")
+    try:
+        return await asyncio.wait_for(asyncio.to_thread(S.get_context, lat, lon, crop, None), CONTEXT_TIMEOUT_S)
+    except Exception as e:
+        log.warning("context failed (%s): %s", type(e).__name__, e)
+        raise HTTPException(status_code=503, detail="weather unavailable")
 
 
 @app.get("/api/labels")

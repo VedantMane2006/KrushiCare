@@ -153,3 +153,23 @@ def test_climate_endpoint(client, monkeypatch):
     monkeypatch.setattr(client.state, "get_climate", boom)
     assert client.get("/api/climate", params={"lat": 18.52, "lon": 73.86}).status_code == 503
     assert client.get("/api/climate", params={"lat": 100, "lon": 0}).status_code == 422
+
+
+def test_context_endpoint(client, monkeypatch):
+    r = client.get("/api/context", params={"lat": 18.52, "lon": 73.86, "crop": "potato"})
+    assert r.status_code == 200
+    assert set(r.json()) == {"weather_risk", "soil"}
+    assert client.get("/api/context", params={"lat": 18.52, "lon": 73.86, "crop": "rice"}).status_code == 400
+
+    def boom(*a):
+        raise RuntimeError("down")
+    monkeypatch.setattr(client.state, "get_context", boom)
+    assert client.get("/api/context", params={"lat": 18.52, "lon": 73.86}).status_code == 503
+
+
+def test_likely_result_has_gradcam(client):
+    r = client.post("/api/diagnose", data=fields(), files={"image": ("a.jpg", jpeg_bytes(), "image/jpeg")})
+    body = r.json()
+    assert body["verdict"]["status"] == "likely"
+    assert body["gradcam"]["image"].startswith("data:image/jpeg;base64,")
+    assert body["gradcam"]["method"] in ("demo", "gradcam")

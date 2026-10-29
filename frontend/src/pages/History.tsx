@@ -38,12 +38,12 @@ export default function History() {
     <div className="space-y-4">
       <h1 className="text-2xl font-bold text-leaf-900">{t('queue.title')}</h1>
       {hasUnsent && (
-        <button className="btn-primary" disabled={syncing} onClick={() => void sendNow()}>
+        <button className="btn-primary md:w-auto" disabled={syncing} onClick={() => void sendNow()}>
           {syncing ? t('queue.syncing') : `⬆️ ${t('queue.sync_now')}`}
         </button>
       )}
       {checks.length === 0 && <p className="card text-center text-gray-600">{t('queue.empty')}</p>}
-      <ul className="space-y-2">
+      <ul className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
         {checks.map((c) => (
           <li key={c.client_id}>
             <Link to={`/result/${c.client_id}`} className="card flex items-center gap-3">

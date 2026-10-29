@@ -84,6 +84,17 @@ export async function getClimate(lat: number, lon: number): Promise<Climate> {
   return request<Climate>(`/api/climate?lat=${lat.toFixed(2)}&lon=${lon.toFixed(2)}`, {}, 30_000);
 }
 
+/** Weather risk and soil for a place, for a check that was made without a location. */
+export async function getContext(lat: number, lon: number, crop: Check['crop']): Promise<Pick<DiagnosisResult, 'weather_risk' | 'soil'>> {
+  if (USE_FIXTURES) {
+    const today = new Date();
+    const days = [0, 1, 2].map((i) => ({ date: new Date(today.getTime() + i * 864e5).toISOString().slice(0, 10), favourable: i === 1 }));
+    return { weather_risk: { level: 'medium', rule: 'hutton', days, source: 'fixture', fetched_at: null },
+      soil: { moisture: 0.21, temperature_c: 24.5, irrigation_key: 'no_action', card_values: null, flags: [] } };
+  }
+  return request(`/api/context?lat=${lat.toFixed(2)}&lon=${lon.toFixed(2)}&crop=${crop}`, {}, 15_000);
+}
+
 /** Warm the service-worker cache so advice works offline later. */
 export function prefetchAdvicePack(lang: Lang, onPack?: (pack: Record<string, Advice>) => void): void {
   if (USE_FIXTURES) return;

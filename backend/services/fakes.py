@@ -21,3 +21,9 @@ def get_climate(lat, lon):
     return {"season": "rabi", "period": {"start": "2026-10-01", "end": "2026-10-23"}, "rain_mm": 42.0, "normal_rain_mm": 61.5,
             "rain_pct_of_normal": 68, "temp_c": 25.9, "normal_temp_c": 25.1, "temp_anomaly_c": 0.8,
             "baseline": "1991-2020", "source": "fake"}
+
+
+def explain(image, label):
+    """Demo heatmap (brown/yellow patches), used until predict.py has a real explain()."""
+    from ml.inference.gradcam import demo_map
+    return demo_map(image)

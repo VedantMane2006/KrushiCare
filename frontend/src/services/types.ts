@@ -64,6 +64,8 @@ export interface DiagnosisResult {
   };
   advice: Advice;
   escalation: { kcc_phone: string };
+  /** Where the disease shows on the photo (likely verdicts). method 'demo' until the model's Grad-CAM is wired. */
+  gradcam?: { method: 'gradcam' | 'demo'; label: string; image: string } | null;
 }
 
 export type BatchItemResult = DiagnosisResult | { client_id: string; error: string };

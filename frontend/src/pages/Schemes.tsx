@@ -18,6 +18,7 @@ export default function Schemes() {
       <h1 className="text-2xl font-bold text-leaf-900">{t('schemes.title')}</h1>
       {!schemes && !failed && <p className="text-center text-gray-600">{t('app.loading')}</p>}
       {failed && !schemes && <p className="card text-center text-gray-600">{t('schemes.empty')}</p>}
+      <div className="grid gap-4 md:grid-cols-2 md:items-start">
       {schemes?.map((s) => (
         <article key={s.id} className="card space-y-3">
           <h2 className="text-xl font-bold">{s.name}</h2>
@@ -43,6 +44,7 @@ export default function Schemes() {
           <p className="text-xs text-gray-500">{t('schemes.last_checked', { date: s.last_checked })}</p>
         </article>
       ))}
+      </div>
     </div>
   );
 }

@@ -32,7 +32,7 @@ export default function Report() {
   }
 
   return (
-    <article className="report space-y-5 bg-white p-4 text-gray-900 print:p-0">
+    <article className="report mx-auto max-w-3xl space-y-5 bg-white p-4 md:rounded-2xl md:p-10 md:shadow-sm text-gray-900 print:p-0">
       <header className="flex items-start justify-between gap-3 border-b-2 border-leaf-800 pb-3">
         <div>
           <p className="text-sm font-semibold uppercase tracking-wide text-leaf-800">{t('app.name')}</p>

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { downscale } from '../services/image';
 import { getLocation, type Coords } from '../services/geo';
 import { districtById } from '../services/districts';
-import { loadSettings } from '../services/settings';
+import { loadSettings, saveSettings } from '../services/settings';
+import DistrictSelect from '../components/DistrictSelect';
 import { createCheck, sendNow, tryOffline } from '../services/sync';
 import { USE_FIXTURES } from '../services/api';
 
@@ -17,7 +18,8 @@ export default function Capture() {
   const galleryRef = useRef<HTMLInputElement>(null);
   const [phase, setPhase] = useState<Phase>('idle');
   const [locState, setLocState] = useState<'asking' | 'ok' | 'denied'>('asking');
-  const district = districtById(loadSettings().district);
+  const [districtId, setDistrictId] = useState(loadSettings().district ?? '');
+  const district = districtById(districtId);
   const locRef = useRef<Promise<Coords | null>>();
 
   // Ask for location once, as soon as the screen opens, so it is ready by the time the photo is.
@@ -25,7 +27,7 @@ export default function Capture() {
     // GPS first; if it's off or denied, fall back to the district picked in Settings.
     locRef.current = getLocation().then((c) => {
       setLocState(c ? 'ok' : 'denied');
-      return c ?? (district ? { lat: district.lat, lon: district.lon } : null);
+      return c;
     });
   }, []);
 
@@ -35,7 +37,10 @@ export default function Capture() {
     if (!file) return;
     setPhase('working');
     const { crop, lang } = loadSettings();
-    const [blob, coords] = await Promise.all([downscale(file), locRef.current ?? Promise.resolve(null)]);
+    const [blob, gps] = await Promise.all([downscale(file), locRef.current ?? Promise.resolve(null)]);
+    // The district is read now, so a pick made on this screen counts.
+    const d = districtById(loadSettings().district);
+    const coords = gps ?? (d ? { lat: d.lat, lon: d.lon } : null);
     const check = await createCheck({ blob, crop, lang, lat: coords?.lat ?? null, lon: coords?.lon ?? null });
     if (navigator.onLine || USE_FIXTURES) await sendNow(check, () => setPhase('slow'));
     else await tryOffline(check);
@@ -53,7 +58,7 @@ export default function Capture() {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="mx-auto max-w-xl space-y-5">
       <h1 className="text-2xl font-bold text-leaf-900">{t('capture.title')}</h1>
       <ul className="card space-y-2 text-lg">
         <li>🍃 {t('capture.tip_one_leaf')}</li>
@@ -81,12 +86,16 @@ export default function Capture() {
             : locState === 'denied'
               ? t('capture.location_denied')
               : t('capture.location_ask')}{' '}
-        {locState === 'denied' && (
-          <Link to="/settings" className="font-semibold text-leaf-700 underline">
-            {t('settings.district')}
-          </Link>
-        )}
       </p>
+      {locState === 'denied' && (
+        <DistrictSelect
+          value={districtId}
+          onChange={(id) => {
+            setDistrictId(id);
+            saveSettings({ district: id || null });
+          }}
+        />
+      )}
       <button className="w-full py-3 text-gray-700 underline" onClick={() => navigate(-1)}>
         {t('capture.cancel')}
       </button>
