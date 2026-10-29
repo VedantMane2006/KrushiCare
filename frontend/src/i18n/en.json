@@ -4,6 +4,7 @@
   "app.waking_server": "Starting the server, this can take up to a minute the first time…",
   "app.offline_banner": "You are offline. Checks will be saved and sent later.",
   "app.loading": "Loading…",
+  "app.skip": "Skip",
   "app.error_generic": "Something went wrong. Please try again.",
   "nav.home": "Home",
   "nav.history": "History",
