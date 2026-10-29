@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { background: #f7f7f2; color: #111827; -webkit-tap-highlight-color: transparent; }
+body { min-height: 100dvh; }
+:lang(hi), :lang(mr) { line-height: 1.6; }
+
+@layer components {
+  .btn { @apply inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl px-5 text-lg font-semibold active:scale-[0.98] transition disabled:opacity-50; }
+  .btn-primary { @apply btn bg-leaf-800 text-white shadow-md; }
+  .btn-secondary { @apply btn border-2 border-leaf-800 bg-white text-leaf-900; }
+  .btn-danger { @apply btn border-2 border-red-700 bg-white text-red-800; }
+  .card { @apply rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5; }
+  .chip { @apply inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold; }
+}

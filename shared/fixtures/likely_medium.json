@@ -1,0 +1,88 @@
+{
+  "contract_version": 1,
+  "client_id": "00000000-0000-4000-8000-000000000002",
+  "crop": "potato",
+  "lang": "en",
+  "source": "server",
+  "captured_at": "2026-10-29T10:00:00Z",
+  "quality": {
+    "ok": true,
+    "blur": 182.4,
+    "brightness": 0.52,
+    "leaf_ratio": 0.61,
+    "reason_key": null
+  },
+  "classifier": {
+    "model_version": "v1",
+    "top3": [
+      {
+        "label": "potato__early_blight",
+        "prob": 0.62
+      },
+      {
+        "label": "potato__late_blight",
+        "prob": 0.31
+      },
+      {
+        "label": "potato__healthy",
+        "prob": 0.05
+      }
+    ],
+    "margin": 0.31
+  },
+  "verdict": {
+    "status": "likely",
+    "label": "potato__early_blight",
+    "confidence": "medium"
+  },
+  "weather_risk": {
+    "level": "high",
+    "rule": "hutton",
+    "source": "open-meteo",
+    "fetched_at": "2026-10-29T10:00:05+00:00",
+    "days": [
+      {
+        "date": "2026-10-30",
+        "favourable": true
+      },
+      {
+        "date": "2026-10-31",
+        "favourable": true
+      },
+      {
+        "date": "2026-11-01",
+        "favourable": false
+      }
+    ]
+  },
+  "soil": {
+    "moisture": 0.21,
+    "temperature_c": 24.5,
+    "irrigation_key": "wait_for_rain",
+    "card_values": null,
+    "flags": []
+  },
+  "advice": {
+    "summary": "[stub] Advice for potato__early_blight will be added by the content owner.",
+    "steps": [
+      {
+        "text": "[stub] Remove and destroy badly affected leaves.",
+        "citation_id": "c1"
+      },
+      {
+        "text": "[stub] Ask your local agriculture officer before spraying.",
+        "citation_id": "c1"
+      }
+    ],
+    "citations": [
+      {
+        "id": "c1",
+        "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
+        "url": "https://ncipm.icar.gov.in/"
+      }
+    ]
+  },
+  "escalation": {
+    "kcc_phone": "1800-180-1551"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "contract_version": 1,
+  "client_id": "00000000-0000-4000-8000-000000000003",
+  "crop": "tomato",
+  "lang": "en",
+  "source": "server",
+  "captured_at": "2026-10-29T10:00:00Z",
+  "quality": {
+    "ok": true,
+    "blur": 182.4,
+    "brightness": 0.52,
+    "leaf_ratio": 0.61,
+    "reason_key": null
+  },
+  "classifier": {
+    "model_version": "v1",
+    "top3": [
+      {
+        "label": "tomato__septoria_leaf_spot",
+        "prob": 0.46
+      },
+      {
+        "label": "tomato__bacterial_spot",
+        "prob": 0.38
+      },
+      {
+        "label": "tomato__target_spot",
+        "prob": 0.09
+      }
+    ],
+    "margin": 0.08
+  },
+  "verdict": {
+    "status": "uncertain",
+    "label": "tomato__septoria_leaf_spot",
+    "confidence": "low"
+  },
+  "weather_risk": {
+    "level": "high",
+    "rule": "hutton",
+    "source": "open-meteo",
+    "fetched_at": "2026-10-29T10:00:05+00:00",
+    "days": [
+      {
+        "date": "2026-10-30",
+        "favourable": true
+      },
+      {
+        "date": "2026-10-31",
+        "favourable": true
+      },
+      {
+        "date": "2026-11-01",
+        "favourable": false
+      }
+    ]
+  },
+  "soil": {
+    "moisture": 0.21,
+    "temperature_c": 24.5,
+    "irrigation_key": "wait_for_rain",
+    "card_values": null,
+    "flags": []
+  },
+  "advice": {
+    "summary": "[stub] We could not be sure. Take another photo or call the Kisan Call Centre.",
+    "steps": [
+      {
+        "text": "[stub] Take a clear photo of one leaf in daylight.",
+        "citation_id": null
+      },
+      {
+        "text": "[stub] Call 1800-180-1551 (free) for expert help.",
+        "citation_id": null
+      }
+    ],
+    "citations": []
+  },
+  "escalation": {
+    "kcc_phone": "1800-180-1551"
+  }
+}

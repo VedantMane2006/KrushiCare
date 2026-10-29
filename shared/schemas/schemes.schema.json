@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "schemes.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["en", "hi", "mr"],
+  "properties": {
+    "en": {"$ref": "#/$defs/list"},
+    "hi": {"$ref": "#/$defs/list"},
+    "mr": {"$ref": "#/$defs/list"}
+  },
+  "$defs": {
+    "list": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "benefit", "eligibility", "documents", "official_url", "last_checked"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+          "name": {"type": "string", "minLength": 1},
+          "benefit": {"type": "string", "minLength": 1},
+          "eligibility": {"type": "array", "items": {"type": "string"}},
+          "documents": {"type": "array", "items": {"type": "string"}},
+          "official_url": {"type": "string", "pattern": "^https://"},
+          "last_checked": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"}
+        }
+      }
+    }
+  }
+}

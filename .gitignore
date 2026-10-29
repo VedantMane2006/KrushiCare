@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+backend/agrisense.db
+*.db
+node_modules/
+frontend/dist/
+frontend/dev-dist/
+frontend/src/generated/
+
+.env
+.env.local

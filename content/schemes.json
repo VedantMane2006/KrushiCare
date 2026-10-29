@@ -1,0 +1,185 @@
+{
+  "en": [
+    {
+      "id": "pmfby",
+      "name": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+      "benefit": "[stub] Crop insurance against crop loss from natural calamities, pests and diseases.",
+      "eligibility": [
+        "[stub] All farmers growing notified crops in notified areas"
+      ],
+      "documents": [
+        "[stub] Aadhaar",
+        "[stub] Land record or tenancy agreement",
+        "[stub] Bank passbook"
+      ],
+      "official_url": "https://pmfby.gov.in/",
+      "last_checked": "2026-10-29"
+    },
+    {
+      "id": "pm_kisan",
+      "name": "PM-KISAN",
+      "benefit": "[stub] Income support of Rs 6,000 per year in three instalments.",
+      "eligibility": [
+        "[stub] Landholding farmer families"
+      ],
+      "documents": [
+        "[stub] Aadhaar",
+        "[stub] Land records",
+        "[stub] Bank account"
+      ],
+      "official_url": "https://pmkisan.gov.in/",
+      "last_checked": "2026-10-29"
+    },
+    {
+      "id": "soil_health_card",
+      "name": "Soil Health Card",
+      "benefit": "[stub] Free soil test with nutrient and fertiliser recommendations.",
+      "eligibility": [
+        "[stub] All farmers"
+      ],
+      "documents": [
+        "[stub] Aadhaar",
+        "[stub] Field details"
+      ],
+      "official_url": "https://soilhealth.dac.gov.in/",
+      "last_checked": "2026-10-29"
+    },
+    {
+      "id": "kisan_credit_card",
+      "name": "Kisan Credit Card (KCC)",
+      "benefit": "[stub] Short-term crop loans at a subsidised interest rate.",
+      "eligibility": [
+        "[stub] Farmers, tenant farmers, sharecroppers"
+      ],
+      "documents": [
+        "[stub] Aadhaar",
+        "[stub] Land records",
+        "[stub] Passport photo"
+      ],
+      "official_url": "https://www.myscheme.gov.in/schemes/kcc",
+      "last_checked": "2026-10-29"
+    }
+  ],
+  "hi": [
+    {
+      "id": "pmfby",
+      "name": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+      "benefit": "[stub] Crop insurance against crop loss from natural calamities, pests and diseases.",
+      "eligibility": [
+        "[stub] All farmers growing notified crops in notified areas"
+      ],
+      "documents": [
+        "[stub] Aadhaar",
+        "[stub] Land record or tenancy agreement",
+        "[stub] Bank passbook"
+      ],
+      "official_url": "https://pmfby.gov.in/",
+      "last_checked": "2026-10-29"
+    },
+    {
+      "id": "pm_kisan",
+      "name": "PM-KISAN",
+      "benefit": "[stub] Income support of Rs 6,000 per year in three instalments.",
+      "eligibility": [
+        "[stub] Landholding farmer families"
+      ],
+      "documents": [
+        "[stub] Aadhaar",
+        "[stub] Land records",
+        "[stub] Bank account"
+      ],
+      "official_url": "https://pmkisan.gov.in/",
+      "last_checked": "2026-10-29"
+    },
+    {
+      "id": "soil_health_card",
+      "name": "Soil Health Card",
+      "benefit": "[stub] Free soil test with nutrient and fertiliser recommendations.",
+      "eligibility": [
+        "[stub] All farmers"
+      ],
+      "documents": [
+        "[stub] Aadhaar",
+        "[stub] Field details"
+      ],
+      "official_url": "https://soilhealth.dac.gov.in/",
+      "last_checked": "2026-10-29"
+    },
+    {
+      "id": "kisan_credit_card",
+      "name": "Kisan Credit Card (KCC)",
+      "benefit": "[stub] Short-term crop loans at a subsidised interest rate.",
+      "eligibility": [
+        "[stub] Farmers, tenant farmers, sharecroppers"
+      ],
+      "documents": [
+        "[stub] Aadhaar",
+        "[stub] Land records",
+        "[stub] Passport photo"
+      ],
+      "official_url": "https://www.myscheme.gov.in/schemes/kcc",
+      "last_checked": "2026-10-29"
+    }
+  ],
+  "mr": [
+    {
+      "id": "pmfby",
+      "name": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+      "benefit": "[stub] Crop insurance against crop loss from natural calamities, pests and diseases.",
+      "eligibility": [
+        "[stub] All farmers growing notified crops in notified areas"
+      ],
+      "documents": [
+        "[stub] Aadhaar",
+        "[stub] Land record or tenancy agreement",
+        "[stub] Bank passbook"
+      ],
+      "official_url": "https://pmfby.gov.in/",
+      "last_checked": "2026-10-29"
+    },
+    {
+      "id": "pm_kisan",
+      "name": "PM-KISAN",
+      "benefit": "[stub] Income support of Rs 6,000 per year in three instalments.",
+      "eligibility": [
+        "[stub] Landholding farmer families"
+      ],
+      "documents": [
+        "[stub] Aadhaar",
+        "[stub] Land records",
+        "[stub] Bank account"
+      ],
+      "official_url": "https://pmkisan.gov.in/",
+      "last_checked": "2026-10-29"
+    },
+    {
+      "id": "soil_health_card",
+      "name": "Soil Health Card",
+      "benefit": "[stub] Free soil test with nutrient and fertiliser recommendations.",
+      "eligibility": [
+        "[stub] All farmers"
+      ],
+      "documents": [
+        "[stub] Aadhaar",
+        "[stub] Field details"
+      ],
+      "official_url": "https://soilhealth.dac.gov.in/",
+      "last_checked": "2026-10-29"
+    },
+    {
+      "id": "kisan_credit_card",
+      "name": "Kisan Credit Card (KCC)",
+      "benefit": "[stub] Short-term crop loans at a subsidised interest rate.",
+      "eligibility": [
+        "[stub] Farmers, tenant farmers, sharecroppers"
+      ],
+      "documents": [
+        "[stub] Aadhaar",
+        "[stub] Land records",
+        "[stub] Passport photo"
+      ],
+      "official_url": "https://www.myscheme.gov.in/schemes/kcc",
+      "last_checked": "2026-10-29"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "unknown_photo": 0.45,
+  "likely_high": 0.7,
+  "likely_high_margin": 0.3,
+  "likely_medium": 0.5
+}

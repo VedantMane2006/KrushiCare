@@ -1,0 +1,78 @@
+{
+  "contract_version": 1,
+  "client_id": "00000000-0000-4000-8000-000000000005",
+  "crop": "tomato",
+  "lang": "en",
+  "source": "server",
+  "captured_at": "2026-10-29T10:00:00Z",
+  "quality": {
+    "ok": true,
+    "blur": 210.0,
+    "brightness": 0.6,
+    "leaf_ratio": 0.22,
+    "reason_key": null
+  },
+  "classifier": {
+    "model_version": "v1",
+    "top3": [
+      {
+        "label": "tomato__healthy",
+        "prob": 0.31
+      },
+      {
+        "label": "potato__healthy",
+        "prob": 0.22
+      },
+      {
+        "label": "tomato__leaf_mold",
+        "prob": 0.12
+      }
+    ],
+    "margin": 0.09
+  },
+  "verdict": {
+    "status": "unsupported",
+    "label": null,
+    "confidence": null
+  },
+  "weather_risk": {
+    "level": "high",
+    "rule": "hutton",
+    "source": "open-meteo",
+    "fetched_at": "2026-10-29T10:00:05+00:00",
+    "days": [
+      {
+        "date": "2026-10-30",
+        "favourable": true
+      },
+      {
+        "date": "2026-10-31",
+        "favourable": true
+      },
+      {
+        "date": "2026-11-01",
+        "favourable": false
+      }
+    ]
+  },
+  "soil": {
+    "moisture": 0.21,
+    "temperature_c": 24.5,
+    "irrigation_key": "wait_for_rain",
+    "card_values": null,
+    "flags": []
+  },
+  "advice": {
+    "summary": "[stub] AgriSense checks tomato and potato leaves only.",
+    "steps": [
+      {
+        "text": "[stub] Call 1800-180-1551 (free) for help with other crops.",
+        "citation_id": null
+      }
+    ],
+    "citations": []
+  },
+  "escalation": {
+    "kcc_phone": "1800-180-1551"
+  }
+}

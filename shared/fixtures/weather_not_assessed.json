@@ -1,0 +1,75 @@
+{
+  "contract_version": 1,
+  "client_id": "00000000-0000-4000-8000-000000000006",
+  "crop": "tomato",
+  "lang": "en",
+  "source": "server",
+  "captured_at": "2026-10-29T10:00:00Z",
+  "quality": {
+    "ok": true,
+    "blur": 182.4,
+    "brightness": 0.52,
+    "leaf_ratio": 0.61,
+    "reason_key": null
+  },
+  "classifier": {
+    "model_version": "v1",
+    "top3": [
+      {
+        "label": "tomato__early_blight",
+        "prob": 0.88
+      },
+      {
+        "label": "tomato__target_spot",
+        "prob": 0.06
+      },
+      {
+        "label": "tomato__healthy",
+        "prob": 0.03
+      }
+    ],
+    "margin": 0.82
+  },
+  "verdict": {
+    "status": "likely",
+    "label": "tomato__early_blight",
+    "confidence": "high"
+  },
+  "weather_risk": {
+    "level": "not_assessed",
+    "rule": null,
+    "days": [],
+    "source": null,
+    "fetched_at": null
+  },
+  "soil": {
+    "moisture": null,
+    "temperature_c": null,
+    "irrigation_key": "unknown",
+    "card_values": null,
+    "flags": []
+  },
+  "advice": {
+    "summary": "[stub] Advice for tomato__early_blight will be added by the content owner.",
+    "steps": [
+      {
+        "text": "[stub] Remove and destroy badly affected leaves.",
+        "citation_id": "c1"
+      },
+      {
+        "text": "[stub] Ask your local agriculture officer before spraying.",
+        "citation_id": "c1"
+      }
+    ],
+    "citations": [
+      {
+        "id": "c1",
+        "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
+        "url": "https://ncipm.icar.gov.in/"
+      }
+    ]
+  },
+  "escalation": {
+    "kcc_phone": "1800-180-1551"
+  }
+}

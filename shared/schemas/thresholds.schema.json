@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "thresholds.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["unknown_photo", "likely_high", "likely_high_margin", "likely_medium"],
+  "properties": {
+    "unknown_photo": {"type": "number", "minimum": 0, "maximum": 1},
+    "likely_high": {"type": "number", "minimum": 0, "maximum": 1},
+    "likely_high_margin": {"type": "number", "minimum": 0, "maximum": 1},
+    "likely_medium": {"type": "number", "minimum": 0, "maximum": 1}
+  }
+}

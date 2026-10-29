@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "advice_pack.json",
+  "description": "{lang: {label_id | 'uncertain' | 'unsupported': Advice}}",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["en", "hi", "mr"],
+  "properties": {
+    "en": {"$ref": "#/$defs/lang_pack"},
+    "hi": {"$ref": "#/$defs/lang_pack"},
+    "mr": {"$ref": "#/$defs/lang_pack"}
+  },
+  "$defs": {
+    "lang_pack": {
+      "type": "object",
+      "propertyNames": {"pattern": "^((tomato|potato)__[a-z_]+|uncertain|unsupported)$"},
+      "additionalProperties": {"$ref": "#/$defs/advice"}
+    },
+    "advice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "steps", "citations"],
+      "properties": {
+        "summary": {"type": "string", "minLength": 1},
+        "steps": {
+          "type": "array", "minItems": 1, "maxItems": 6,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["text", "citation_id"],
+            "properties": {"text": {"type": "string", "minLength": 1}, "citation_id": {"type": ["string", "null"]}}
+          }
+        },
+        "citations": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id", "title", "url"],
+            "properties": {
+              "id": {"type": "string"}, "title": {"type": "string"},
+              "url": {"type": "string", "pattern": "^https?://"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "model_version": "stub",
+  "arch": "mobilenet_v3_large",
+  "opset": 17,
+  "labels": [
+    "tomato__bacterial_spot",
+    "tomato__early_blight",
+    "tomato__late_blight",
+    "tomato__leaf_mold",
+    "tomato__septoria_leaf_spot",
+    "tomato__spider_mites",
+    "tomato__target_spot",
+    "tomato__yellow_leaf_curl_virus",
+    "tomato__mosaic_virus",
+    "tomato__healthy",
+    "potato__early_blight",
+    "potato__late_blight",
+    "potato__healthy"
+  ],
+  "input": {"name": "input", "shape": [1, 3, 224, 224], "resize": "bilinear", "color": "RGB",
+            "mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225]},
+  "output": {"name": "probs", "shape": [1, 13], "calibrated": true, "temperature": 1.0}
+}

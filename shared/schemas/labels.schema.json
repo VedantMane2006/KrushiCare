@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "labels.json",
+  "type": "array",
+  "minItems": 13, "maxItems": 13, "uniqueItems": true,
+  "items": {"type": "string", "pattern": "^(tomato|potato)__[a-z_]+$"}
+}
