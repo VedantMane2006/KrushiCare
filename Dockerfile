@@ -7,6 +7,7 @@ RUN pip install --no-cache-dir -r backend/requirements.txt
 COPY ml/models ml/models
 COPY ml/inference ml/inference
 COPY ml/preprocessing ml/preprocessing
+COPY ml/runtime ml/runtime
 COPY backend backend
 RUN mkdir -p /data
 WORKDIR /app/backend
