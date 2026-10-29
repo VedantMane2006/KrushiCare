@@ -1,0 +1,13 @@
+{
+  "model_version": "v1",
+  "source": "clean PlantDoc development validation",
+  "samples": 165,
+  "threshold_selection_target": 0.8,
+  "minimum_accepted": 10,
+  "selection_criterion_met": true,
+  "selected_threshold": 0.9999,
+  "accepted": 11,
+  "coverage": 0.06666666666666667,
+  "accepted_precision": 1.0,
+  "notes": "Exploratory validation-set selection, not independent performance verification. Unknown-photo rejection has not been validated on non-leaf images. High-confidence verdict is effectively disabled except possible probability-one edge cases. Automatic diagnosis is not deployment-validated."
+}

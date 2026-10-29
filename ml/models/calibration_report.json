@@ -1,0 +1,9 @@
+{
+  "model_version": "v1",
+  "temperature": 0.4025854468345642,
+  "nll_before": 0.113725945353508,
+  "nll_after": 0.03671026974916458,
+  "calibration_dataset": "PlantVillage validation",
+  "samples": 2608,
+  "field_calibration_verified": false
+}

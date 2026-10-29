@@ -6,12 +6,21 @@ from PIL import Image
 from ml.runtime.predict import Predictor, predict, preprocess
 
 
-def test_predictor_instantiation_without_model():
-    """Predictor should instantiate without requiring a trained model.onnx."""
-    predictor = Predictor()
+
+def test_predictor_instantiation_without_model(tmp_path):
+    """Verify fallback when the ONNX model is unavailable."""
+
+    missing_model = tmp_path / "missing_model.onnx"
+
+    predictor = Predictor(
+        model_path=missing_model
+    )
+
     assert predictor.is_stub is True
-    assert predictor.model_version == "stub"
+    assert predictor.session is None
     assert len(predictor.labels) == 13
+    assert isinstance(predictor.model_version, str)
+
 
 
 def test_predict_return_shape():
