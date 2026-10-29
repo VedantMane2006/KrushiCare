@@ -1,6 +1,6 @@
 {
-  "model_version": "stub",
-  "arch": "mobilenet_v3_large",
+  "model_version": "v1",
+  "arch": "mobilenetv3_large_100",
   "opset": 17,
   "labels": [
     "tomato__bacterial_spot",
@@ -17,7 +17,34 @@
     "potato__late_blight",
     "potato__healthy"
   ],
-  "input": {"name": "input", "shape": [1, 3, 224, 224], "resize": "bilinear", "color": "RGB",
-            "mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225]},
-  "output": {"name": "probs", "shape": [1, 13], "calibrated": true, "temperature": 1.0}
+  "input": {
+    "name": "input",
+    "shape": [
+      1,
+      3,
+      224,
+      224
+    ],
+    "resize": "bilinear",
+    "color": "RGB",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "output": {
+    "name": "probs",
+    "shape": [
+      1,
+      13
+    ],
+    "calibrated": true,
+    "temperature": 0.4025854468345642
+  }
 }

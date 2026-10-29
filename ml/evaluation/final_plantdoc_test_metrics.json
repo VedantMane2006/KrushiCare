@@ -1,0 +1,16 @@
+{
+  "model_version": "v1",
+  "dataset": "PlantDoc official reserved test",
+  "samples": 85,
+  "classes_with_support": 10,
+  "accuracy": 0.43529411764705883,
+  "macro_f1_present_classes": 0.4203578480343187,
+  "correct": 37,
+  "incorrect": 48,
+  "likely_count": 6,
+  "likely_coverage": 0.07058823529411765,
+  "likely_precision": 0.8333333333333334,
+  "uncertain_count": 70,
+  "unsupported_count": 9,
+  "limitations": "Only 10 of 13 classes represented. PlantDoc is a small web-image benchmark, not a representative sample of farm deployments. Quality gate and non-leaf rejection not evaluated. Do not tune on this final test."
+}

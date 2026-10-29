@@ -25,6 +25,14 @@ def test_health(client):
     ([("tomato__late_blight", 0.30), ("tomato__early_blight", 0.25)], "tomato", ("unsupported", None)),
 ])
 def test_verdict_branches(client, monkeypatch, pairs, crop, expected):
+    # Test the original verdict branching rules independently
+    # from the deployed model's conservative thresholds.
+    from services.verdict import DEFAULT_THRESHOLDS
+    monkeypatch.setattr(
+        client.state,
+        "thresholds",
+        dict(DEFAULT_THRESHOLDS)
+    )
     monkeypatch.setattr(client.state, "predict", lambda img: classifier(*pairs))
     r = post(client, crop=crop)
     assert r.status_code == 200, r.text
@@ -167,9 +175,69 @@ def test_context_endpoint(client, monkeypatch):
     assert client.get("/api/context", params={"lat": 18.52, "lon": 73.86}).status_code == 503
 
 
-def test_likely_result_has_gradcam(client):
-    r = client.post("/api/diagnose", data=fields(), files={"image": ("a.jpg", jpeg_bytes(), "image/jpeg")})
+
+def test_likely_result_has_gradcam(client, monkeypatch):
+    import numpy as np
+
+    from services import fakes
+    from services.verdict import DEFAULT_THRESHOLDS
+
+    # Isolate the overlay contract from model accuracy.
+    monkeypatch.setattr(
+        client.state,
+        "thresholds",
+        dict(DEFAULT_THRESHOLDS)
+    )
+
+    monkeypatch.setattr(
+        client.state,
+        "predict",
+        lambda img: classifier(
+            ("tomato__late_blight", 0.85),
+            ("tomato__early_blight", 0.10),
+        )
+    )
+
+    monkeypatch.setattr(
+        client.state,
+        "check",
+        fakes.check
+    )
+
+    # Synthetic explanation for an API contract test only.
+    monkeypatch.setattr(
+        client.state,
+        "explain",
+        lambda img, label: np.ones(
+            (8, 8), dtype=np.float32
+        )
+    )
+
+    r = client.post(
+        "/api/diagnose",
+        data=fields(),
+        files={
+            "image": (
+                "a.jpg",
+                jpeg_bytes(),
+                "image/jpeg"
+            )
+        }
+    )
+
+    assert r.status_code == 200, r.text
+
     body = r.json()
+
+    assert_valid(body)
     assert body["verdict"]["status"] == "likely"
-    assert body["gradcam"]["image"].startswith("data:image/jpeg;base64,")
-    assert body["gradcam"]["method"] in ("demo", "gradcam")
+    assert body["gradcam"] is not None
+
+    assert body["gradcam"]["image"].startswith(
+        "data:image/jpeg;base64,"
+    )
+
+    assert body["gradcam"]["method"] in (
+        "demo", "gradcam"
+    )
+
