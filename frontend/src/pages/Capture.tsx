@@ -8,6 +8,7 @@ import { loadSettings, saveSettings } from '../services/settings';
 import DistrictSelect from '../components/DistrictSelect';
 import { createCheck, sendNow, tryOffline } from '../services/sync';
 import { USE_FIXTURES } from '../services/api';
+import Icon from '../components/Icon';
 
 type Phase = 'idle' | 'working' | 'slow';
 
@@ -61,9 +62,9 @@ export default function Capture() {
     <div className="mx-auto max-w-xl space-y-5">
       <h1 className="text-2xl font-bold text-leaf-900">{t('capture.title')}</h1>
       <ul className="card space-y-2 text-lg">
-        <li>🍃 {t('capture.tip_one_leaf')}</li>
-        <li>☀️ {t('capture.tip_daylight')}</li>
-        <li>✋ {t('capture.tip_focus')}</li>
+        <li className="flex items-center gap-3"><Icon name="leaf" className="h-6 w-6 text-field" />{t('capture.tip_one_leaf')}</li>
+        <li className="flex items-center gap-3"><Icon name="sun" className="h-6 w-6 text-field" />{t('capture.tip_daylight')}</li>
+        <li className="flex items-center gap-3"><Icon name="hand" className="h-6 w-6 text-field" />{t('capture.tip_focus')}</li>
       </ul>
 
       {/* capture="environment" opens the rear camera on every phone; simpler than getUserMedia. */}
@@ -71,14 +72,14 @@ export default function Capture() {
       <input ref={galleryRef} type="file" accept="image/jpeg,image/png" className="hidden" onChange={onFile} />
 
       <button className="btn-primary min-h-[72px] text-xl" onClick={() => cameraRef.current?.click()}>
-        <span aria-hidden>📷</span> {t('capture.take_photo')}
+        <Icon name="camera" className="h-6 w-6" /> {t('capture.take_photo')}
       </button>
       <button className="btn-secondary" onClick={() => galleryRef.current?.click()}>
-        <span aria-hidden>🖼️</span> {t('capture.from_gallery')}
+        <Icon name="image" /> {t('capture.from_gallery')}
       </button>
 
       <p className="text-sm text-gray-600">
-        📍{' '}
+        <Icon name="pin" className="mr-1 inline h-4 w-4 align-[-2px]" />
         {locState === 'ok'
           ? t('capture.location_using_gps')
           : locState === 'denied' && district

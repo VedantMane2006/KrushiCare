@@ -234,7 +234,7 @@ export default function FarmerSplash({ onDone }: { onDone: () => void }) {
       </svg>
 
       <div className="farm-brand absolute inset-x-0 top-[11%] px-6 text-center">
-        <p className="text-5xl font-bold tracking-tight text-leaf-900">{t('app.name')}</p>
+        <p className="font-display text-6xl font-bold tracking-tight text-forest">{t('app.name')}</p>
       </div>
 
       <button

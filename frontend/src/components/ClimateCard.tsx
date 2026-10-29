@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getClimate } from '../services/api';
 import type { Climate } from '../services/types';
+import Icon from './Icon';
 
 /** "This season vs normal": rain and temperature so far against the 1991-2020 average. Hidden if unavailable. */
 export default function ClimateCard({ lat, lon }: { lat: number; lon: number }) {
@@ -30,14 +31,14 @@ export default function ClimateCard({ lat, lon }: { lat: number; lon: number }) 
   return (
     <section className="card space-y-3">
       <div>
-        <h2 className="text-lg font-bold">📅 {t('climate.title')}</h2>
+        <h2 className="flex items-center gap-2 text-lg font-bold"><Icon name="calendar" className="h-5 w-5 text-field" />{t('climate.title')}</h2>
         <p className="text-sm text-gray-600">
           {t(`climate.season.${c.season}`)} · {t('climate.period', { start: fmt.format(new Date(c.period.start)), end: fmt.format(new Date(c.period.end)) })}
         </p>
       </div>
       <div>
         <div className="flex items-baseline justify-between gap-3">
-          <span className="shrink-0 font-semibold">🌧️ {t('climate.rain')}</span>
+          <span className="flex shrink-0 items-center gap-1.5 font-semibold"><Icon name="rain" className="h-4 w-4 text-forest" />{t('climate.rain')}</span>
           <span className={`text-right font-bold ${rainTone}`}>
             {pct == null ? t('climate.dry_season') : t('climate.rain_pct', { pct })}
           </span>
@@ -50,7 +51,7 @@ export default function ClimateCard({ lat, lon }: { lat: number; lon: number }) 
         <p className="mt-1 text-sm text-gray-600">{t('climate.rain_detail', { now: Math.round(c.rain_mm), normal: Math.round(c.normal_rain_mm) })}</p>
       </div>
       <div className="flex items-baseline justify-between gap-3">
-        <span className="shrink-0 font-semibold">🌡️ {t('climate.temp')}</span>
+        <span className="flex shrink-0 items-center gap-1.5 font-semibold"><Icon name="thermo" className="h-4 w-4 text-forest" />{t('climate.temp')}</span>
         <span className={`text-right font-bold ${d >= 0.5 ? 'text-red-700' : d <= -0.5 ? 'text-sky-800' : 'text-leaf-800'}`}>{tempText}</span>
       </div>
       <p className="text-sm text-gray-600">{t('climate.temp_detail', { now: c.temp_c.toFixed(1), normal: c.normal_temp_c.toFixed(1) })}</p>

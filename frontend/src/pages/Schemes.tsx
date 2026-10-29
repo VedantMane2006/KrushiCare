@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getSchemes } from '../services/api';
 import type { Lang, Scheme } from '../services/types';
+import Icon from '../components/Icon';
 
 export default function Schemes() {
   const { t, i18n } = useTranslation();
@@ -39,7 +40,7 @@ export default function Schemes() {
             </div>
           )}
           <a href={s.official_url} target="_blank" rel="noreferrer" className="btn-secondary">
-            🔗 {t('schemes.official_link')}
+            <Icon name="link" /> {t('schemes.official_link')}
           </a>
           <p className="text-xs text-gray-500">{t('schemes.last_checked', { date: s.last_checked })}</p>
         </article>

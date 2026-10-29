@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { DiagnosisResult } from '../services/types';
 import Thumb from './Thumb';
+import Icon from './Icon';
 
 /** The leaf photo, with a Grad-CAM heatmap switch (off by default) when the result has one. */
 export default function LeafPhoto({ blob, gradcam }: { blob: Blob; gradcam?: DiagnosisResult['gradcam'] }) {
@@ -13,7 +14,7 @@ export default function LeafPhoto({ blob, gradcam }: { blob: Blob; gradcam?: Dia
     <section className="card space-y-3">
       {gradcam && (
         <div className="flex items-center justify-between gap-3">
-          <h2 className="font-bold">🔍 {t('gradcam.title')}</h2>
+          <h2 className="flex items-center gap-2 font-bold"><Icon name="search" className="h-5 w-5 text-field" />{t('gradcam.title')}</h2>
           <label className="flex shrink-0 cursor-pointer items-center gap-2 font-semibold text-gray-800">
             {t('gradcam.toggle')}
             <button
