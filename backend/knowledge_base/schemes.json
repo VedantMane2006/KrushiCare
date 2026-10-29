@@ -3,183 +3,252 @@
     {
       "id": "pmfby",
       "name": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
-      "benefit": "[stub] Crop insurance against crop loss from natural calamities, pests and diseases.",
+      "benefit": "Comprehensive crop insurance coverage against non-preventable natural risks (drought, flood, pests, and diseases) from pre-sowing to post-harvest.",
       "eligibility": [
-        "[stub] All farmers growing notified crops in notified areas"
+        "All farmers growing notified crops in notified areas",
+        "Includes sharecroppers and tenant farmers with valid cultivation proof",
+        "Subject to timely enrollment before the seasonal cutoff deadline"
       ],
       "documents": [
-        "[stub] Aadhaar",
-        "[stub] Land record or tenancy agreement",
-        "[stub] Bank passbook"
+        "Aadhaar card",
+        "Land ownership document (Record of Rights / 7/12 extract) or tenancy agreement",
+        "Bank account passbook (Aadhaar-linked)",
+        "Sowing certificate or crop cultivation self-declaration"
       ],
       "official_url": "https://pmfby.gov.in/",
-      "last_checked": "2026-10-29"
+      "last_checked": "2026-10-30"
     },
     {
       "id": "pm_kisan",
-      "name": "PM-KISAN",
-      "benefit": "[stub] Income support of Rs 6,000 per year in three instalments.",
+      "name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+      "benefit": "Income support of Rs 6,000 per year per eligible landholding farmer family, transferred directly into bank accounts in three equal instalments of Rs 2,000 every four months.",
       "eligibility": [
-        "[stub] Landholding farmer families"
+        "All landholding farmer families with cultivable land in their names",
+        "Subject to exclusion criteria (e.g., institutional landholders, income tax payers, government employees)"
       ],
       "documents": [
-        "[stub] Aadhaar",
-        "[stub] Land records",
-        "[stub] Bank account"
+        "Aadhaar card",
+        "Proof of land ownership (7/12 extract, mutation, or revenue record)",
+        "Aadhaar-linked active bank account with completed e-KYC"
       ],
       "official_url": "https://pmkisan.gov.in/",
-      "last_checked": "2026-10-29"
+      "last_checked": "2026-10-30"
     },
     {
       "id": "soil_health_card",
-      "name": "Soil Health Card",
-      "benefit": "[stub] Free soil test with nutrient and fertiliser recommendations.",
+      "name": "Soil Health Card Scheme",
+      "benefit": "Field-specific soil test report assessing 12 vital soil parameters (macro-nutrients, micro-nutrients, and physical properties) along with customized dosage recommendations for fertilizers and soil amendments.",
       "eligibility": [
-        "[stub] All farmers"
+        "All farmers owning or cultivating agricultural land across India"
       ],
       "documents": [
-        "[stub] Aadhaar",
-        "[stub] Field details"
+        "Aadhaar card or farmer registration number",
+        "Farm survey number / field identification details"
       ],
       "official_url": "https://soilhealth.dac.gov.in/",
-      "last_checked": "2026-10-29"
+      "last_checked": "2026-10-30"
     },
     {
       "id": "kisan_credit_card",
       "name": "Kisan Credit Card (KCC)",
-      "benefit": "[stub] Short-term crop loans at a subsidised interest rate.",
+      "benefit": "Timely short-term credit for cultivation, post-harvest expenses, and farm asset maintenance at a subsidized base interest rate of 7%, with an effective 4% rate for prompt repayment (up to 3% interest subvention).",
       "eligibility": [
-        "[stub] Farmers, tenant farmers, sharecroppers"
+        "Individual owner-cultivators",
+        "Tenant farmers, oral lessees, and sharecroppers",
+        "Self Help Groups (SHGs) or Joint Liability Groups (JLGs) of farmers"
       ],
       "documents": [
-        "[stub] Aadhaar",
-        "[stub] Land records",
-        "[stub] Passport photo"
+        "Aadhaar card or Voter ID",
+        "Land records (7/12 extract) or verified proof of cultivation",
+        "Recent passport-size photographs",
+        "Bank application form"
       ],
       "official_url": "https://www.myscheme.gov.in/schemes/kcc",
-      "last_checked": "2026-10-29"
+      "last_checked": "2026-10-30"
+    },
+    {
+      "id": "namo_shetkari",
+      "name": "Namo Shetkari Maha Samman Nidhi Yojana (NSMNY)",
+      "benefit": "Supplementary financial assistance of Rs 6,000 per year from the Government of Maharashtra to PM-KISAN beneficiary farmers, disbursed in three instalments of Rs 2,000 to provide a combined annual benefit of Rs 12,000.",
+      "eligibility": [
+        "Landholding farmers in Maharashtra registered and approved as beneficiaries under the PM-KISAN scheme"
+      ],
+      "documents": [
+        "Aadhaar card",
+        "Active PM-KISAN beneficiary registration ID",
+        "Land record (Maharashtra 7/12 extract)",
+        "Aadhaar-seeded bank account with completed e-KYC"
+      ],
+      "official_url": "https://krishi.maharashtra.gov.in/",
+      "last_checked": "2026-10-30"
     }
   ],
   "hi": [
     {
       "id": "pmfby",
-      "name": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
-      "benefit": "[stub] Crop insurance against crop loss from natural calamities, pests and diseases.",
+      "name": "प्रधानमंत्री फसल बीमा योजना (PMFBY)",
+      "benefit": "बुवाई से लेकर कटाई के बाद तक गैर-रोकथाम योग्य प्राकृतिक आपदाओं (सूखा, बाढ़, ओलावृष्टि, कीट और रोग) से फसल क्षति के विरुद्ध व्यापक बीमा सुरक्षा।",
       "eligibility": [
-        "[stub] All farmers growing notified crops in notified areas"
+        "अधिसूचित क्षेत्रों में अधिसूचित फसलें उगाने वाले सभी किसान",
+        "वैध खेती प्रमाण वाले बटाईदार और काश्तकार किसान भी शामिल",
+        "मौसमी समय-सीमा से पूर्व समय पर नामांकन के अधीन"
       ],
       "documents": [
-        "[stub] Aadhaar",
-        "[stub] Land record or tenancy agreement",
-        "[stub] Bank passbook"
+        "आधार कार्ड",
+        "भूमि स्वामित्व अभिलेख (खसरा/खतौनी या 7/12) अथवा किरायेदारी अनुबंध",
+        "आधार से जुड़ा बैंक खाता पासबुक",
+        "बुवाई प्रमाण पत्र अथवा फसल स्वयं-घोषणा पत्र"
       ],
       "official_url": "https://pmfby.gov.in/",
-      "last_checked": "2026-10-29"
+      "last_checked": "2026-10-30"
     },
     {
       "id": "pm_kisan",
-      "name": "PM-KISAN",
-      "benefit": "[stub] Income support of Rs 6,000 per year in three instalments.",
+      "name": "प्रधानमंत्री किसान सम्मान निधि (PM-KISAN)",
+      "benefit": "पात्र भूमिधारक किसान परिवारों को प्रति वर्ष ₹6,000 की वित्तीय सहायता, जो हर चार महीने में ₹2,000 की तीन समान किस्तों में सीधे बैंक खाते में भेजी जाती है।",
       "eligibility": [
-        "[stub] Landholding farmer families"
+        "वे सभी किसान परिवार जिनके नाम पर कृषि योग्य भूमि पंजीकृत है",
+        "अपवर्जन मानदंडों (जैसे संस्थागत भूमिधारक, आयकर दाता और सरकारी सेवा कर्मी) के अधीन"
       ],
       "documents": [
-        "[stub] Aadhaar",
-        "[stub] Land records",
-        "[stub] Bank account"
+        "आधार कार्ड",
+        "भूमि स्वामित्व प्रमाण (जमाबंदी/खतौनी या 7/12 उतारा)",
+        "आधार लिंक सक्रिय बैंक खाता और पूर्ण ई-केवाईसी (e-KYC)"
       ],
       "official_url": "https://pmkisan.gov.in/",
-      "last_checked": "2026-10-29"
+      "last_checked": "2026-10-30"
     },
     {
       "id": "soil_health_card",
-      "name": "Soil Health Card",
-      "benefit": "[stub] Free soil test with nutrient and fertiliser recommendations.",
+      "name": "मृदा स्वास्थ्य कार्ड योजना",
+      "benefit": "खेत-विशिष्ट मृदा परीक्षण रिपोर्ट जिसमें 12 आवश्यक पोषक तत्वों का विश्लेषण और बेहतर उपज के लिए उर्वरकों एवं जैविक सुधारों की अनुशंसित खुराक दी जाती है।",
       "eligibility": [
-        "[stub] All farmers"
+        "भारत के सभी किसान जिनके पास कृषि योग्य भूमि है"
       ],
       "documents": [
-        "[stub] Aadhaar",
-        "[stub] Field details"
+        "आधार कार्ड अथवा किसान पंजीकरण संख्या",
+        "खेत का खसरा/सर्वे नंबर और स्थान विवरण"
       ],
       "official_url": "https://soilhealth.dac.gov.in/",
-      "last_checked": "2026-10-29"
+      "last_checked": "2026-10-30"
     },
     {
       "id": "kisan_credit_card",
-      "name": "Kisan Credit Card (KCC)",
-      "benefit": "[stub] Short-term crop loans at a subsidised interest rate.",
+      "name": "किसान क्रेडिट कार्ड (KCC)",
+      "benefit": "फसल उत्पादन, कटाई उपरांत खर्च और कृषि रख-रखाव के लिए 7% रियायती ब्याज दर पर समय पर अल्पकालिक ऋण, तथा समय पर भुगतान करने पर 3% अतिरिक्त ब्याज छूट के साथ प्रभावी 4% दर।",
       "eligibility": [
-        "[stub] Farmers, tenant farmers, sharecroppers"
+        "व्यक्तिगत भू-स्वामी किसान",
+        "काश्तकार, मौखिक पट्टेदार और बटाईदार किसान",
+        "किसानों के स्वयं सहायता समूह (SHG) या संयुक्त देयता समूह (JLG)"
       ],
       "documents": [
-        "[stub] Aadhaar",
-        "[stub] Land records",
-        "[stub] Passport photo"
+        "आधार कार्ड या मतदाता पहचान पत्र",
+        "भूमि अभिलेख (7/12) अथवा खेती का सत्यापित प्रमाण",
+        "हाल की पासपोर्ट आकार की तस्वीरें",
+        "बैंक ऋण आवेदन पत्र"
       ],
       "official_url": "https://www.myscheme.gov.in/schemes/kcc",
-      "last_checked": "2026-10-29"
+      "last_checked": "2026-10-30"
+    },
+    {
+      "id": "namo_shetkari",
+      "name": "नमो शेतकरी महा सम्मान निधि योजना (NSMNY)",
+      "benefit": "महाराष्ट्र सरकार द्वारा पीएम-किसान लाभार्थी किसानों को प्रति वर्ष ₹6,000 की अतिरिक्त वित्तीय सहायता, जो ₹2,000 की तीन किस्तों में दी जाती है (कुल मिलाकर ₹12,000 प्रति वर्ष)।",
+      "eligibility": [
+        "महाराष्ट्र के वे भूमिधारक किसान जो पीएम-किसान योजना के तहत स्वीकृत लाभार्थी हैं"
+      ],
+      "documents": [
+        "आधार कार्ड",
+        "पीएम-किसान सक्रिय पंजीकरण संख्या",
+        "महाराष्ट्र भूमि अभिलेख (7/12 उतारा)",
+        "आधार लिंक बैंक खाता एवं पूर्ण ई-केवाईसी"
+      ],
+      "official_url": "https://krishi.maharashtra.gov.in/",
+      "last_checked": "2026-10-30"
     }
   ],
   "mr": [
     {
       "id": "pmfby",
-      "name": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
-      "benefit": "[stub] Crop insurance against crop loss from natural calamities, pests and diseases.",
+      "name": "प्रधानमंत्री पीक विमा योजना (PMFBY)",
+      "benefit": "पेरणीपूर्व ते काढणीपश्चात नैसर्गिक आपत्ती (दुष्काळ, पूर, गारपीट, कीड व रोग) यामुळे होणाऱ्या पिकांच्या नुकसानीविरुद्ध सर्वसमावेशक विमा संरक्षण.",
       "eligibility": [
-        "[stub] All farmers growing notified crops in notified areas"
+        "अधिसूचित महसूल मंडळात अधिसूचित पिके घेणारे सर्व शेतकरी",
+        "भाडेकरू व कुळ शेतकरी (पेरणीचा पुरावा आवश्यक)",
+        "हंगामातील विहित मुदतीत अर्ज करणे आवश्यक"
       ],
       "documents": [
-        "[stub] Aadhaar",
-        "[stub] Land record or tenancy agreement",
-        "[stub] Bank passbook"
+        "आधार कार्ड",
+        "जमिनीचा अद्ययावत ७/१२ उतारा किंवा भाडेपट्टा करार",
+        "बँक पासबुक (आधार संलग्न)",
+        "पीक पेरणी स्वयंघोषणा पत्र"
       ],
       "official_url": "https://pmfby.gov.in/",
-      "last_checked": "2026-10-29"
+      "last_checked": "2026-10-30"
     },
     {
       "id": "pm_kisan",
-      "name": "PM-KISAN",
-      "benefit": "[stub] Income support of Rs 6,000 per year in three instalments.",
+      "name": "प्रधानमंत्री किसान सन्मान निधी (PM-KISAN)",
+      "benefit": "पात्र शेतकरी कुटुंबांना प्रति वर्ष ₹६,००० चे आर्थिक साहाय्य, प्रत्येकी ₹२,००० च्या तीन समान हप्त्यांमध्ये दर चार महिन्यांनी थेट बँक खात्यात जमा.",
       "eligibility": [
-        "[stub] Landholding farmer families"
+        "स्वतःच्या नावावर शेतजमीन असणारी सर्व शेतकरी कुटुंबे",
+        "शासकीय निकषानुसार अपात्र व्यक्ती (उदा. आयकर भरणारे, संस्थात्मक जमीनधारक आणि शासकीय कर्मचारी) वगळून"
       ],
       "documents": [
-        "[stub] Aadhaar",
-        "[stub] Land records",
-        "[stub] Bank account"
+        "आधार कार्ड",
+        "जमिनीचा ७/१२ आणि ८-अ उतारा",
+        "आधार संलग्न बँक खाते आणि पूर्ण ई-केवायसी (e-KYC)"
       ],
       "official_url": "https://pmkisan.gov.in/",
-      "last_checked": "2026-10-29"
+      "last_checked": "2026-10-30"
     },
     {
       "id": "soil_health_card",
-      "name": "Soil Health Card",
-      "benefit": "[stub] Free soil test with nutrient and fertiliser recommendations.",
+      "name": "मृदा आरोग्य पत्रिका योजना (सॉईल हेल्थ कार्ड)",
+      "benefit": "मातीतील १२ मुख्य घटकांची तपासणी करून जमिनीच्या सुपीकतेनुसार खतांचा संतुलित वापर आणि योग्य उपाययोजनांचा छापील अहवाल.",
       "eligibility": [
-        "[stub] All farmers"
+        "शेती कसणारे भारतातील सर्व खातेदार व प्रत्यक्ष शेतकरी"
       ],
       "documents": [
-        "[stub] Aadhaar",
-        "[stub] Field details"
+        "आधार कार्ड किंवा शेतकरी ओळखपत्र",
+        "शेताचा सर्व्हे / गट नंबर आणि पत्ता"
       ],
       "official_url": "https://soilhealth.dac.gov.in/",
-      "last_checked": "2026-10-29"
+      "last_checked": "2026-10-30"
     },
     {
       "id": "kisan_credit_card",
-      "name": "Kisan Credit Card (KCC)",
-      "benefit": "[stub] Short-term crop loans at a subsidised interest rate.",
+      "name": "किसान क्रेडिट कार्ड (KCC)",
+      "benefit": "पीक लागवड, खते, औषधे आणि काढणीनंतरच्या खर्चासाठी ७% सवलतीच्या दरात वेळेवर अल्पमुदत पीक कर्ज, आणि नियमित परतफेड केल्यास ३% व्याज परतावा (प्रभावी व्याजदर ४%).",
       "eligibility": [
-        "[stub] Farmers, tenant farmers, sharecroppers"
+        "स्वतः शेती करणारे खातेदार शेतकरी",
+        "कुळ, भाडेकरू शेतकरी आणि बटाईदार",
+        "शेतकऱ्यांचे स्वयंसाहाय्यता बचत गट किंवा संयुक्त दायित्व गट (JLG)"
       ],
       "documents": [
-        "[stub] Aadhaar",
-        "[stub] Land records",
-        "[stub] Passport photo"
+        "आधार कार्ड किंवा मतदार ओळखपत्र",
+        "जमिनीचा ७/१२ व ८-अ उतारा किंवा पीक पेरा नोंद",
+        "पासपोर्ट आकाराचे फोटो",
+        "बँकेचा विहित नमुन्यातील अर्ज"
       ],
       "official_url": "https://www.myscheme.gov.in/schemes/kcc",
-      "last_checked": "2026-10-29"
+      "last_checked": "2026-10-30"
+    },
+    {
+      "id": "namo_shetkari",
+      "name": "नमो शेतकरी महासन्मान निधी योजना (NSMNY)",
+      "benefit": "महाराष्ट्र शासनामार्फत पीएम-किसान योजनेतील पात्र शेतकऱ्यांना प्रति वर्ष अतिरिक्त ₹६,००० चे साहाय्य, प्रत्येकी ₹२,००० च्या तीन हप्त्यांमध्ये थेट बँक खात्यात जमा (एकूण वार्षिक साहाय्य ₹१२,०००).",
+      "eligibility": [
+        "पीएम-किसान योजनेअंतर्गत नोंदणीकृत आणि पात्र ठरलेले महाराष्ट्रातील सर्व शेतकरी"
+      ],
+      "documents": [
+        "आधार कार्ड",
+        "पीएम-किसान नोंदणी क्रमांक",
+        "महाराष्ट्राचा ७/१२ उतारा",
+        "आधार संलग्न बँक खाते आणि पूर्ण ई-केवायसी"
+      ],
+      "official_url": "https://krishi.maharashtra.gov.in/",
+      "last_checked": "2026-10-30"
     }
   ]
 }
