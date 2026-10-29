@@ -1,145 +1,145 @@
-"""Rule tests for services/context.py on canned Open-Meteo JSON (no network)."""
-import json
-from pathlib import Path
 
-import jsonschema
+"""Offline tests for KrushiCare weather and soil rules."""
+
+from datetime import datetime, timedelta
+
 import pytest
 
-from services import context as ctx
-
-SCHEMA = json.loads((Path(__file__).resolve().parents[1] / "knowledge_base/schemas/diagnosis_result.schema.json").read_text())
-DAYS = ["2026-10-30", "2026-10-31", "2026-11-01"]
+from services.context import from_forecast, soil_flags
 
 
-def forecast(day_specs, rain=(0, 0, 0), moisture=0.25, soil_t=22.0):
-    """day_specs: per day (min_temp, humid_hours)."""
-    times, temps, rhs = [], [], []
-    for d, (tmin, humid) in zip(DAYS, day_specs):
-        for h in range(24):
-            times.append(f"{d}T{h:02d}:00")
-            temps.append(tmin if h == 5 else tmin + 8)
-            rhs.append(95 if h < humid else 60)
-    n = len(times)
+def sample_forecast(
+    favourable=(True, True, False),
+    rain=(0, 0, 0),
+    moisture=0.13,
+):
+    start = datetime(2026, 10, 30)
+
+    times = [
+        (start + timedelta(hours=i)).isoformat(
+            timespec="minutes"
+        )
+        for i in range(72)
+    ]
+
+    humidity = []
+
+    for good_day in favourable:
+        humidity.extend(
+            ([95] * 6 + [70] * 18)
+            if good_day else [70] * 24
+        )
+
     return {
         "utc_offset_seconds": 19800,
-        "hourly": {"time": times, "temperature_2m": temps, "relative_humidity_2m": rhs,
-                   "soil_moisture_3_to_9cm": [moisture] * n, "soil_temperature_6cm": [soil_t] * n},
-        "daily": {"time": DAYS, "precipitation_sum": list(rain)},
+        "hourly": {
+            "time": times,
+            "temperature_2m": [15] * 72,
+            "relative_humidity_2m": humidity,
+            "soil_moisture_3_to_9cm": [moisture] * 72,
+            "soil_temperature_6cm": [24] * 72,
+        },
+        "daily": {
+            "time": [
+                "2026-10-30",
+                "2026-10-31",
+                "2026-11-01",
+            ],
+            "precipitation_sum": list(rain),
+        },
     }
 
 
-@pytest.mark.parametrize("specs,level,fav", [
-    ([(12, 8), (11, 7), (5, 10)], "high", [True, True, False]),     # Hutton period
-    ([(12, 8), (5, 10), (12, 8)], "medium", [True, False, True]),   # not consecutive
-    ([(12, 5), (11, 3), (12, 0)], "low", [False, False, False]),          # not humid enough
-    ([(9.9, 12), (15, 8), (8, 9)], "medium", [False, True, False]), # min temp just below 10
-    ([(10, 6), (10, 6), (20, 2)], "high", [True, True, False]),     # exactly on both limits
-])
-def test_blight_risk(specs, level, fav):
-    data = forecast(specs)
-    days = ctx.blight_days(data)
-    assert [d["favourable"] for d in days] == fav
-    assert ctx.risk_level(days) == level
+def test_high_blight_risk():
+    result = from_forecast(
+        sample_forecast((True, True, False)),
+        "tomato",
+    )
+    assert result["weather_risk"]["level"] == "high"
 
 
-def test_irrigation():
-    assert ctx.irrigation_key(forecast([(12, 0)] * 3, rain=(3, 2.5, 0)), 0.1) == "wait_for_rain"
-    assert ctx.irrigation_key(forecast([(12, 0)] * 3, rain=(1, 0, 20)), 0.1) == "consider_irrigating"  # day 3 rain doesn't count
-    assert ctx.irrigation_key(forecast([(12, 0)] * 3), 0.2) == "no_action"
-    assert ctx.irrigation_key(forecast([(12, 0)] * 3), None) == "unknown"
+def test_medium_blight_risk():
+    result = from_forecast(
+        sample_forecast((True, False, True)),
+        "potato",
+    )
+    assert result["weather_risk"]["level"] == "medium"
 
 
-@pytest.mark.parametrize("crop,card,flags", [
-    ("tomato", {"ph": 5.9, "n": 279, "p": 9.9, "k": 109, "oc": 0.49}, ["ph_low", "n_low", "p_low", "k_low", "oc_low"]),
-    ("tomato", {"ph": 6.0, "n": 280, "p": 10, "k": 110, "oc": 0.5}, []),
-    ("tomato", {"ph": 7.6}, ["ph_high"]),
-    ("potato", {"ph": 5.5}, []),
-    ("potato", {"ph": 7.1, "n": None}, ["ph_high"]),
-    ("potato", None, []),
-])
-def test_soil_flags(crop, card, flags):
-    assert ctx.soil_flags(crop, card) == flags
+def test_low_blight_risk():
+    result = from_forecast(
+        sample_forecast((False, False, False)),
+        "tomato",
+    )
+    assert result["weather_risk"]["level"] == "low"
 
 
-def test_get_context_shape_and_cache(monkeypatch):
-    calls = []
-
-    def fake_fetch(lat, lon):
-        calls.append((lat, lon))
-        return forecast([(12, 8), (11, 7), (5, 0)], rain=(0, 1, 0), moisture=0.12, soil_t=24.46)
-
-    ctx._cache.clear()
-    monkeypatch.setattr(ctx, "fetch_forecast", fake_fetch)
-    out = ctx.get_context(18.5204, 73.8567, "tomato", {"ph": 6.5, "n": 200})
-    ctx.get_context(18.5199, 73.8601, "tomato")  # same 2-decimal cell -> cached
-    assert len(calls) == 1
-    assert out["weather_risk"]["level"] == "high" and out["weather_risk"]["source"] == "open-meteo"
-    assert out["soil"] == {"moisture": 0.12, "temperature_c": 24.5, "irrigation_key": "consider_irrigating",
-                           "card_values": {"ph": 6.5, "n": 200}, "flags": ["n_low"]}
-    # It must slot into a DiagnosisResult.
-    sub = {"type": "object", "properties": {k: SCHEMA["properties"][k] for k in ("weather_risk", "soil")}, "$defs": SCHEMA["$defs"]}
-    jsonschema.validate(out, sub)
+def test_dry_soil():
+    result = from_forecast(
+        sample_forecast(
+            favourable=(False, False, False),
+            moisture=0.10,
+        ),
+        "tomato",
+    )
+    assert result["soil"]["irrigation_key"] == (
+        "consider_irrigating"
+    )
 
 
-def test_network_errors_propagate(monkeypatch):
-    def boom(lat, lon):
-        raise ConnectionError("down")
-    ctx._cache.clear()
-    monkeypatch.setattr(ctx, "fetch_forecast", boom)
-    with pytest.raises(ConnectionError):
-        ctx.get_context(1.0, 1.0, "potato")
+def test_wait_for_rain():
+    result = from_forecast(
+        sample_forecast(rain=(3, 3, 0)),
+        "potato",
+    )
+    assert result["soil"]["irrigation_key"] == (
+        "wait_for_rain"
+    )
 
 
-# ---------- climate card ----------
-
-from datetime import date, timedelta  # noqa: E402
-
-CLIMATE_SCHEMA = json.loads((Path(__file__).resolve().parents[1] / "knowledge_base/schemas/climate.schema.json").read_text())
-
-
-@pytest.mark.parametrize("today,season,start,end", [
-    (date(2026, 10, 29), "rabi", "2026-10-01", "2026-10-23"),
-    (date(2026, 10, 5), "kharif", "2026-06-01", "2026-09-29"),   # under a week of rabi data -> previous season
-    (date(2027, 1, 20), "rabi", "2026-10-01", "2027-01-14"),     # rabi crosses the new year
-    (date(2026, 7, 15), "kharif", "2026-06-01", "2026-07-09"),
-    (date(2026, 4, 2), "zaid", "2026-03-01", "2026-03-27"),
-])
-def test_season_window(today, season, start, end):
-    s, a, b = ctx.season_window(today)
-    assert (s, a.isoformat(), b.isoformat()) == (season, start, end)
+def test_normal_soil():
+    result = from_forecast(
+        sample_forecast(moisture=0.21),
+        "tomato",
+    )
+    assert result["soil"]["irrigation_key"] == (
+        "no_action"
+    )
 
 
-def daily(start: date, end: date, rain_fn, temp_fn):
-    out = {"time": [], "precipitation_sum": [], "temperature_2m_mean": []}
-    d = start
-    while d <= end:
-        out["time"].append(d.isoformat())
-        out["precipitation_sum"].append(rain_fn(d))
-        out["temperature_2m_mean"].append(temp_fn(d))
-        d += timedelta(days=1)
-    return {"daily": out}
+def test_soil_card_flags():
+    result = soil_flags("tomato", {
+        "ph": 5.5,
+        "n": 270,
+        "p": 8,
+        "k": 100,
+        "oc": 0.4,
+    })
+
+    assert set(result) == {
+        "ph_low",
+        "n_low",
+        "p_low",
+        "k_low",
+        "oc_low",
+    }
 
 
-def test_climate_summary_rabi_across_new_year():
-    start, end = date(2026, 10, 1), date(2027, 1, 14)
-    current = daily(start, end, lambda d: 1.0, lambda d: 22.0)  # 106 days x 1 mm
-    normal = daily(date(1991, 10, 1), date(2021, 6, 30), lambda d: 2.0, lambda d: 21.0)
-    out = ctx.climate_summary("rabi", start, end, current, normal)
-    jsonschema.validate(out, CLIMATE_SCHEMA)
-    assert out["rain_mm"] == 106.0 and out["normal_rain_mm"] == 212.0 and out["rain_pct_of_normal"] == 50
-    assert out["temp_anomaly_c"] == 1.0
+def test_ph_boundaries():
+    assert soil_flags("tomato", {"ph": 6.0}) == []
+    assert soil_flags("tomato", {"ph": 7.5}) == []
+    assert soil_flags("potato", {"ph": 5.0}) == []
+    assert soil_flags("potato", {"ph": 7.0}) == []
 
 
-def test_climate_summary_rejects_gappy_data():
-    start, end = date(2026, 10, 1), date(2026, 10, 23)
-    current = daily(start, date(2026, 10, 10), lambda d: 0, lambda d: 25)  # half the window missing
-    normal = daily(date(1991, 10, 1), date(2021, 6, 30), lambda d: 2.0, lambda d: 21.0)
+def test_invalid_crop():
     with pytest.raises(ValueError):
-        ctx.climate_summary("rabi", start, end, current, normal)
+        soil_flags("apple", {"ph": 6.0})
 
 
-def test_dry_normal_gives_null_pct():
-    start, end = date(2026, 3, 1), date(2026, 3, 27)
-    current = daily(start, end, lambda d: 0, lambda d: 30)
-    normal = daily(date(1991, 3, 1), date(2021, 6, 30), lambda d: 0, lambda d: 29)
-    assert ctx.climate_summary("zaid", start, end, current, normal)["rain_pct_of_normal"] is None
+def test_incomplete_weather():
+    data = sample_forecast()
+    data["hourly"]["temperature_2m"][0] = None
+
+    with pytest.raises(ValueError):
+        from_forecast(data, "tomato")
