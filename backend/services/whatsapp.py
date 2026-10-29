@@ -21,10 +21,11 @@ CROP_WORDS = {
     "tomato": "tomato", "टमाटर": "tomato", "टोमॅटो": "tomato", "tamatar": "tomato",
     "potato": "potato", "आलू": "potato", "बटाटा": "potato", "aloo": "potato", "batata": "potato",
 }
+# Full words only: "hi" is a greeting, not a request for Hindi.
 LANG_WORDS = {
-    "english": "en", "en": "en",
-    "hindi": "hi", "हिंदी": "hi", "हिन्दी": "hi", "hi": "hi",
-    "marathi": "mr", "मराठी": "mr", "mr": "mr",
+    "english": "en", "angrezi": "en",
+    "hindi": "hi", "हिंदी": "hi", "हिन्दी": "hi",
+    "marathi": "mr", "मराठी": "mr",
 }
 
 

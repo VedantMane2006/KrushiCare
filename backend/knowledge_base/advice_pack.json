@@ -1,860 +1,1553 @@
 {
   "en": {
-    "tomato__bacterial_spot": {
-      "summary": "[stub] Advice for tomato__bacterial_spot will be added by the content owner.",
+    "tomato__late_blight": {
+      "summary": "Late blight spreads very fast in cool, wet weather and can destroy the crop within a week. Act today.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "Pick off leaves and fruit with dark, wet-looking patches. Bury or burn them away from the field; do not compost them.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "Spray mancozeb 75 WP at 2.5 g per litre of water on all plants, covering both sides of the leaves.",
           "citation_id": "c1"
+        },
+        {
+          "text": "If it keeps spreading, spray a systemic mix such as metalaxyl + mancozeb or cymoxanil + mancozeb at the label dose, and repeat after 7–10 days.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Water at the base of plants in the morning, not over the leaves. Stake plants so leaves stay off the wet soil.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "Late blight also attacks potato. Warn neighbours with tomato or potato fields.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Wear gloves and a mask when spraying, and wait the number of days printed on the label before picking fruit.",
+          "citation_id": null
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__early_blight": {
-      "summary": "[stub] Advice for tomato__early_blight will be added by the content owner.",
+      "summary": "Early blight makes brown spots with rings, starting on the older lower leaves. It spreads slowly and can be controlled.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "Remove the lower leaves that have ring spots and destroy them.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "Spray mancozeb 75 WP at 2.5 g per litre or chlorothalonil at 2 g per litre. Repeat every 10–15 days while the weather stays humid.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "Mulch the soil and water at the base so soil does not splash onto the leaves.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Give balanced fertiliser. Plants short of nitrogen or potash get early blight more easily.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Do not grow tomato, potato, brinjal or chilli in this field again for 2–3 seasons.",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
-    "tomato__late_blight": {
-      "summary": "[stub] Advice for tomato__late_blight will be added by the content owner.",
+    "tomato__bacterial_spot": {
+      "summary": "Bacterial spot makes small dark, greasy spots on leaves and raised scabby spots on fruit. It spreads with rain splash, hands and tools.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "Remove badly spotted leaves. Do not work among the plants while they are wet.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "Spray copper oxychloride 50 WP at 3 g per litre of water every 7–10 days in wet weather.",
           "citation_id": "c1"
+        },
+        {
+          "text": "Use drip or base watering instead of sprinklers.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "Wash hands and clean tools after working in an affected field.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Next season use healthy seedlings and keep tomato and chilli off this field for 2 years.",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__leaf_mold": {
-      "summary": "[stub] Advice for tomato__leaf_mold will be added by the content owner.",
+      "summary": "Leaf mould shows as yellow patches on top of the leaf and olive-green velvety mould underneath. It thrives in damp air with poor airflow, especially in polyhouses.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "Remove the affected lower leaves and destroy them.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "Improve airflow: wider spacing, prune extra side shoots, and open polyhouse vents.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Spray mancozeb 75 WP at 2.5 g per litre or chlorothalonil at 2 g per litre, covering the underside of the leaves.",
           "citation_id": "c1"
+        },
+        {
+          "text": "Water at the base and avoid wetting the leaves, especially in the evening.",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR e-course: Diseases of horticultural crops and their management",
+          "url": "https://ecourses.icar.gov.in/"
         }
       ]
     },
     "tomato__septoria_leaf_spot": {
-      "summary": "[stub] Advice for tomato__septoria_leaf_spot will be added by the content owner.",
+      "summary": "Septoria leaf spot makes many small round spots with dark edges and grey centres, starting on the lower leaves. Badly hit leaves dry and drop.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "Remove spotted lower leaves and destroy them.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "Spray mancozeb 75 WP at 2.5 g per litre or chlorothalonil at 2 g per litre every 7–10 days while it stays humid.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "Mulch and water at the base so spores do not splash up from the soil.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Pull out weeds such as makoi (black nightshade) around the field; they carry the disease.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "After harvest destroy crop remains and keep tomato off this field for 1–2 years.",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Vegetable Research, Varanasi",
+          "url": "https://iivr.icar.gov.in/"
         }
       ]
     },
     "tomato__spider_mites": {
-      "summary": "[stub] Advice for tomato__spider_mites will be added by the content owner.",
+      "summary": "Spider mites are tiny pests that suck sap from the underside of leaves, leaving fine yellow speckles and webbing. They multiply fast in hot, dry weather.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "Check the underside of the leaves. Spray plain water forcefully to wash mites off.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "Spray neem oil at 3–5 ml per litre with a little soap, or wettable sulphur 80 WP at 2–3 g per litre, covering the underside of the leaves.",
           "citation_id": "c1"
+        },
+        {
+          "text": "If mites keep spreading, use a miticide recommended by your agriculture officer, at the label dose.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Keep plants well watered and reduce dust; stressed plants get more mites.",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Insect pests of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_insect_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__target_spot": {
-      "summary": "[stub] Advice for tomato__target_spot will be added by the content owner.",
+      "summary": "Target spot makes brown spots with light rings on leaves, stems and fruit. Warm, humid weather favours it.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "Remove affected leaves and clear crop debris from the field.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "Spray chlorothalonil at 2 g per litre or mancozeb 75 WP at 2.5 g per litre. Repeat after 10–14 days if new spots appear.",
           "citation_id": "c1"
+        },
+        {
+          "text": "Prune the lower leaves and keep enough space between plants for airflow.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "Do not leave crop remains in the field after harvest, and rotate away from tomato.",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__yellow_leaf_curl_virus": {
-      "summary": "[stub] Advice for tomato__yellow_leaf_curl_virus will be added by the content owner.",
+      "summary": "Leaf curl virus makes leaves small, curled upward and yellow, and plants stunted. Whiteflies spread it. No spray can cure an infected plant.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "Pull out and destroy plants with curled, yellow leaves early, so whiteflies cannot carry the virus to healthy plants.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "Put up yellow sticky traps, about 12–15 per acre, to catch whiteflies.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Spray neem oil at 3–5 ml per litre, or a whitefly insecticide recommended by your agriculture officer at the label dose.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Remove weeds around the field; whiteflies hide on them.",
           "citation_id": "c1"
+        },
+        {
+          "text": "Next season raise seedlings under insect-proof net (40–50 mesh) and choose a leaf-curl tolerant variety.",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__mosaic_virus": {
-      "summary": "[stub] Advice for tomato__mosaic_virus will be added by the content owner.",
+      "summary": "Mosaic virus makes light and dark green patches and twisted leaves. It spreads by touch, tools and infected seed. No spray cures it.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "Remove and destroy infected plants. Wash hands with soap before touching healthy plants.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "Do not smoke or chew tobacco while working with the plants; tobacco can carry the virus.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Clean tools and stakes with soap water or diluted bleach.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Next season use certified seed and a resistant variety.",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__healthy": {
-      "summary": "[stub] Advice for tomato__healthy will be added by the content owner.",
+      "summary": "The leaf looks healthy. Keep checking the crop every week so problems are caught early.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "Walk the field every week and look under the leaves for spots, mould or pests.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "Water at the base of plants and keep good spacing so leaves dry quickly.",
           "citation_id": "c1"
+        },
+        {
+          "text": "Use fertiliser based on your Soil Health Card.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "In cool, wet weather watch for late blight; check the blight risk on this screen.",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
-        }
-      ]
-    },
-    "potato__early_blight": {
-      "summary": "[stub] Advice for potato__early_blight will be added by the content owner.",
-      "steps": [
-        {
-          "text": "[stub] Remove and destroy badly affected leaves.",
-          "citation_id": "c1"
+          "title": "TNAU Agritech Portal: Tomato package of practices",
+          "url": "https://agritech.tnau.ac.in/horticulture/horti_vegetables_tomato.html"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
-          "citation_id": "c1"
-        }
-      ],
-      "citations": [
-        {
-          "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "potato__late_blight": {
-      "summary": "[stub] Advice for potato__late_blight will be added by the content owner.",
+      "summary": "Late blight spreads very fast in cool, cloudy, wet weather and can destroy a potato crop within days. Act today.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "Remove and destroy badly affected plants. Do not leave them in the field or in heaps nearby.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Spray mancozeb 75 WP at 2.5 g per litre of water on the whole crop right away.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "If blight is already spreading, spray a systemic mix such as cymoxanil + mancozeb or metalaxyl + mancozeb at the label dose. Repeat after 7–10 days if wet weather continues.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "Stop irrigation for a few days and keep the field well drained.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Cut and remove the haulms (stems) 10–15 days before digging so tubers are not infected.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "Wear gloves and a mask when spraying, and follow the waiting days on the label.",
+          "citation_id": null
+        }
+      ],
+      "citations": [
+        {
+          "id": "c1",
+          "title": "ICAR-Central Potato Research Institute, Shimla",
+          "url": "https://cpri.icar.gov.in/"
+        },
+        {
+          "id": "c2",
+          "title": "TNAU Agritech Portal: Diseases of potato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_potato.html"
+        }
+      ]
+    },
+    "potato__early_blight": {
+      "summary": "Early blight makes dark brown spots with rings on older leaves. It is slower than late blight and can be controlled.",
+      "steps": [
+        {
+          "text": "Remove badly spotted lower leaves.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "Spray mancozeb 75 WP at 2.5 g per litre or chlorothalonil at 2 g per litre. Repeat every 10–15 days if new spots keep appearing.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "Give balanced fertiliser, with enough nitrogen; weak plants get early blight more.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "After harvest destroy crop remains and rotate with non-potato crops for 2–3 years.",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of potato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_potato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Central Potato Research Institute, Shimla",
+          "url": "https://cpri.icar.gov.in/"
         }
       ]
     },
     "potato__healthy": {
-      "summary": "[stub] Advice for potato__healthy will be added by the content owner.",
+      "summary": "The leaf looks healthy. Keep the crop protected, especially in cool, foggy weather when late blight strikes.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "Check the crop twice a week during cool, humid or foggy weather.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "If the blight risk on this screen is high, spray mancozeb 75 WP at 2.5 g per litre as a preventive.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "Do earthing up on time so the tubers stay covered.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Use fertiliser based on your Soil Health Card.",
+          "citation_id": "c2"
+        }
+      ],
+      "citations": [
+        {
+          "id": "c1",
+          "title": "ICAR-Central Potato Research Institute, Shimla",
+          "url": "https://cpri.icar.gov.in/"
+        },
+        {
+          "id": "c2",
+          "title": "TNAU Agritech Portal: Potato cultivation",
+          "url": "https://agritech.tnau.ac.in/horticulture/horti_vegetables_potato.html"
+        }
+      ]
+    },
+    "uncertain": {
+      "summary": "We could not be sure what this is. Please do not spray based on this result.",
+      "steps": [
+        {
+          "text": "Take another clear photo of one affected leaf in daylight, filling the frame.",
+          "citation_id": null
+        },
+        {
+          "text": "Show the plant to your local agriculture officer or the nearest Krishi Vigyan Kendra.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "Call the Kisan Call Centre free on 1800-180-1551 and describe the spots.",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "Kisan Knowledge Management System (Kisan Call Centre)",
+          "url": "https://dackkms.gov.in/"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR Krishi Vigyan Kendra network",
+          "url": "https://kvk.icar.gov.in/"
         }
       ]
     },
-    "uncertain": {
-      "summary": "[stub] We could not be sure. Take another photo or call the Kisan Call Centre.",
+    "unsupported": {
+      "summary": "This does not look like a tomato or potato leaf. AgriSense can only check those two crops.",
       "steps": [
         {
-          "text": "[stub] Take a clear photo of one leaf in daylight.",
+          "text": "If it is a tomato or potato leaf, take the photo again with one leaf filling the frame.",
           "citation_id": null
         },
         {
-          "text": "[stub] Call 1800-180-1551 (free) for expert help.",
-          "citation_id": null
+          "text": "For other crops, call the Kisan Call Centre free on 1800-180-1551 or visit your nearest Krishi Vigyan Kendra.",
+          "citation_id": "c1"
         }
       ],
-      "citations": []
-    },
-    "unsupported": {
-      "summary": "[stub] AgriSense checks tomato and potato leaves only.",
-      "steps": [
+      "citations": [
         {
-          "text": "[stub] Call 1800-180-1551 (free) for help with other crops.",
-          "citation_id": null
+          "id": "c1",
+          "title": "ICAR Krishi Vigyan Kendra network",
+          "url": "https://kvk.icar.gov.in/"
+        },
+        {
+          "id": "c2",
+          "title": "Farmers' Portal, Government of India",
+          "url": "https://farmer.gov.in/"
         }
-      ],
-      "citations": []
+      ]
     }
   },
   "hi": {
-    "tomato__bacterial_spot": {
-      "summary": "[stub] Advice for tomato__bacterial_spot will be added by the content owner.",
+    "tomato__late_blight": {
+      "summary": "पछेती झुलसा ठंडे, नम मौसम में बहुत तेज़ी से फैलता है और एक हफ़्ते में फ़सल नष्ट कर सकता है। आज ही कदम उठाएँ।",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "गहरे, गीले दिखने वाले धब्बों वाली पत्तियाँ और फल तोड़ लें। इन्हें खेत से दूर गाड़ दें या जला दें; खाद में न डालें।",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "सभी पौधों पर मैंकोज़ेब 75 WP, 2.5 ग्राम प्रति लीटर पानी में घोलकर छिड़कें, पत्तियों के दोनों तरफ़।",
           "citation_id": "c1"
+        },
+        {
+          "text": "अगर रोग फैलता रहे तो मेटालैक्सिल + मैंकोज़ेब या साइमोक्सानिल + मैंकोज़ेब जैसा अंतर्प्रवाही मिश्रण लेबल की मात्रा में छिड़कें और 7–10 दिन बाद दोहराएँ।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "सुबह पौधों की जड़ में पानी दें, पत्तियों पर नहीं। पौधों को सहारा दें ताकि पत्तियाँ गीली मिट्टी से न छुएँ।",
+          "citation_id": "c1"
+        },
+        {
+          "text": "पछेती झुलसा आलू पर भी लगता है। टमाटर या आलू उगाने वाले पड़ोसियों को सावधान करें।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "छिड़काव करते समय दस्ताने और मास्क पहनें, और फल तोड़ने से पहले लेबल पर लिखे दिनों तक रुकें।",
+          "citation_id": null
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__early_blight": {
-      "summary": "[stub] Advice for tomato__early_blight will be added by the content owner.",
+      "summary": "अगेती झुलसा में छल्लेदार भूरे धब्बे बनते हैं, जो पुरानी निचली पत्तियों से शुरू होते हैं। यह धीरे फैलता है और नियंत्रित किया जा सकता है।",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "छल्लेदार धब्बों वाली निचली पत्तियाँ तोड़कर नष्ट करें।",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "मैंकोज़ेब 75 WP 2.5 ग्राम प्रति लीटर या क्लोरोथालोनिल 2 ग्राम प्रति लीटर छिड़कें। मौसम नम रहने तक हर 10–15 दिन पर दोहराएँ।",
+          "citation_id": "c1"
+        },
+        {
+          "text": "मिट्टी पर पलवार (मल्च) बिछाएँ और जड़ में पानी दें ताकि मिट्टी उछलकर पत्तियों पर न पड़े।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "संतुलित खाद दें। नाइट्रोजन या पोटाश की कमी वाले पौधों पर अगेती झुलसा जल्दी लगता है।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "इस खेत में 2–3 मौसम तक टमाटर, आलू, बैंगन या मिर्च न लगाएँ।",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
-    "tomato__late_blight": {
-      "summary": "[stub] Advice for tomato__late_blight will be added by the content owner.",
+    "tomato__bacterial_spot": {
+      "summary": "जीवाणु धब्बा रोग में पत्तियों पर छोटे काले, चिकने धब्बे और फलों पर उभरे खुरदरे धब्बे बनते हैं। यह बारिश की छींटों, हाथों और औज़ारों से फैलता है।",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "ज़्यादा धब्बों वाली पत्तियाँ हटा दें। पौधे गीले हों तो उनके बीच काम न करें।",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "गीले मौसम में हर 7–10 दिन पर कॉपर ऑक्सीक्लोराइड 50 WP, 3 ग्राम प्रति लीटर पानी में छिड़कें।",
           "citation_id": "c1"
+        },
+        {
+          "text": "फव्वारा सिंचाई की जगह ड्रिप या जड़ में पानी दें।",
+          "citation_id": "c1"
+        },
+        {
+          "text": "प्रभावित खेत में काम के बाद हाथ धोएँ और औज़ार साफ़ करें।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "अगले मौसम में स्वस्थ पौध लगाएँ और 2 साल तक इस खेत में टमाटर और मिर्च न लगाएँ।",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__leaf_mold": {
-      "summary": "[stub] Advice for tomato__leaf_mold will be added by the content owner.",
+      "summary": "पत्ती फफूंद में पत्ती के ऊपर पीले धब्बे और नीचे जैतूनी-हरी मखमली फफूंद दिखती है। यह नम, बंद हवा में, ख़ासकर पॉलीहाउस में बढ़ती है।",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "प्रभावित निचली पत्तियाँ हटाकर नष्ट करें।",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "हवा का आना-जाना बढ़ाएँ: पौधों में दूरी रखें, फ़ालतू शाखाएँ काटें और पॉलीहाउस की खिड़कियाँ खोलें।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "मैंकोज़ेब 75 WP 2.5 ग्राम प्रति लीटर या क्लोरोथालोनिल 2 ग्राम प्रति लीटर छिड़कें, पत्तियों की निचली सतह पर भी।",
           "citation_id": "c1"
+        },
+        {
+          "text": "जड़ में पानी दें और पत्तियाँ गीली न करें, ख़ासकर शाम को।",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR e-course: Diseases of horticultural crops and their management",
+          "url": "https://ecourses.icar.gov.in/"
         }
       ]
     },
     "tomato__septoria_leaf_spot": {
-      "summary": "[stub] Advice for tomato__septoria_leaf_spot will be added by the content owner.",
+      "summary": "सेप्टोरिया पत्ती धब्बे में काले किनारे और भूरे-सलेटी बीच वाले कई छोटे गोल धब्बे बनते हैं, जो निचली पत्तियों से शुरू होते हैं। ज़्यादा प्रभावित पत्तियाँ सूखकर गिर जाती हैं।",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "धब्बों वाली निचली पत्तियाँ हटाकर नष्ट करें।",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "नमी रहने तक हर 7–10 दिन पर मैंकोज़ेब 75 WP 2.5 ग्राम प्रति लीटर या क्लोरोथालोनिल 2 ग्राम प्रति लीटर छिड़कें।",
+          "citation_id": "c1"
+        },
+        {
+          "text": "पलवार बिछाएँ और जड़ में पानी दें ताकि रोग के बीजाणु मिट्टी से उछलकर ऊपर न आएँ।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "खेत के आसपास मकोय जैसे खरपतवार उखाड़ दें; इनमें रोग पलता है।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "कटाई के बाद फ़सल के अवशेष नष्ट करें और 1–2 साल इस खेत में टमाटर न लगाएँ।",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Vegetable Research, Varanasi",
+          "url": "https://iivr.icar.gov.in/"
         }
       ]
     },
     "tomato__spider_mites": {
-      "summary": "[stub] Advice for tomato__spider_mites will be added by the content owner.",
+      "summary": "लाल मकड़ी बहुत छोटे कीट हैं जो पत्तियों की निचली सतह से रस चूसते हैं, जिससे बारीक पीले धब्बे और जाले बनते हैं। गर्म, सूखे मौसम में ये तेज़ी से बढ़ते हैं।",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "पत्तियों की निचली सतह देखें। तेज़ धार से सादा पानी छिड़ककर मकड़ी को धो दें।",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "नीम तेल 3–5 मिली प्रति लीटर थोड़े साबुन के साथ, या घुलनशील गंधक 80 WP 2–3 ग्राम प्रति लीटर, पत्तियों की निचली सतह पर छिड़कें।",
           "citation_id": "c1"
+        },
+        {
+          "text": "अगर मकड़ी फैलती रहे तो कृषि अधिकारी द्वारा सुझाई गई माइटनाशक दवा लेबल की मात्रा में उपयोग करें।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "पौधों को पर्याप्त पानी दें और धूल कम रखें; कमज़ोर पौधों पर मकड़ी ज़्यादा आती है।",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Insect pests of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_insect_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__target_spot": {
-      "summary": "[stub] Advice for tomato__target_spot will be added by the content owner.",
+      "summary": "टारगेट स्पॉट में पत्तियों, तनों और फलों पर हल्के छल्लों वाले भूरे धब्बे बनते हैं। गर्म, नम मौसम इसके अनुकूल है।",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "प्रभावित पत्तियाँ हटाएँ और खेत से फ़सल का कचरा साफ़ करें।",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "क्लोरोथालोनिल 2 ग्राम प्रति लीटर या मैंकोज़ेब 75 WP 2.5 ग्राम प्रति लीटर छिड़कें। नए धब्बे दिखें तो 10–14 दिन बाद दोहराएँ।",
           "citation_id": "c1"
+        },
+        {
+          "text": "निचली पत्तियाँ छाँटें और हवा के लिए पौधों में पर्याप्त दूरी रखें।",
+          "citation_id": "c1"
+        },
+        {
+          "text": "कटाई के बाद फ़सल के अवशेष खेत में न छोड़ें और फ़सल चक्र अपनाएँ।",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__yellow_leaf_curl_virus": {
-      "summary": "[stub] Advice for tomato__yellow_leaf_curl_virus will be added by the content owner.",
+      "summary": "पत्ती मोड़ विषाणु (लीफ कर्ल) में पत्तियाँ छोटी, ऊपर की ओर मुड़ी और पीली हो जाती हैं और पौधा बौना रह जाता है। इसे सफ़ेद मक्खी फैलाती है। रोगी पौधे को कोई दवा ठीक नहीं कर सकती।",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "मुड़ी, पीली पत्तियों वाले पौधे जल्दी उखाड़कर नष्ट करें ताकि सफ़ेद मक्खी विषाणु को स्वस्थ पौधों तक न ले जाए।",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "सफ़ेद मक्खी पकड़ने के लिए प्रति एकड़ लगभग 12–15 पीले चिपचिपे ट्रैप लगाएँ।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "नीम तेल 3–5 मिली प्रति लीटर, या कृषि अधिकारी द्वारा सुझाई गई सफ़ेद मक्खी की दवा लेबल की मात्रा में छिड़कें।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "खेत के आसपास के खरपतवार हटाएँ; सफ़ेद मक्खी उन पर छिपती है।",
           "citation_id": "c1"
+        },
+        {
+          "text": "अगले मौसम में पौध कीट-रोधी जाली (40–50 मेश) के नीचे तैयार करें और लीफ कर्ल सहनशील किस्म चुनें।",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__mosaic_virus": {
-      "summary": "[stub] Advice for tomato__mosaic_virus will be added by the content owner.",
+      "summary": "मोज़ेक विषाणु में पत्तियों पर हल्के और गहरे हरे चकत्ते और ऐंठी हुई पत्तियाँ दिखती हैं। यह छूने, औज़ारों और रोगी बीज से फैलता है। कोई दवा इसे ठीक नहीं करती।",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "रोगी पौधे उखाड़कर नष्ट करें। स्वस्थ पौधों को छूने से पहले हाथ साबुन से धोएँ।",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "पौधों के बीच काम करते समय बीड़ी-सिगरेट या तंबाकू का सेवन न करें; तंबाकू से विषाणु फैल सकता है।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "औज़ार और सहारे की लकड़ियाँ साबुन के पानी या पतले ब्लीच से साफ़ करें।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "अगले मौसम में प्रमाणित बीज और रोग-रोधी किस्म लगाएँ।",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__healthy": {
-      "summary": "[stub] Advice for tomato__healthy will be added by the content owner.",
+      "summary": "पत्ती स्वस्थ दिखती है। हर हफ़्ते फ़सल जाँचते रहें ताकि कोई समस्या जल्दी पकड़ में आए।",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "हर हफ़्ते खेत में घूमें और पत्तियों के नीचे धब्बे, फफूंद या कीट देखें।",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "पौधों की जड़ में पानी दें और अच्छी दूरी रखें ताकि पत्तियाँ जल्दी सूखें।",
           "citation_id": "c1"
+        },
+        {
+          "text": "मृदा स्वास्थ्य कार्ड के अनुसार खाद दें।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "ठंडे, नम मौसम में पछेती झुलसा पर नज़र रखें; इस स्क्रीन पर झुलसा का खतरा देखें।",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
-        }
-      ]
-    },
-    "potato__early_blight": {
-      "summary": "[stub] Advice for potato__early_blight will be added by the content owner.",
-      "steps": [
-        {
-          "text": "[stub] Remove and destroy badly affected leaves.",
-          "citation_id": "c1"
+          "title": "TNAU Agritech Portal: Tomato package of practices",
+          "url": "https://agritech.tnau.ac.in/horticulture/horti_vegetables_tomato.html"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
-          "citation_id": "c1"
-        }
-      ],
-      "citations": [
-        {
-          "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "potato__late_blight": {
-      "summary": "[stub] Advice for potato__late_blight will be added by the content owner.",
+      "summary": "पछेती झुलसा ठंडे, बादल वाले, नम मौसम में बहुत तेज़ी से फैलता है और कुछ ही दिनों में आलू की फ़सल नष्ट कर सकता है। आज ही कदम उठाएँ।",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "ज़्यादा प्रभावित पौधे उखाड़कर नष्ट करें। इन्हें खेत में या पास में ढेर में न छोड़ें।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "पूरी फ़सल पर तुरंत मैंकोज़ेब 75 WP, 2.5 ग्राम प्रति लीटर पानी में छिड़कें।",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "अगर झुलसा फैल चुका है तो साइमोक्सानिल + मैंकोज़ेब या मेटालैक्सिल + मैंकोज़ेब जैसा अंतर्प्रवाही मिश्रण लेबल की मात्रा में छिड़कें। नम मौसम बना रहे तो 7–10 दिन बाद दोहराएँ।",
+          "citation_id": "c1"
+        },
+        {
+          "text": "कुछ दिनों के लिए सिंचाई रोकें और खेत में पानी निकासी ठीक रखें।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "खुदाई से 10–15 दिन पहले डंठल काटकर हटा दें ताकि कंद संक्रमित न हों।",
+          "citation_id": "c1"
+        },
+        {
+          "text": "छिड़काव करते समय दस्ताने और मास्क पहनें और लेबल पर लिखी प्रतीक्षा अवधि का पालन करें।",
+          "citation_id": null
+        }
+      ],
+      "citations": [
+        {
+          "id": "c1",
+          "title": "ICAR-Central Potato Research Institute, Shimla",
+          "url": "https://cpri.icar.gov.in/"
+        },
+        {
+          "id": "c2",
+          "title": "TNAU Agritech Portal: Diseases of potato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_potato.html"
+        }
+      ]
+    },
+    "potato__early_blight": {
+      "summary": "अगेती झुलसा में पुरानी पत्तियों पर छल्लेदार गहरे भूरे धब्बे बनते हैं। यह पछेती झुलसा से धीमा है और नियंत्रित किया जा सकता है।",
+      "steps": [
+        {
+          "text": "ज़्यादा धब्बों वाली निचली पत्तियाँ हटा दें।",
+          "citation_id": "c1"
+        },
+        {
+          "text": "मैंकोज़ेब 75 WP 2.5 ग्राम प्रति लीटर या क्लोरोथालोनिल 2 ग्राम प्रति लीटर छिड़कें। नए धब्बे आते रहें तो हर 10–15 दिन पर दोहराएँ।",
+          "citation_id": "c1"
+        },
+        {
+          "text": "पर्याप्त नाइट्रोजन के साथ संतुलित खाद दें; कमज़ोर पौधों पर अगेती झुलसा ज़्यादा लगता है।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "कटाई के बाद फ़सल के अवशेष नष्ट करें और 2–3 साल आलू के बजाय दूसरी फ़सलें लगाएँ।",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of potato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_potato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Central Potato Research Institute, Shimla",
+          "url": "https://cpri.icar.gov.in/"
         }
       ]
     },
     "potato__healthy": {
-      "summary": "[stub] Advice for potato__healthy will be added by the content owner.",
+      "summary": "पत्ती स्वस्थ दिखती है। फ़सल को सुरक्षित रखें, ख़ासकर ठंडे, कोहरे वाले मौसम में जब पछेती झुलसा लगता है।",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "ठंडे, नम या कोहरे वाले मौसम में हफ़्ते में दो बार फ़सल देखें।",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "अगर इस स्क्रीन पर झुलसा का खतरा ज़्यादा है तो बचाव के लिए मैंकोज़ेब 75 WP 2.5 ग्राम प्रति लीटर छिड़कें।",
+          "citation_id": "c1"
+        },
+        {
+          "text": "समय पर मिट्टी चढ़ाएँ ताकि कंद ढके रहें।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "मृदा स्वास्थ्य कार्ड के अनुसार खाद दें।",
+          "citation_id": "c2"
+        }
+      ],
+      "citations": [
+        {
+          "id": "c1",
+          "title": "ICAR-Central Potato Research Institute, Shimla",
+          "url": "https://cpri.icar.gov.in/"
+        },
+        {
+          "id": "c2",
+          "title": "TNAU Agritech Portal: Potato cultivation",
+          "url": "https://agritech.tnau.ac.in/horticulture/horti_vegetables_potato.html"
+        }
+      ]
+    },
+    "uncertain": {
+      "summary": "हम पक्का नहीं कह सकते कि यह क्या है। कृपया इस परिणाम के आधार पर छिड़काव न करें।",
+      "steps": [
+        {
+          "text": "दिन की रोशनी में एक प्रभावित पत्ती की दूसरी साफ़ फ़ोटो लें, पूरी फ़्रेम में।",
+          "citation_id": null
+        },
+        {
+          "text": "पौधा अपने स्थानीय कृषि अधिकारी या नज़दीकी कृषि विज्ञान केंद्र को दिखाएँ।",
+          "citation_id": "c2"
+        },
+        {
+          "text": "किसान कॉल सेंटर पर 1800-180-1551 (निःशुल्क) पर फ़ोन करें और धब्बों के बारे में बताएँ।",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "Kisan Knowledge Management System (Kisan Call Centre)",
+          "url": "https://dackkms.gov.in/"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR Krishi Vigyan Kendra network",
+          "url": "https://kvk.icar.gov.in/"
         }
       ]
     },
-    "uncertain": {
-      "summary": "[stub] We could not be sure. Take another photo or call the Kisan Call Centre.",
+    "unsupported": {
+      "summary": "यह टमाटर या आलू की पत्ती नहीं लगती। AgriSense सिर्फ़ इन दो फ़सलों की जाँच करता है।",
       "steps": [
         {
-          "text": "[stub] Take a clear photo of one leaf in daylight.",
+          "text": "अगर यह टमाटर या आलू की पत्ती है तो एक पत्ती पूरी फ़्रेम में रखकर फिर से फ़ोटो लें।",
           "citation_id": null
         },
         {
-          "text": "[stub] Call 1800-180-1551 (free) for expert help.",
-          "citation_id": null
+          "text": "दूसरी फ़सलों के लिए किसान कॉल सेंटर पर 1800-180-1551 (निःशुल्क) पर फ़ोन करें या नज़दीकी कृषि विज्ञान केंद्र जाएँ।",
+          "citation_id": "c1"
         }
       ],
-      "citations": []
-    },
-    "unsupported": {
-      "summary": "[stub] AgriSense checks tomato and potato leaves only.",
-      "steps": [
+      "citations": [
         {
-          "text": "[stub] Call 1800-180-1551 (free) for help with other crops.",
-          "citation_id": null
+          "id": "c1",
+          "title": "ICAR Krishi Vigyan Kendra network",
+          "url": "https://kvk.icar.gov.in/"
+        },
+        {
+          "id": "c2",
+          "title": "Farmers' Portal, Government of India",
+          "url": "https://farmer.gov.in/"
         }
-      ],
-      "citations": []
+      ]
     }
   },
   "mr": {
-    "tomato__bacterial_spot": {
-      "summary": "[stub] Advice for tomato__bacterial_spot will be added by the content owner.",
+    "tomato__late_blight": {
+      "summary": "उशिरा येणारा करपा थंड, ओलसर हवामानात खूप वेगाने पसरतो आणि आठवड्याभरात पीक नष्ट करू शकतो. आजच उपाय करा.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "गडद, ओलसर दिसणारे डाग असलेली पाने आणि फळे तोडा. ती शेतापासून दूर पुरा किंवा जाळा; खतात टाकू नका.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "सर्व झाडांवर मॅन्कोझेब 75 WP, 2.5 ग्रॅम प्रति लिटर पाण्यात मिसळून पानांच्या दोन्ही बाजूंना फवारा.",
           "citation_id": "c1"
+        },
+        {
+          "text": "रोग पसरत राहिल्यास मेटॅलॅक्सिल + मॅन्कोझेब किंवा सायमोक्सानिल + मॅन्कोझेब सारखे आंतरप्रवाही मिश्रण लेबलवरील प्रमाणात फवारा आणि 7–10 दिवसांनी पुन्हा फवारा.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "सकाळी झाडाच्या बुंध्याशी पाणी द्या, पानांवर नाही. झाडांना आधार द्या म्हणजे पाने ओल्या मातीला लागणार नाहीत.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "हा करपा बटाट्यावरही येतो. टोमॅटो किंवा बटाटा घेणाऱ्या शेजाऱ्यांना सावध करा.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "फवारणी करताना हातमोजे आणि मास्क वापरा, आणि फळे तोडण्यापूर्वी लेबलवर दिलेले दिवस थांबा.",
+          "citation_id": null
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__early_blight": {
-      "summary": "[stub] Advice for tomato__early_blight will be added by the content owner.",
+      "summary": "लवकर येणाऱ्या करप्यात वलयांचे तपकिरी ठिपके पडतात, जे जुन्या खालच्या पानांपासून सुरू होतात. हा हळू पसरतो आणि नियंत्रणात आणता येतो.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "वलयांचे ठिपके असलेली खालची पाने काढून नष्ट करा.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "मॅन्कोझेब 75 WP 2.5 ग्रॅम प्रति लिटर किंवा क्लोरोथॅलोनिल 2 ग्रॅम प्रति लिटर फवारा. हवामान दमट असेपर्यंत दर 10–15 दिवसांनी पुन्हा फवारा.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "मातीवर आच्छादन करा आणि बुंध्याशी पाणी द्या म्हणजे माती उडून पानांवर पडणार नाही.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "संतुलित खत द्या. नत्र किंवा पालाश कमी असलेल्या झाडांवर हा करपा लवकर येतो.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "या शेतात 2–3 हंगाम टोमॅटो, बटाटा, वांगी किंवा मिरची घेऊ नका.",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
-    "tomato__late_blight": {
-      "summary": "[stub] Advice for tomato__late_blight will be added by the content owner.",
+    "tomato__bacterial_spot": {
+      "summary": "जिवाणूजन्य ठिपक्यांमध्ये पानांवर लहान काळे, तेलकट ठिपके आणि फळांवर उंचावलेले खरबरीत ठिपके दिसतात. हा पावसाचे शिंतोडे, हात आणि अवजारांमधून पसरतो.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "जास्त ठिपके असलेली पाने काढून टाका. झाडे ओली असताना त्यांच्यात काम करू नका.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "ओलसर हवामानात दर 7–10 दिवसांनी कॉपर ऑक्सिक्लोराईड 50 WP, 3 ग्रॅम प्रति लिटर पाण्यात फवारा.",
           "citation_id": "c1"
+        },
+        {
+          "text": "तुषार सिंचनाऐवजी ठिबक किंवा बुंध्याशी पाणी द्या.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "बाधित शेतात काम केल्यानंतर हात धुवा आणि अवजारे स्वच्छ करा.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "पुढील हंगामात निरोगी रोपे लावा आणि 2 वर्षे या शेतात टोमॅटो आणि मिरची घेऊ नका.",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__leaf_mold": {
-      "summary": "[stub] Advice for tomato__leaf_mold will be added by the content owner.",
+      "summary": "पानांवरील बुरशीत पानाच्या वरच्या बाजूला पिवळे चट्टे आणि खाली ऑलिव्ह-हिरवी मखमली बुरशी दिसते. ती दमट, कोंदट हवेत, विशेषतः पॉलीहाऊसमध्ये वाढते.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "बाधित खालची पाने काढून नष्ट करा.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "हवा खेळती ठेवा: झाडांत अंतर ठेवा, जादा फांद्या छाटा आणि पॉलीहाऊसच्या खिडक्या उघडा.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "मॅन्कोझेब 75 WP 2.5 ग्रॅम प्रति लिटर किंवा क्लोरोथॅलोनिल 2 ग्रॅम प्रति लिटर फवारा, पानांच्या खालच्या बाजूलाही.",
           "citation_id": "c1"
+        },
+        {
+          "text": "बुंध्याशी पाणी द्या आणि पाने ओली करू नका, विशेषतः संध्याकाळी.",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR e-course: Diseases of horticultural crops and their management",
+          "url": "https://ecourses.icar.gov.in/"
         }
       ]
     },
     "tomato__septoria_leaf_spot": {
-      "summary": "[stub] Advice for tomato__septoria_leaf_spot will be added by the content owner.",
+      "summary": "सेप्टोरिया पानठिपक्यांमध्ये गडद कडा आणि राखाडी मध्य असलेले अनेक लहान गोल ठिपके पडतात, जे खालच्या पानांपासून सुरू होतात. जास्त बाधित पाने वाळून गळतात.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "ठिपके असलेली खालची पाने काढून नष्ट करा.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "दमट हवामान असेपर्यंत दर 7–10 दिवसांनी मॅन्कोझेब 75 WP 2.5 ग्रॅम प्रति लिटर किंवा क्लोरोथॅलोनिल 2 ग्रॅम प्रति लिटर फवारा.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "आच्छादन करा आणि बुंध्याशी पाणी द्या म्हणजे बीजाणू मातीतून उडून वर येणार नाहीत.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "शेताभोवतीचे कामोणीसारखे तण उपटून टाका; त्यांच्यावर रोग टिकून राहतो.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "काढणीनंतर पिकाचे अवशेष नष्ट करा आणि 1–2 वर्षे या शेतात टोमॅटो घेऊ नका.",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Vegetable Research, Varanasi",
+          "url": "https://iivr.icar.gov.in/"
         }
       ]
     },
     "tomato__spider_mites": {
-      "summary": "[stub] Advice for tomato__spider_mites will be added by the content owner.",
+      "summary": "लाल कोळी हे अतिशय लहान कीड असून ते पानांच्या खालच्या बाजूने रस शोषतात, त्यामुळे बारीक पिवळे ठिपके आणि जाळी दिसते. उष्ण, कोरड्या हवामानात ते वेगाने वाढतात.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "पानांची खालची बाजू तपासा. जोरात साधे पाणी फवारून कोळी धुवून काढा.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "कडुनिंब तेल 3–5 मिली प्रति लिटर थोड्या साबणासह, किंवा पाण्यात मिसळणारे गंधक 80 WP 2–3 ग्रॅम प्रति लिटर, पानांच्या खालच्या बाजूला फवारा.",
           "citation_id": "c1"
+        },
+        {
+          "text": "कोळी पसरत राहिल्यास कृषी अधिकाऱ्यांनी सुचवलेले कोळीनाशक लेबलवरील प्रमाणात वापरा.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "झाडांना पुरेसे पाणी द्या आणि धूळ कमी ठेवा; ताण असलेल्या झाडांवर कोळी जास्त येतो.",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Insect pests of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_insect_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__target_spot": {
-      "summary": "[stub] Advice for tomato__target_spot will be added by the content owner.",
+      "summary": "टार्गेट स्पॉटमध्ये पाने, खोड आणि फळांवर फिकट वलयांचे तपकिरी ठिपके पडतात. उष्ण, दमट हवामान याला अनुकूल असते.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "बाधित पाने काढा आणि शेतातील पिकाचा कचरा साफ करा.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "क्लोरोथॅलोनिल 2 ग्रॅम प्रति लिटर किंवा मॅन्कोझेब 75 WP 2.5 ग्रॅम प्रति लिटर फवारा. नवीन ठिपके दिसल्यास 10–14 दिवसांनी पुन्हा फवारा.",
           "citation_id": "c1"
+        },
+        {
+          "text": "खालची पाने छाटा आणि हवा खेळती राहण्यासाठी झाडांत पुरेसे अंतर ठेवा.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "काढणीनंतर पिकाचे अवशेष शेतात ठेवू नका आणि पीक फेरपालट करा.",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__yellow_leaf_curl_virus": {
-      "summary": "[stub] Advice for tomato__yellow_leaf_curl_virus will be added by the content owner.",
+      "summary": "पर्णगुच्छ (बोकड्या) विषाणूमुळे पाने लहान, वर वळलेली आणि पिवळी होतात आणि झाड खुरटे राहते. पांढरी माशी हा रोग पसरवते. बाधित झाड कोणत्याही फवारणीने बरे होत नाही.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "वळलेली, पिवळी पाने असलेली झाडे लवकर उपटून नष्ट करा म्हणजे पांढरी माशी विषाणू निरोगी झाडांपर्यंत नेणार नाही.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "पांढरी माशी पकडण्यासाठी एकरी सुमारे 12–15 पिवळे चिकट सापळे लावा.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "कडुनिंब तेल 3–5 मिली प्रति लिटर, किंवा कृषी अधिकाऱ्यांनी सुचवलेले पांढऱ्या माशीचे कीटकनाशक लेबलवरील प्रमाणात फवारा.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "शेताभोवतीचे तण काढा; पांढरी माशी त्यावर लपते.",
           "citation_id": "c1"
+        },
+        {
+          "text": "पुढील हंगामात रोपे कीटकरोधक जाळीखाली (40–50 मेश) तयार करा आणि बोकड्या सहनशील वाण निवडा.",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__mosaic_virus": {
-      "summary": "[stub] Advice for tomato__mosaic_virus will be added by the content owner.",
+      "summary": "केवडा (मोझॅक) विषाणूमुळे पानांवर फिकट आणि गडद हिरवे चट्टे आणि वेडीवाकडी पाने दिसतात. हा स्पर्श, अवजारे आणि बाधित बियाण्यातून पसरतो. कोणतीही फवारणी तो बरा करत नाही.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "बाधित झाडे उपटून नष्ट करा. निरोगी झाडांना हात लावण्यापूर्वी साबणाने हात धुवा.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "झाडांमध्ये काम करताना बिडी-सिगारेट ओढू नका किंवा तंबाखू खाऊ नका; तंबाखूतून विषाणू पसरू शकतो.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "अवजारे आणि आधाराच्या काठ्या साबणाच्या पाण्याने किंवा सौम्य ब्लीचने स्वच्छ करा.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "पुढील हंगामात प्रमाणित बियाणे आणि रोगप्रतिकारक वाण वापरा.",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of tomato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_tomato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "tomato__healthy": {
-      "summary": "[stub] Advice for tomato__healthy will be added by the content owner.",
+      "summary": "पान निरोगी दिसते. समस्या लवकर लक्षात यावी म्हणून दर आठवड्याला पीक तपासत रहा.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "दर आठवड्याला शेतात फिरा आणि पानांखाली ठिपके, बुरशी किंवा कीड पाहा.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "झाडांच्या बुंध्याशी पाणी द्या आणि चांगले अंतर ठेवा म्हणजे पाने लवकर सुकतील.",
           "citation_id": "c1"
+        },
+        {
+          "text": "मृदा आरोग्य पत्रिकेनुसार खत द्या.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "थंड, ओलसर हवामानात उशिरा येणाऱ्या करप्यावर लक्ष ठेवा; या स्क्रीनवर करप्याचा धोका पाहा.",
+          "citation_id": "c2"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
-        }
-      ]
-    },
-    "potato__early_blight": {
-      "summary": "[stub] Advice for potato__early_blight will be added by the content owner.",
-      "steps": [
-        {
-          "text": "[stub] Remove and destroy badly affected leaves.",
-          "citation_id": "c1"
+          "title": "TNAU Agritech Portal: Tomato package of practices",
+          "url": "https://agritech.tnau.ac.in/horticulture/horti_vegetables_tomato.html"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
-          "citation_id": "c1"
-        }
-      ],
-      "citations": [
-        {
-          "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "id": "c2",
+          "title": "ICAR-Indian Institute of Horticultural Research, Bengaluru",
+          "url": "https://iihr.res.in/"
         }
       ]
     },
     "potato__late_blight": {
-      "summary": "[stub] Advice for potato__late_blight will be added by the content owner.",
+      "summary": "उशिरा येणारा करपा थंड, ढगाळ, ओलसर हवामानात खूप वेगाने पसरतो आणि काही दिवसांत बटाट्याचे पीक नष्ट करू शकतो. आजच उपाय करा.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "जास्त बाधित झाडे उपटून नष्ट करा. ती शेतात किंवा जवळ ढिगात ठेवू नका.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "संपूर्ण पिकावर लगेच मॅन्कोझेब 75 WP, 2.5 ग्रॅम प्रति लिटर पाण्यात मिसळून फवारा.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "करपा पसरला असल्यास सायमोक्सानिल + मॅन्कोझेब किंवा मेटॅलॅक्सिल + मॅन्कोझेब सारखे आंतरप्रवाही मिश्रण लेबलवरील प्रमाणात फवारा. ओलसर हवामान राहिल्यास 7–10 दिवसांनी पुन्हा फवारा.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "काही दिवस पाणी देणे थांबवा आणि शेतातील पाण्याचा निचरा चांगला ठेवा.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "काढणीपूर्वी 10–15 दिवस आधी वेल (देठ) कापून काढा म्हणजे कंदांना लागण होणार नाही.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "फवारणी करताना हातमोजे आणि मास्क वापरा आणि लेबलवरील प्रतीक्षा कालावधी पाळा.",
+          "citation_id": null
+        }
+      ],
+      "citations": [
+        {
+          "id": "c1",
+          "title": "ICAR-Central Potato Research Institute, Shimla",
+          "url": "https://cpri.icar.gov.in/"
+        },
+        {
+          "id": "c2",
+          "title": "TNAU Agritech Portal: Diseases of potato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_potato.html"
+        }
+      ]
+    },
+    "potato__early_blight": {
+      "summary": "लवकर येणाऱ्या करप्यात जुन्या पानांवर वलयांचे गडद तपकिरी ठिपके पडतात. हा उशिरा येणाऱ्या करप्यापेक्षा हळू पसरतो आणि नियंत्रणात आणता येतो.",
+      "steps": [
+        {
+          "text": "जास्त ठिपके असलेली खालची पाने काढून टाका.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "मॅन्कोझेब 75 WP 2.5 ग्रॅम प्रति लिटर किंवा क्लोरोथॅलोनिल 2 ग्रॅम प्रति लिटर फवारा. नवीन ठिपके येत राहिल्यास दर 10–15 दिवसांनी पुन्हा फवारा.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "पुरेशा नत्रासह संतुलित खत द्या; कमकुवत झाडांवर हा करपा जास्त येतो.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "काढणीनंतर पिकाचे अवशेष नष्ट करा आणि 2–3 वर्षे बटाट्याऐवजी इतर पिके घ्या.",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "TNAU Agritech Portal: Diseases of potato",
+          "url": "https://agritech.tnau.ac.in/crop_protection/crop_prot_crop_diseases_veg_potato.html"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR-Central Potato Research Institute, Shimla",
+          "url": "https://cpri.icar.gov.in/"
         }
       ]
     },
     "potato__healthy": {
-      "summary": "[stub] Advice for potato__healthy will be added by the content owner.",
+      "summary": "पान निरोगी दिसते. पिकाचे संरक्षण करा, विशेषतः थंड, धुक्याच्या हवामानात जेव्हा उशिरा येणारा करपा येतो.",
       "steps": [
         {
-          "text": "[stub] Remove and destroy badly affected leaves.",
+          "text": "थंड, दमट किंवा धुक्याच्या हवामानात आठवड्यातून दोनदा पीक तपासा.",
           "citation_id": "c1"
         },
         {
-          "text": "[stub] Ask your local agriculture officer before spraying.",
+          "text": "या स्क्रीनवर करप्याचा धोका जास्त असल्यास प्रतिबंधासाठी मॅन्कोझेब 75 WP 2.5 ग्रॅम प्रति लिटर फवारा.",
+          "citation_id": "c1"
+        },
+        {
+          "text": "वेळेवर भर द्या (मातीची भर) म्हणजे कंद झाकलेले राहतील.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "मृदा आरोग्य पत्रिकेनुसार खत द्या.",
+          "citation_id": "c2"
+        }
+      ],
+      "citations": [
+        {
+          "id": "c1",
+          "title": "ICAR-Central Potato Research Institute, Shimla",
+          "url": "https://cpri.icar.gov.in/"
+        },
+        {
+          "id": "c2",
+          "title": "TNAU Agritech Portal: Potato cultivation",
+          "url": "https://agritech.tnau.ac.in/horticulture/horti_vegetables_potato.html"
+        }
+      ]
+    },
+    "uncertain": {
+      "summary": "हे काय आहे याची आम्हाला खात्री नाही. कृपया या निकालावरून फवारणी करू नका.",
+      "steps": [
+        {
+          "text": "दिवसाच्या प्रकाशात एका बाधित पानाचा, पूर्ण फ्रेम भरून दुसरा स्पष्ट फोटो घ्या.",
+          "citation_id": null
+        },
+        {
+          "text": "झाड तुमच्या स्थानिक कृषी अधिकाऱ्यांना किंवा जवळच्या कृषी विज्ञान केंद्राला दाखवा.",
+          "citation_id": "c2"
+        },
+        {
+          "text": "किसान कॉल सेंटरला 1800-180-1551 (मोफत) वर फोन करा आणि ठिपक्यांबद्दल सांगा.",
           "citation_id": "c1"
         }
       ],
       "citations": [
         {
           "id": "c1",
-          "title": "ICAR-NCIPM crop pest and disease advisories (stub)",
-          "url": "https://ncipm.icar.gov.in/"
+          "title": "Kisan Knowledge Management System (Kisan Call Centre)",
+          "url": "https://dackkms.gov.in/"
+        },
+        {
+          "id": "c2",
+          "title": "ICAR Krishi Vigyan Kendra network",
+          "url": "https://kvk.icar.gov.in/"
         }
       ]
     },
-    "uncertain": {
-      "summary": "[stub] We could not be sure. Take another photo or call the Kisan Call Centre.",
+    "unsupported": {
+      "summary": "हे टोमॅटो किंवा बटाट्याचे पान दिसत नाही. AgriSense फक्त या दोन पिकांची तपासणी करते.",
       "steps": [
         {
-          "text": "[stub] Take a clear photo of one leaf in daylight.",
+          "text": "हे टोमॅटो किंवा बटाट्याचे पान असल्यास एक पान पूर्ण फ्रेममध्ये घेऊन पुन्हा फोटो घ्या.",
           "citation_id": null
         },
         {
-          "text": "[stub] Call 1800-180-1551 (free) for expert help.",
-          "citation_id": null
+          "text": "इतर पिकांसाठी किसान कॉल सेंटरला 1800-180-1551 (मोफत) वर फोन करा किंवा जवळच्या कृषी विज्ञान केंद्राला भेट द्या.",
+          "citation_id": "c1"
         }
       ],
-      "citations": []
-    },
-    "unsupported": {
-      "summary": "[stub] AgriSense checks tomato and potato leaves only.",
-      "steps": [
+      "citations": [
         {
-          "text": "[stub] Call 1800-180-1551 (free) for help with other crops.",
-          "citation_id": null
+          "id": "c1",
+          "title": "ICAR Krishi Vigyan Kendra network",
+          "url": "https://kvk.icar.gov.in/"
+        },
+        {
+          "id": "c2",
+          "title": "Farmers' Portal, Government of India",
+          "url": "https://farmer.gov.in/"
         }
-      ],
-      "citations": []
+      ]
     }
   }
 }

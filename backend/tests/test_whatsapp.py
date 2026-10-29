@@ -20,6 +20,7 @@ def test_parse_command():
     assert wa.parse_command("मराठी") == {"lang": "mr"}
     assert wa.parse_command("बटाटा") == {"crop": "potato"}
     assert wa.parse_command("hello there") == {}
+    assert wa.parse_command("hi") == {}  # a greeting, not Hindi
 
 
 def test_text_falls_back_to_english_then_key():
