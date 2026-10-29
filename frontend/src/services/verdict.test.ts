@@ -11,7 +11,7 @@ const c = (p1: number, p2: number, l1 = 'tomato__late_blight'): Classifier => ({
 const OK = { ok: true };
 
 // Same cases as backend/tests/test_api.py::test_verdict_branches and test_verdict.py.
-describe('decide (mirror of backend/app/verdict.py)', () => {
+describe('decide (mirror of backend/services/verdict.py)', () => {
   it.each([
     [0.85, 0.1, 'tomato__late_blight', 'likely', 'high'],
     [0.75, 0.5, 'tomato__late_blight', 'likely', 'medium'],
@@ -31,7 +31,7 @@ describe('decide (mirror of backend/app/verdict.py)', () => {
   });
 
   it('agrees with every shared fixture', () => {
-    const fixtures = import.meta.glob<DiagnosisResult>('../generated/fixtures/*.json', { eager: true, import: 'default' });
+    const fixtures = import.meta.glob<DiagnosisResult>('./generated/fixtures/*.json', { eager: true, import: 'default' });
     for (const r of Object.values(fixtures)) {
       expect(decide(r.classifier, r.quality, r.crop, T)).toEqual(r.verdict);
     }

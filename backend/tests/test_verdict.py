@@ -1,4 +1,4 @@
-from app.verdict import DEFAULT_THRESHOLDS as T, decide, pick_advice
+from services.verdict import DEFAULT_THRESHOLDS as T, decide, pick_advice
 
 OK = {"ok": True}
 

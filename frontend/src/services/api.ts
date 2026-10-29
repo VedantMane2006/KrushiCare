@@ -67,7 +67,7 @@ export async function diagnoseBatch(checks: Check[], soilCard: SoilCard | null):
 
 export async function getSchemes(lang: Lang): Promise<Scheme[]> {
   if (USE_FIXTURES) {
-    const all = (await import('../generated/schemes.json')).default as Record<string, Scheme[]>;
+    const all = (await import('./generated/schemes.json')).default as Record<string, Scheme[]>;
     return all[lang] ?? all.en;
   }
   return request<Scheme[]>(`/api/schemes?lang=${lang}`);
@@ -87,10 +87,10 @@ export function warmUp(): void {
 
 // ---------- fixtures mode ----------
 
-const fixtures = import.meta.glob<DiagnosisResult>('../generated/fixtures/*.json', { eager: true, import: 'default' });
+const fixtures = import.meta.glob<DiagnosisResult>('./generated/fixtures/*.json', { eager: true, import: 'default' });
 let fixtureIndex = 0;
 
-/** Round-robins through shared/fixtures, or uses ?fixture=<name> from the page URL. */
+/** Round-robins through backend/tests/fixtures, or uses ?fixture=<name> from the page URL. */
 export async function fixtureFor(check: Check): Promise<DiagnosisResult> {
   const names = Object.keys(fixtures).sort();
   const wanted = new URLSearchParams(location.search).get('fixture');

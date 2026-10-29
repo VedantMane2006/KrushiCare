@@ -7,7 +7,7 @@ backend/agrisense.db
 node_modules/
 frontend/dist/
 frontend/dev-dist/
-frontend/src/generated/
+frontend/src/services/generated/
 
 .env
 .env.local

@@ -1,6 +1,7 @@
 from PIL import Image
 
-from ml.runtime import predict, quality
+from ml.inference import predict
+from ml.preprocessing import quality
 
 
 def test_predict_shape():

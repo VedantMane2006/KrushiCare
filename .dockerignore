@@ -1,7 +1,6 @@
 **/__pycache__
 **/*.db
 frontend
-pitch
-ml/data
 ml/training
+ml/evaluation
 .git

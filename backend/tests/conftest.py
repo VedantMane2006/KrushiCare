@@ -8,14 +8,14 @@ import pytest
 from fastapi.testclient import TestClient
 from PIL import Image
 
-ROOT = Path(__file__).resolve().parents[2]
-SCHEMA = json.loads((ROOT / "shared/schemas/diagnosis_result.schema.json").read_text())
+BACKEND = Path(__file__).resolve().parents[1]
+SCHEMA = json.loads((BACKEND / "knowledge_base/schemas/diagnosis_result.schema.json").read_text())
 
 
 @pytest.fixture
 def client(tmp_path, monkeypatch):
     monkeypatch.setenv("DB_PATH", str(tmp_path / "test.db"))
-    from app import main
+    import main
     with TestClient(main.app) as c:
         c.state = main.S
         yield c

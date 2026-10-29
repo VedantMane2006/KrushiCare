@@ -1,6 +1,6 @@
-# Rule spec for services/context.py (Saad → Krisha)
+# Rule spec for backend/services/context.py (Saad → Krisha)
 
-`get_context(lat, lon, crop, soil_card=None) -> {"weather_risk": {...}, "soil": {...}}` in the exact DiagnosisResult shape (see `shared/schemas/diagnosis_result.schema.json` and `shared/fixtures/likely_high.json`). Must return within 8 s (the backend times out and falls back to `not_assessed`); raise on any failure, the backend handles it. Use `httpx` with a 6 s timeout, and cache by (lat, lon rounded to 2 decimals, date) for 1 hour.
+`get_context(lat, lon, crop, soil_card=None) -> {"weather_risk": {...}, "soil": {...}}` in the exact DiagnosisResult shape (see `backend/knowledge_base/schemas/diagnosis_result.schema.json` and `backend/tests/fixtures/likely_high.json`). Must return within 8 s (the backend times out and falls back to `not_assessed`); raise on any failure, the backend handles it. Use `httpx` with a 6 s timeout, and cache by (lat, lon rounded to 2 decimals, date) for 1 hour.
 
 ## Data: one Open-Meteo call
 
@@ -37,7 +37,7 @@
 
 N/P/K/OC cut-offs are the Soil Health Card "low" bands; pH ranges are the usual crop optima.
 
-## Tests (services/tests)
+## Tests (backend/tests/test_context.py)
 
 Unit-test the rule functions on canned Open-Meteo JSON (no network in tests): a Hutton period → `high`; one favourable day → `medium`; dry warm week → `low` with `consider_irrigating`; rain ≥ 5 mm → `wait_for_rain`; each soil flag at its boundary.
 

@@ -1,5 +1,5 @@
 """STUB context.py (owner: Krisha). Returns fixture values in the exact
-DiagnosisResult shape. Real rules: shared/context_rules.md.
+DiagnosisResult shape. Real rules: backend/services/CONTEXT_RULES.md.
 """
 from datetime import date, datetime, timedelta, timezone
 

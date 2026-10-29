@@ -1,7 +1,7 @@
-// Same rules as backend/app/verdict.py, used for the on-phone "offline check" (stretch).
-// Keep the two in sync; shared/contracts.md is the source of truth.
+// Same rules as backend/services/verdict.py, used for the on-phone "offline check" (stretch).
+// Keep the two in sync; CONTRACTS.md is the source of truth.
 import type { Classifier, Crop, Quality, Verdict } from './types';
-import thresholdsJson from '../generated/thresholds.json';
+import thresholdsJson from './generated/thresholds.json';
 
 export interface Thresholds {
   unknown_photo: number;

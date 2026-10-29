@@ -1,4 +1,4 @@
-// Mirrors shared/schemas/diagnosis_result.schema.json (contract v1).
+// Mirrors backend/knowledge_base/schemas/diagnosis_result.schema.json (contract v1).
 export type Crop = 'tomato' | 'potato';
 export type Lang = 'en' | 'hi' | 'mr';
 export type VerdictStatus = 'likely' | 'uncertain' | 'retake' | 'unsupported';

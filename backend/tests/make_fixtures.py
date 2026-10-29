@@ -1,16 +1,16 @@
-"""Regenerate shared/fixtures/*.json from the verdict rules and the current advice pack.
+"""Regenerate backend/tests/fixtures/*.json from the verdict rules and the current advice pack.
 
-    python scripts/make_fixtures.py
+    python backend/tests/make_fixtures.py   (or: make fixtures)
 """
 import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "backend"))
-from app.verdict import DEFAULT_THRESHOLDS, NOT_ASSESSED_CONTEXT, build_result, decide, pick_advice  # noqa: E402
+BACKEND = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(BACKEND))
+from services.verdict import DEFAULT_THRESHOLDS, NOT_ASSESSED_CONTEXT, build_result, decide, pick_advice  # noqa: E402
 
-pack = json.loads((ROOT / "content/advice_pack.json").read_text())
+pack = json.loads((BACKEND / "knowledge_base/advice_pack.json").read_text())
 GOOD_Q = {"ok": True, "blur": 182.4, "brightness": 0.52, "leaf_ratio": 0.61, "reason_key": None}
 CTX = {
     "weather_risk": {"level": "high", "rule": "hutton", "source": "open-meteo", "fetched_at": "2026-10-29T10:00:05+00:00",
@@ -36,7 +36,7 @@ cases = {
                              NOT_ASSESSED_CONTEXT),
 }
 
-out = ROOT / "shared/fixtures"
+out = BACKEND / "tests/fixtures"
 out.mkdir(parents=True, exist_ok=True)
 for i, (name, (crop, q, c, ctx)) in enumerate(cases.items()):
     v = decide(c, q, crop, DEFAULT_THRESHOLDS)

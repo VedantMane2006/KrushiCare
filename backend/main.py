@@ -1,4 +1,7 @@
-"""AgriSense API. Contract: shared/contracts.md and shared/schemas/diagnosis_result.schema.json."""
+"""AgriSense API. Contract: CONTRACTS.md and knowledge_base/schemas/diagnosis_result.schema.json.
+
+Run from backend/:  uvicorn main:app --reload --port 8000
+"""
 import asyncio
 import io
 import json
@@ -14,10 +17,12 @@ from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image, ImageOps, UnidentifiedImageError
 
-from . import db, fakes
-from .verdict import CONTRACT_VERSION, NOT_ASSESSED_CONTEXT, build_result, decide, load_thresholds, pick_advice
+from database import db
+from services import fakes
+from services.verdict import CONTRACT_VERSION, NOT_ASSESSED_CONTEXT, build_result, decide, load_thresholds, pick_advice
 
-ROOT = Path(os.environ.get("AGRISENSE_ROOT", Path(__file__).resolve().parents[2]))
+BACKEND = Path(__file__).resolve().parent
+ROOT = Path(os.environ.get("AGRISENSE_ROOT", BACKEND.parent))  # repo root, for ml/
 sys.path.insert(0, str(ROOT))
 
 MAX_IMAGE_BYTES = 8 * 1024 * 1024
@@ -45,8 +50,7 @@ class State:
 S = State()
 
 
-def _read_json(rel: str, default):
-    p = ROOT / rel
+def _read_json(p: Path, default):
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
 
 
@@ -66,12 +70,12 @@ def _load_components() -> None:
             return fake
 
     def real_predict():
-        from ml.runtime import predict as m
+        from ml.inference import predict as m
         # Brief allows either a Predictor class (one instance at startup) or a module-level predict().
         return m.Predictor().predict if hasattr(m, "Predictor") else m.predict
 
     def real_check():
-        from ml.runtime import quality as m
+        from ml.preprocessing import quality as m
         return m.check
 
     def real_context():
@@ -81,10 +85,10 @@ def _load_components() -> None:
     S.predict = load("predict", real_predict, fakes.predict)
     S.check = load("quality", real_check, fakes.check)
     S.get_context = load("context", real_context, fakes.get_context)
-    S.model_meta = _read_json("ml/export/model_meta.json", {"model_version": "unknown"})
-    S.thresholds = load_thresholds(ROOT / "ml/export/thresholds.json")
-    S.advice_pack = _read_json("content/advice_pack.json", {})
-    S.schemes = _read_json("content/schemes.json", {})
+    S.model_meta = _read_json(ROOT / "ml/models/model_meta.json", {"model_version": "unknown"})
+    S.thresholds = load_thresholds(ROOT / "ml/models/thresholds.json")
+    S.advice_pack = _read_json(BACKEND / "knowledge_base/advice_pack.json", {})
+    S.schemes = _read_json(BACKEND / "knowledge_base/schemes.json", {})
 
 
 @asynccontextmanager
