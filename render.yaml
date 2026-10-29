@@ -7,3 +7,10 @@ services:
     envVars:
       - key: ALLOWED_ORIGINS
         value: https://agrisense-jet.vercel.app
+      # WhatsApp bot (Twilio). Set the values in the Render dashboard; never commit them.
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: WHATSAPP_WEBHOOK_URL  # the exact webhook URL set in Twilio, e.g. https://<service>.onrender.com/api/whatsapp
+        sync: false

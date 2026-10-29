@@ -161,5 +161,11 @@
   "install.title": "Install AgriSense on this device",
   "install.help": "Opens like an app from your home screen, full screen, and works without internet. No app store needed.",
   "install.button": "Install app",
-  "install.ios_steps": "On iPhone: tap the Share button (square with an arrow) at the bottom of Safari, then tap \"Add to Home Screen\"."
+  "install.ios_steps": "On iPhone: tap the Share button (square with an arrow) at the bottom of Safari, then tap \"Add to Home Screen\".",
+  "wa.welcome": "Namaste! Send a photo of one tomato or potato leaf and AgriSense will check it. Crop now: {{crop}}. Send \"potato\" or \"tomato\" to change it, \"hindi\", \"marathi\" or \"english\" for the language, and share your location for the blight forecast.",
+  "wa.help": "Send a clear photo of one leaf. Crop now: {{crop}}. Send \"potato\" or \"tomato\" to change it, \"hindi\", \"marathi\" or \"english\" for the language, or share your location for the blight forecast.",
+  "wa.location_saved": "Location saved. Your next check will include the late blight forecast and soil moisture.",
+  "wa.share_location": "Share your location (📎 > Location) to get the blight forecast with your next photo.",
+  "wa.closest": "Closest matches: {{names}}",
+  "wa.bad_image": "We couldn't read that photo. Please send a JPG or PNG photo of one leaf."
 }

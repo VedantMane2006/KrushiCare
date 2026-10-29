@@ -1,6 +1,10 @@
 **/__pycache__
 **/*.db
-frontend
 ml/training
 ml/evaluation
 .git
+# The frontend is deployed on Vercel; the image only needs its i18n files (WhatsApp replies).
+frontend/*
+!frontend/src
+frontend/src/*
+!frontend/src/i18n

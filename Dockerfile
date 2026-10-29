@@ -9,6 +9,7 @@ COPY ml/inference ml/inference
 COPY ml/preprocessing ml/preprocessing
 COPY ml/runtime ml/runtime
 COPY backend backend
+COPY frontend/src/i18n frontend/src/i18n
 RUN mkdir -p /data
 WORKDIR /app/backend
 CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
