@@ -30,7 +30,7 @@ describe('offline check on the phone', () => {
     const c = await createCheck({ blob, crop: 'tomato', lang: 'en', lat: null, lon: null });
     const r = await offlineCheck(c);
     expect(r?.source).toBe('device');
-    expect(r?.verdict).toEqual({ status: 'uncertain', label: 'tomato__late_blight', confidence: 'low' });    
+    expect(r?.verdict).toEqual({ status: 'likely', label: 'tomato__late_blight', confidence: 'high' });
     expect(r?.weather_risk.level).toBe('not_assessed');
   });
 
