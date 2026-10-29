@@ -1,5 +1,9 @@
 """Grad-CAM for the MobileNetV3 classifier, in numpy (no PyTorch on the server).
 
+The server uses OnnxGradCam (bottom of this file), which reads the features and head
+weights straight out of ml/models/model.onnx, so no extra export is needed. The notes
+below describe the alternative, explicit export, kept for reference.
+
 What Krisha exports from the notebook (two small changes to the ONNX export):
   1. the ONNX model gets a second output "features": the last conv block, shape [1, 960, 7, 7]
      (torchvision mobilenet_v3_large: model.features(x), before avgpool);
@@ -105,3 +109,44 @@ def overlay_jpeg(image: Image.Image, cam: np.ndarray, size: int = OVERLAY_MAX_SI
     buf = io.BytesIO()
     Image.fromarray(np.uint8(np.clip(blended, 0, 255))).save(buf, "JPEG", quality=80)
     return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode("ascii")
+
+
+# ---------- real Grad-CAM straight from model.onnx (no re-export needed) ----------
+
+class OnnxGradCam:
+    """Grad-CAM for the exported MobileNetV3 without changing the export.
+
+    At load time the ONNX graph is opened with the `onnx` package: the input of its
+    GlobalAveragePool (the last conv features, [1, C, 7, 7]) becomes an extra output,
+    and the head weights are read from the initializers (conv_head 1x1 conv = Linear,
+    HardSwish, classifier Gemm). The temperature Div after the classifier only scales the
+    logit, and the map is normalised, so it can be ignored.
+    """
+
+    def __init__(self, model_path: Path, preprocess):
+        import onnx
+        import onnxruntime as ort
+        from onnx import helper, numpy_helper
+
+        m = onnx.load(str(model_path))
+        g = m.graph
+        inits = {i.name: numpy_helper.to_array(i) for i in g.initializer}
+        pool = next(n for n in g.node if n.op_type == "GlobalAveragePool")
+        conv = next(n for n in g.node if n.op_type == "Conv" and n.input[0] == pool.output[0])
+        gemm = next(n for n in g.node if n.op_type == "Gemm")
+        w1 = inits[conv.input[1]]
+        self.head = {
+            "W1": w1.reshape(w1.shape[0], -1).astype(np.float64),
+            "b1": inits[conv.input[2]].astype(np.float64),
+            "W2": inits[gemm.input[1]].astype(np.float64),
+            "b2": inits[gemm.input[2]].astype(np.float64),
+        }
+        self.features_name = pool.input[0]
+        g.output.append(helper.make_tensor_value_info(self.features_name, onnx.TensorProto.FLOAT, None))
+        self.session = ort.InferenceSession(m.SerializeToString(), providers=["CPUExecutionProvider"])
+        self.input_name = self.session.get_inputs()[0].name
+        self.preprocess = preprocess
+
+    def explain(self, image: Image.Image, label_index: int) -> np.ndarray:
+        feats = self.session.run([self.features_name], {self.input_name: self.preprocess(image)})[0][0]
+        return gradcam(feats, self.head, label_index)

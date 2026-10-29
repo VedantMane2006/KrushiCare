@@ -57,6 +57,10 @@ def _read_json(p: Path, default):
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else default
 
 
+def _model_labels() -> list[str]:
+    return _read_json(ROOT / "ml/models/model_meta.json", {}).get("labels", [])
+
+
 def _load_components() -> None:
     use_fakes = os.environ.get("USE_FAKES") == "1"
     S.using_fakes = []
@@ -92,7 +96,16 @@ def _load_components() -> None:
     def real_explain():
         from ml.inference import predict as m
         target = m.Predictor() if hasattr(m, "Predictor") else m
-        return target.explain  # AttributeError until Vedant adds it: the demo map is used
+        if hasattr(target, "explain"):
+            return target.explain
+        # Real Grad-CAM read straight from the exported model; the demo map if there is no model yet.
+        from ml.inference.gradcam import OnnxGradCam
+        model = ROOT / "ml/models/model.onnx"
+        if not model.exists() or getattr(target, "is_stub", False):
+            raise FileNotFoundError("no trained model.onnx yet")
+        cam = OnnxGradCam(model, m.preprocess)
+        labels = _model_labels()
+        return lambda image, label: cam.explain(image, labels.index(label))
 
     S.predict = load("predict", real_predict, fakes.predict)
     S.explain = load("gradcam", real_explain, fakes.explain)
