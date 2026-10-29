@@ -11,3 +11,4 @@ frontend/src/services/generated/
 
 .env
 .env.local
+*.tsbuildinfo

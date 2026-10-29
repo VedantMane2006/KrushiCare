@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -14,12 +14,14 @@ import Result from './pages/Result';
 import History from './pages/History';
 import Schemes from './pages/Schemes';
 import Settings from './pages/Settings';
+import IntroSplash, { shouldPlayIntro } from './components/intro/IntroSplash';
 
 registerSW({ immediate: true });
 
 export default function App() {
   const { t, i18n } = useTranslation();
   const online = useOnline();
+  const [intro, setIntro] = useState(shouldPlayIntro);
   const pending = useLiveQuery(() => db.checks.where('status').equals('pending').count(), [], 0);
 
   useEffect(() => {
@@ -37,6 +39,7 @@ export default function App() {
 
   return (
     <div className="mx-auto flex min-h-dvh max-w-md flex-col">
+      {intro && <IntroSplash onDone={() => setIntro(false)} />}
       {!online && (
         <div role="status" className="bg-amber-200 px-4 py-2 text-center text-sm font-semibold text-amber-950">
           {t('app.offline_banner')}

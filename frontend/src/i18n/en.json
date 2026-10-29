@@ -5,6 +5,7 @@
   "app.offline_banner": "You are offline. Checks will be saved and sent later.",
   "app.loading": "Loading…",
   "app.error_generic": "Something went wrong. Please try again.",
+  "app.skip": "Skip",
   "nav.home": "Home",
   "nav.history": "History",
   "nav.schemes": "Schemes",
