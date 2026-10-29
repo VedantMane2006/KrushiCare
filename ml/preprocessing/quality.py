@@ -1,11 +1,32 @@
-"""STUB quality.py (owner: Vedant). Right shape, fake values.
+"""AgriSense Photo Quality Checker wrapper (owner: Vedant).
 
-Real version: OpenCV variance of Laplacian (blur), mean V (brightness 0..1),
-green-pixel ratio (leaf_ratio), reason_key one of quality.too_blurry,
-quality.too_dark, quality.too_bright, quality.no_leaf, or None when ok.
+Delegates to ml.runtime.quality to maintain compatibility across repository layout
+(CONTRACTS.md) and brief structure.
 """
-from PIL import Image
+from ml.runtime.quality import (
+    MAX_BRIGHTNESS,
+    MAX_LONG_SIDE,
+    MIN_BLUR,
+    MIN_BRIGHTNESS,
+    MIN_LEAF_RATIO,
+    REASON_BLURRY,
+    REASON_NO_LEAF,
+    REASON_TOO_BLURRY,
+    REASON_TOO_BRIGHT,
+    REASON_TOO_DARK,
+    check,
+)
 
-
-def check(image: Image.Image) -> dict:
-    return {"ok": True, "blur": 182.4, "brightness": 0.52, "leaf_ratio": 0.61, "reason_key": None}
+__all__ = [
+    "check",
+    "MIN_BLUR",
+    "MIN_BRIGHTNESS",
+    "MAX_BRIGHTNESS",
+    "MIN_LEAF_RATIO",
+    "MAX_LONG_SIDE",
+    "REASON_BLURRY",
+    "REASON_NO_LEAF",
+    "REASON_TOO_BLURRY",
+    "REASON_TOO_BRIGHT",
+    "REASON_TOO_DARK",
+]

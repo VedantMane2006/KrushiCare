@@ -1,23 +1,22 @@
-"""STUB predict.py (owner: Vedant). Right shape, fake values.
+"""AgriSense Inference wrapper (owner: Vedant).
 
-Real version: load ml/models/model.onnx with onnxruntime, preprocess exactly as
-model_meta.json says, return top-3 and margin (top1 - top2).
+Delegates to ml.runtime.predict to maintain compatibility across repository layout
+(CONTRACTS.md) and brief structure.
 """
-import json
-from pathlib import Path
+from ml.runtime.predict import (
+    DEFAULT_META_PATH,
+    DEFAULT_MODEL_PATH,
+    Predictor,
+    get_default_predictor,
+    predict,
+    preprocess,
+)
 
-from PIL import Image
-
-_META = json.loads((Path(__file__).resolve().parents[1] / "models" / "model_meta.json").read_text())
-
-
-def predict(image: Image.Image) -> dict:
-    return {
-        "model_version": _META["model_version"],
-        "top3": [
-            {"label": "tomato__late_blight", "prob": 0.81},
-            {"label": "tomato__early_blight", "prob": 0.19},
-            {"label": "potato__late_blight", "prob": 0.0},
-        ],
-        "margin": 0.62,
-    }
+__all__ = [
+    "Predictor",
+    "predict",
+    "preprocess",
+    "get_default_predictor",
+    "DEFAULT_MODEL_PATH",
+    "DEFAULT_META_PATH",
+]
