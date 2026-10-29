@@ -79,3 +79,24 @@ def test_webhook_rejects_bad_signature(client, monkeypatch):
     monkeypatch.setenv("TWILIO_AUTH_TOKEN", "secret")
     r = client.post("/api/whatsapp", data={"From": "whatsapp:+91", "Body": "hi"}, headers={"X-Twilio-Signature": "nope"})
     assert r.status_code == 403
+
+
+def test_signed_webhook_replies_through_the_messages_api(client, monkeypatch):
+    import main
+    url = "https://example.test/api/whatsapp"
+    monkeypatch.setenv("TWILIO_AUTH_TOKEN", "tok")
+    monkeypatch.setenv("TWILIO_ACCOUNT_SID", "ACtest")
+    monkeypatch.setenv("WHATSAPP_WEBHOOK_URL", url)
+    sent = []
+
+    async def send(form, body):
+        sent.append((form["From"], body))
+    monkeypatch.setattr(main, "_twilio_send", send)
+
+    form = {"From": "whatsapp:+918888888888", "To": "whatsapp:+17372508034", "Body": "hi"}
+    data = url + "".join(k + form[k] for k in sorted(form))
+    sig = base64.b64encode(hmac.new(b"tok", data.encode(), hashlib.sha1).digest()).decode()
+    assert client.post("/api/whatsapp", data=form).status_code == 403  # unsigned
+    r = client.post("/api/whatsapp", data=form, headers={"X-Twilio-Signature": sig})
+    assert r.status_code == 200 and "<Message>" not in r.text
+    assert len(sent) == 1 and sent[0][0] == form["From"] and sent[0][1]

@@ -92,7 +92,9 @@ def format_result(r: dict, t: Text) -> str:
 
 
 def twiml(message: str) -> str:
-    return f'<?xml version="1.0" encoding="UTF-8"?><Response><Message>{escape(message)}</Message></Response>'
+    """An empty message gives an empty <Response/>: Twilio sends nothing back."""
+    body = f"<Message>{escape(message)}</Message>" if message else ""
+    return f'<?xml version="1.0" encoding="UTF-8"?><Response>{body}</Response>'
 
 
 def valid_signature(auth_token: str, url: str, params: dict, signature: str) -> bool:

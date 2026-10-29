@@ -16,7 +16,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 import httpx
-from fastapi import FastAPI, HTTPException, Query, Request, Response
+from fastapi import BackgroundTasks, FastAPI, HTTPException, Query, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image, ImageOps, UnidentifiedImageError
 
@@ -394,17 +394,43 @@ async def _twilio_media(url: str) -> bytes:
         return r.content[: MAX_IMAGE_BYTES + 1]
 
 
+async def _twilio_send(form: dict, body: str) -> None:
+    """Sends the reply through Twilio's Messages API, back to whoever wrote, from the number they wrote to."""
+    sid, token = os.environ["TWILIO_ACCOUNT_SID"], os.environ["TWILIO_AUTH_TOKEN"]
+    async with httpx.AsyncClient(timeout=15, auth=(sid, token)) as c:
+        r = await c.post(f"https://api.twilio.com/2010-04-01/Accounts/{sid}/Messages.json",
+                         data={"From": form.get("To", ""), "To": form.get("From", ""), "Body": body})
+        if r.status_code >= 400:
+            log.warning("twilio send failed %s: %s", r.status_code, r.text[:300])
+
+
+async def _wa_answer_later(form: dict) -> None:
+    try:
+        await _twilio_send(form, await _wa_reply(form))
+    except Exception as e:
+        log.warning("whatsapp reply failed (%s): %s", type(e).__name__, e)
+
+
 @app.post("/api/whatsapp")
-async def whatsapp(request: Request):
-    """Twilio WhatsApp webhook. Replies with TwiML. Set TWILIO_AUTH_TOKEN (and WHATSAPP_WEBHOOK_URL,
-    the exact URL configured in Twilio) to check signatures; without the token anyone can post here."""
+async def whatsapp(request: Request, background: BackgroundTasks):
+    """Twilio WhatsApp webhook. Set TWILIO_AUTH_TOKEN (and WHATSAPP_WEBHOOK_URL, the exact URL configured
+    in Twilio) to check signatures; without the token anyone can post here. With TWILIO_ACCOUNT_SID too,
+    the reply goes out through the Messages API after Twilio gets an empty 200 (the WhatsApp trial number
+    ignores TwiML replies, and a cold start plus a diagnosis can pass Twilio's 15 s webhook timeout).
+    Without it, the reply is TwiML."""
     form = {k: v for k, v in (await request.form()).items() if isinstance(v, str)}
     token = os.environ.get("TWILIO_AUTH_TOKEN")
     if token:
         url = os.environ.get("WHATSAPP_WEBHOOK_URL") or str(request.url)
         if not wa.valid_signature(token, url, form, request.headers.get("X-Twilio-Signature", "")):
             raise HTTPException(status_code=403, detail="bad signature")
+        if os.environ.get("TWILIO_ACCOUNT_SID"):
+            background.add_task(_wa_answer_later, form)
+            return Response(wa.twiml(""), media_type="application/xml")
+    return Response(wa.twiml(await _wa_reply(form)), media_type="application/xml")
 
+
+async def _wa_reply(form: dict) -> str:
     salt = os.environ.get("WA_SALT", "agrisense")
     user_key = hashlib.sha256((salt + form.get("From", "")).encode()).hexdigest()
     prefs = db.wa_get(user_key)
@@ -438,4 +464,4 @@ async def whatsapp(request: Request):
         reply = t("wa.location_saved")
     else:
         reply = t("wa.welcome" if first_time else "wa.help", crop=t(f"home.crop_{prefs['crop']}"))
-    return Response(wa.twiml(reply), media_type="application/xml")
+    return reply
