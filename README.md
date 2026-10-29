@@ -19,7 +19,7 @@ A mobile-first web app (PWA) where a farmer photographs a tomato or potato leaf 
 | `backend/main.py`, `services/verdict.py`, `database/`, `tests/` | FastAPI app, verdict rules, SQLite store, tests and response fixtures | Saad |
 | `frontend/` | Vite + React + TS PWA (`pages/`, `components/`, `services/`, `hooks/`, `i18n/`) | Saad |
 
-Only the owner edits a file. Every teammate block currently exists as a **stub** with the right shape (marked `STUB` / `[stub]`), so the whole app runs today. Replace stubs in place; no app change is needed.
+Only the owner edits a file. Every teammate block exists at least as a **stub** with the right shape (marked `STUB` / `[stub]`), so the whole app runs today. `backend/services/context.py` is already live (Open-Meteo, rules in `CONTEXT_RULES.md`). Replace stubs in place; no app change is needed.
 
 ## Run locally
 

@@ -16,7 +16,10 @@ SCHEMA = json.loads((BACKEND / "knowledge_base/schemas/diagnosis_result.schema.j
 def client(tmp_path, monkeypatch):
     monkeypatch.setenv("DB_PATH", str(tmp_path / "test.db"))
     import main
+    from services import fakes
     with TestClient(main.app) as c:
+        # No network in API tests: weather comes from the fake (context rules have their own tests).
+        monkeypatch.setattr(main.S, "get_context", fakes.get_context)
         c.state = main.S
         yield c
 

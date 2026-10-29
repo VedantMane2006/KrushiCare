@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { downscale } from '../services/image';
 import { getLocation, type Coords } from '../services/geo';
+import { districtById } from '../services/districts';
 import { loadSettings } from '../services/settings';
 import { createCheck, sendNow } from '../services/sync';
 import { USE_FIXTURES } from '../services/api';
@@ -16,13 +17,15 @@ export default function Capture() {
   const galleryRef = useRef<HTMLInputElement>(null);
   const [phase, setPhase] = useState<Phase>('idle');
   const [locState, setLocState] = useState<'asking' | 'ok' | 'denied'>('asking');
+  const district = districtById(loadSettings().district);
   const locRef = useRef<Promise<Coords | null>>();
 
   // Ask for location once, as soon as the screen opens, so it is ready by the time the photo is.
   useEffect(() => {
+    // GPS first; if it's off or denied, fall back to the district picked in Settings.
     locRef.current = getLocation().then((c) => {
       setLocState(c ? 'ok' : 'denied');
-      return c;
+      return c ?? (district ? { lat: district.lat, lon: district.lon } : null);
     });
   }, []);
 
@@ -69,7 +72,19 @@ export default function Capture() {
       </button>
 
       <p className="text-sm text-gray-600">
-        📍 {locState === 'denied' ? t('capture.location_denied') : t('capture.location_ask')}
+        📍{' '}
+        {locState === 'ok'
+          ? t('capture.location_using_gps')
+          : locState === 'denied' && district
+            ? t('capture.location_using_district', { name: district.name })
+            : locState === 'denied'
+              ? t('capture.location_denied')
+              : t('capture.location_ask')}{' '}
+        {locState === 'denied' && (
+          <Link to="/settings" className="font-semibold text-leaf-700 underline">
+            {t('settings.district')}
+          </Link>
+        )}
       </p>
       <button className="w-full py-3 text-gray-700 underline" onClick={() => navigate(-1)}>
         {t('capture.cancel')}

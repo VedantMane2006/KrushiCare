@@ -8,9 +8,11 @@ export interface Settings {
   crop: Crop;
   soilCard: SoilCard | null;
   langChosen: boolean;
+  /** District id (services/districts.ts) used for weather when GPS is off; null = GPS only. */
+  district: string | null;
 }
 
-const DEFAULTS: Settings = { lang: 'en', crop: 'tomato', soilCard: null, langChosen: false };
+const DEFAULTS: Settings = { lang: 'en', crop: 'tomato', soilCard: null, langChosen: false, district: null };
 
 export function loadSettings(): Settings {
   try {
