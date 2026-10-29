@@ -7,7 +7,7 @@ const palette = {
   wheat: '#f5dea4',
   field: '#558934',
   forest: '#274636',
-  paper: '#fbf5e6',
+  paper: '#ecdfc4',
   ink: '#1f2a22',
 };
 

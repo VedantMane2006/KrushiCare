@@ -13,7 +13,7 @@ export default defineConfig({
         short_name: 'AgriSense',
         description: 'Check tomato and potato leaves for disease',
         theme_color: '#274636',
-        background_color: '#fbf5e6',
+        background_color: '#ecdfc4',
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/',

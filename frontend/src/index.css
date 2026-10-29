@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { background: #fbf5e6; color: #1f2a22; -webkit-tap-highlight-color: transparent; }
+html, body { background: #ecdfc4; color: #1f2a22; -webkit-tap-highlight-color: transparent; }
 body { min-height: 100dvh; }
 :lang(hi), :lang(mr) { line-height: 1.6; }
 
@@ -21,7 +21,7 @@ body { min-height: 100dvh; }
   .btn-primary { @apply btn bg-tomato text-white hover:bg-red-700; box-shadow: inset 0 -3px 0 rgb(0 0 0 / 0.18); }
   .btn-secondary { @apply btn border-[1.5px] border-forest bg-transparent text-forest hover:bg-forest/5; }
   .btn-danger { @apply btn border-[1.5px] border-chili bg-transparent text-chili hover:bg-chili/5; }
-  .card { @apply rounded-lg border border-forest/15 bg-[#fffcf3] p-4; }
+  .card { @apply rounded-lg border border-forest/15 bg-[#f7efdd] p-4; }
   .chip { @apply inline-flex items-center rounded px-2.5 py-0.5 text-sm font-semibold; }
   .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.12em] text-gray-600; }
 }

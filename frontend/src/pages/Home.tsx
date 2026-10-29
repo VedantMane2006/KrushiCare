@@ -69,7 +69,7 @@ export default function Home({ pending }: { pending: number }) {
               onClick={() => pickLang(l.id)}
               aria-pressed={i18n.language === l.id}
               className={`min-h-[52px] rounded-md border-[1.5px] text-lg font-semibold ${
-                i18n.language === l.id ? 'border-forest bg-forest text-wheat' : 'border-forest/25 bg-[#fffcf3] text-ink hover:border-forest/50'
+                i18n.language === l.id ? 'border-forest bg-forest text-wheat' : 'border-forest/25 bg-[#f7efdd] text-ink hover:border-forest/50'
               }`}
             >
               {l.name}
@@ -86,7 +86,7 @@ export default function Home({ pending }: { pending: number }) {
               key={c}
               onClick={() => pickCrop(c)}
               aria-pressed={crop === c}
-              className={`relative flex min-h-[128px] flex-col items-center justify-center gap-1 rounded-lg border-2 bg-[#fffcf3] font-display text-xl font-bold ${
+              className={`relative flex min-h-[128px] flex-col items-center justify-center gap-1 rounded-lg border-2 bg-[#f7efdd] font-display text-xl font-bold ${
                 crop === c ? 'border-forest text-forest' : 'border-forest/15 text-gray-700 hover:border-forest/40'
               }`}
             >
