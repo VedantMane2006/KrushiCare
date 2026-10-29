@@ -6,4 +6,4 @@ services:
     healthCheckPath: /api/health
     envVars:
       - key: ALLOWED_ORIGINS
-        value: https://agrisense.vercel.app
+        value: https://agrisense-jet.vercel.app

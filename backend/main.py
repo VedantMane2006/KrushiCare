@@ -86,7 +86,7 @@ def _load_components() -> None:
         return m.get_context
 
     def real_climate():
-        from services import context as m
+        from services import climate as m
         return m.get_climate
 
     def real_explain():

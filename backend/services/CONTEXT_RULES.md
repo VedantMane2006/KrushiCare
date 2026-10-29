@@ -41,7 +41,7 @@ N/P/K/OC cut-offs are the Soil Health Card "low" bands; pH ranges are the usual 
 
 Unit-test the rule functions on canned Open-Meteo JSON (no network in tests): a Hutton period → `high`; one favourable day → `medium`; dry warm week → `low` with `consider_irrigating`; rain ≥ 5 mm → `wait_for_rain`; each soil flag at its boundary.
 
-## Climate card: get_climate(lat, lon)  (implemented)
+## Climate card: get_climate(lat, lon) in backend/services/climate.py  (implemented, separate module)
 
 Returns `knowledge_base/schemas/climate.schema.json`, served at `GET /api/climate`.
 
