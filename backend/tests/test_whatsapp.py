@@ -129,3 +129,49 @@ def test_send_falls_back_to_a_template_when_twilio_wants_one(monkeypatch):
     sent = dict(httpx.QueryParams(calls[-1].content.decode()))
     assert sent["ContentSid"] == "HXabc" and json.loads(sent["ContentVariables"]) == {"1": "फसल ठीक है"}
     assert sent["To"] == "whatsapp:+91"
+
+
+def _meta_payload(msg):
+    return {"object": "whatsapp_business_account", "entry": [{"changes": [{"value": {"messages": [msg]}}]}]}
+
+
+def test_meta_webhook_verify(client, monkeypatch):
+    monkeypatch.setenv("META_VERIFY_TOKEN", "secret-word")
+    ok = client.get("/api/whatsapp/meta", params={"hub.mode": "subscribe", "hub.verify_token": "secret-word", "hub.challenge": "42"})
+    assert ok.status_code == 200 and ok.text == "42"
+    assert client.get("/api/whatsapp/meta", params={"hub.mode": "subscribe", "hub.verify_token": "nope", "hub.challenge": "42"}).status_code == 403
+
+
+def test_meta_webhook_text_then_photo(client, monkeypatch):
+    import json
+
+    import main
+    monkeypatch.delenv("META_APP_SECRET", raising=False)
+    monkeypatch.setattr(main.S, "predict", lambda img: classifier(("potato__late_blight", 0.99999), ("potato__early_blight", 0.0)))
+    sent = []
+
+    async def send(to, body):
+        sent.append((to, body))
+
+    async def media(media_id):
+        assert media_id == "MEDIA1"
+        return jpeg_bytes()
+    monkeypatch.setattr(main, "_meta_send", send)
+    monkeypatch.setattr(main, "_meta_media", media)
+
+    who = "917700000001"
+    assert client.post("/api/whatsapp/meta", json=_meta_payload({"from": who, "id": "w1", "type": "text", "text": {"body": "potato"}})).status_code == 200
+    photo = {"from": who, "id": "w2", "type": "image", "image": {"id": "MEDIA1", "mime_type": "image/jpeg"}}
+    assert client.post("/api/whatsapp/meta", json=_meta_payload(photo)).status_code == 200
+    assert [s[0] for s in sent] == [who, who]
+    assert "late blight" in sent[1][1].lower()
+    # Delivery receipts (no "messages") are ignored.
+    assert client.post("/api/whatsapp/meta", json={"entry": [{"changes": [{"value": {"statuses": [{}]}}]}]}).status_code == 200
+    assert len(sent) == 2
+
+    monkeypatch.setenv("META_APP_SECRET", "app-secret")
+    body = json.dumps(_meta_payload({"from": who, "id": "w3", "type": "text", "text": {"body": "hi"}})).encode()
+    assert client.post("/api/whatsapp/meta", content=body, headers={"Content-Type": "application/json"}).status_code == 403
+    sig = "sha256=" + hmac.new(b"app-secret", body, hashlib.sha256).hexdigest()
+    ok = client.post("/api/whatsapp/meta", content=body, headers={"Content-Type": "application/json", "X-Hub-Signature-256": sig})
+    assert ok.status_code == 200 and len(sent) == 3

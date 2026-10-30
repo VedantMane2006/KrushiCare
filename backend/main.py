@@ -4,6 +4,7 @@ Run from backend/:  uvicorn main:app --reload --port 8000
 """
 import asyncio
 import hashlib
+import hmac
 import io
 import json
 import logging
@@ -453,7 +454,8 @@ async def whatsapp(request: Request, background: BackgroundTasks):
     return Response(wa.twiml(await _wa_reply(form)), media_type="application/xml")
 
 
-async def _wa_reply(form: dict) -> str:
+async def _wa_reply(form: dict, fetch_media=None) -> str:
+    """The bot's answer to one message, in Twilio's form fields (the Meta webhook maps onto them)."""
     salt = os.environ.get("WA_SALT", "agrisense")
     user_key = hashlib.sha256((salt + form.get("From", "")).encode()).hexdigest()
     prefs = db.wa_get(user_key)
@@ -472,7 +474,7 @@ async def _wa_reply(form: dict) -> str:
     media = form.get("MediaUrl0") if form.get("NumMedia", "0") != "0" else None
     if media and form.get("MediaContentType0", "").startswith("image/"):
         try:
-            data = await _twilio_media(media)
+            data = await (fetch_media or _twilio_media)(media)
             # One result per Twilio message, so a webhook retry returns the same answer.
             client_id = str(uuid.uuid5(uuid.NAMESPACE_URL, "twilio:" + form.get("MessageSid", str(uuid.uuid4()))))
             fields = {"client_id": client_id, "crop": prefs["crop"], "lang": prefs["lang"], "lat": prefs["lat"],
@@ -488,3 +490,80 @@ async def _wa_reply(form: dict) -> str:
     else:
         reply = t("wa.welcome" if first_time else "wa.help", crop=t(f"home.crop_{prefs['crop']}"))
     return reply
+
+
+# ---------- WhatsApp through Meta's Cloud API (free test number; Twilio's trial only sends its own templates) ----------
+# Env: META_WA_TOKEN (access token), META_WA_PHONE_ID (the test number's Phone number ID),
+# META_VERIFY_TOKEN (any string, also typed into Meta's webhook form), META_APP_SECRET (optional, checks signatures).
+GRAPH = "https://graph.facebook.com/v21.0"
+
+
+def _meta_headers() -> dict:
+    return {"Authorization": f"Bearer {os.environ['META_WA_TOKEN']}"}
+
+
+async def _meta_media(media_id: str) -> bytes:
+    async with httpx.AsyncClient(timeout=15, headers=_meta_headers(), follow_redirects=True) as c:
+        info = await c.get(f"{GRAPH}/{media_id}")
+        info.raise_for_status()
+        r = await c.get(info.json()["url"])
+        r.raise_for_status()
+        return r.content[: MAX_IMAGE_BYTES + 1]
+
+
+async def _meta_send(to: str, body: str) -> None:
+    async with httpx.AsyncClient(timeout=15, headers=_meta_headers()) as c:
+        r = await c.post(f"{GRAPH}/{os.environ['META_WA_PHONE_ID']}/messages", json={
+            "messaging_product": "whatsapp", "to": to, "type": "text", "text": {"body": body}})
+        if r.status_code >= 400:
+            log.warning("meta send failed %s: %s", r.status_code, r.text[:300])
+
+
+def meta_to_form(msg: dict) -> dict:
+    """One Meta message object -> the Twilio-style fields _wa_reply reads."""
+    form = {"From": "whatsapp:+" + msg.get("from", ""), "MessageSid": "meta:" + msg.get("id", ""), "Body": "", "NumMedia": "0"}
+    kind = msg.get("type")
+    if kind == "text":
+        form["Body"] = msg.get("text", {}).get("body", "")
+    elif kind == "image":
+        form.update(NumMedia="1", MediaUrl0=msg["image"]["id"], MediaContentType0=msg["image"].get("mime_type", "image/jpeg"),
+                    Body=msg["image"].get("caption", ""))
+    elif kind == "location":
+        form.update(Latitude=str(msg["location"]["latitude"]), Longitude=str(msg["location"]["longitude"]))
+    return form
+
+
+async def _meta_answer(msg: dict) -> None:
+    try:
+        await _meta_send(msg["from"], await _wa_reply(meta_to_form(msg), fetch_media=_meta_media))
+    except Exception as e:
+        log.warning("meta reply failed (%s): %s", type(e).__name__, e)
+
+
+@app.get("/api/whatsapp/meta")
+async def meta_verify(request: Request):
+    """Meta's one-time webhook check: echo hub.challenge when the verify token matches."""
+    q = request.query_params
+    if q.get("hub.mode") == "subscribe" and q.get("hub.verify_token") == os.environ.get("META_VERIFY_TOKEN", "\0"):
+        return Response(q.get("hub.challenge", ""), media_type="text/plain")
+    raise HTTPException(status_code=403, detail="bad verify token")
+
+
+@app.post("/api/whatsapp/meta")
+async def meta_webhook(request: Request, background: BackgroundTasks):
+    """Answers each incoming message after a quick 200 (Meta retries slow webhooks)."""
+    raw = await request.body()
+    secret = os.environ.get("META_APP_SECRET")
+    if secret:
+        want = "sha256=" + hmac.new(secret.encode(), raw, hashlib.sha256).hexdigest()
+        if not hmac.compare_digest(want, request.headers.get("X-Hub-Signature-256", "")):
+            raise HTTPException(status_code=403, detail="bad signature")
+    try:
+        payload = json.loads(raw or b"{}")
+    except ValueError:
+        _bad("not json")
+    for entry in payload.get("entry", []):
+        for change in entry.get("changes", []):
+            for msg in change.get("value", {}).get("messages", []):  # status updates have no "messages"
+                background.add_task(_meta_answer, msg)
+    return {"ok": True}
