@@ -5,10 +5,12 @@ Run from backend/:  uvicorn main:app --reload --port 8000
 import asyncio
 import hashlib
 import hmac
+import html
 import io
 import json
 import logging
 import os
+import re
 import sys
 import time
 import uuid
@@ -129,7 +131,9 @@ def _load_components() -> None:
 async def lifespan(app: FastAPI):
     db.init()
     _load_components()
+    hook = asyncio.create_task(_telegram_set_webhook())
     yield
+    hook.cancel()
 
 
 app = FastAPI(title="AgriSense API", version=str(CONTRACT_VERSION), lifespan=lifespan)
@@ -566,4 +570,86 @@ async def meta_webhook(request: Request, background: BackgroundTasks):
         for change in entry.get("changes", []):
             for msg in change.get("value", {}).get("messages", []):  # status updates have no "messages"
                 background.add_task(_meta_answer, msg)
+    return {"ok": True}
+
+
+# ---------- Telegram bot (same answers as the WhatsApp bot) ----------
+# Env: TELEGRAM_BOT_TOKEN (from @BotFather), TELEGRAM_WEBHOOK_URL (https://<api>/api/telegram; registered with
+# Telegram on startup), TELEGRAM_SECRET (optional; Telegram sends it back on every call so we know it's Telegram).
+TG = "https://api.telegram.org"
+
+
+def _tg_url(method: str) -> str:
+    return f"{TG}/bot{os.environ['TELEGRAM_BOT_TOKEN']}/{method}"
+
+
+async def _telegram_set_webhook() -> None:
+    url, token = os.environ.get("TELEGRAM_WEBHOOK_URL"), os.environ.get("TELEGRAM_BOT_TOKEN")
+    if not (url and token):
+        return
+    data = {"url": url, "allowed_updates": json.dumps(["message"])}
+    if os.environ.get("TELEGRAM_SECRET"):
+        data["secret_token"] = os.environ["TELEGRAM_SECRET"]
+    try:
+        async with httpx.AsyncClient(timeout=15) as c:
+            r = await c.post(_tg_url("setWebhook"), data=data)
+            log.info("telegram setWebhook %s: %s", r.status_code, r.text[:200])
+    except Exception as e:
+        log.warning("telegram setWebhook failed (%s): %s", type(e).__name__, e)
+
+
+async def _telegram_media(file_id: str) -> bytes:
+    async with httpx.AsyncClient(timeout=15) as c:
+        r = await c.get(_tg_url("getFile"), params={"file_id": file_id})
+        r.raise_for_status()
+        path = r.json()["result"]["file_path"]
+        f = await c.get(f"{TG}/file/bot{os.environ['TELEGRAM_BOT_TOKEN']}/{path}")
+        f.raise_for_status()
+        return f.content[: MAX_IMAGE_BYTES + 1]
+
+
+def telegram_html(text: str) -> str:
+    """The WhatsApp reply uses *bold*; Telegram gets the same as HTML."""
+    return re.sub(r"\*([^*\n]+)\*", r"<b>\1</b>", html.escape(text, quote=False))
+
+
+async def _telegram_send(chat_id: int, body: str) -> None:
+    async with httpx.AsyncClient(timeout=15) as c:
+        r = await c.post(_tg_url("sendMessage"), data={"chat_id": chat_id, "text": telegram_html(body), "parse_mode": "HTML"})
+        if r.status_code >= 400:
+            log.warning("telegram send failed %s: %s", r.status_code, r.text[:300])
+
+
+def telegram_to_form(msg: dict) -> dict:
+    """One Telegram message -> the Twilio-style fields _wa_reply reads."""
+    form = {"From": f"telegram:{msg.get('from', {}).get('id', msg['chat']['id'])}", "Body": msg.get("text") or msg.get("caption") or "",
+            "MessageSid": f"telegram:{msg['chat']['id']}:{msg.get('message_id')}", "NumMedia": "0"}
+    if msg.get("photo"):  # sizes, smallest first
+        form.update(NumMedia="1", MediaUrl0=msg["photo"][-1]["file_id"], MediaContentType0="image/jpeg")
+    elif (msg.get("document") or {}).get("mime_type", "").startswith("image/"):  # photo sent as a file
+        form.update(NumMedia="1", MediaUrl0=msg["document"]["file_id"], MediaContentType0=msg["document"]["mime_type"])
+    if msg.get("location"):
+        form.update(Latitude=str(msg["location"]["latitude"]), Longitude=str(msg["location"]["longitude"]))
+    return form
+
+
+async def _telegram_answer(msg: dict) -> None:
+    try:
+        await _telegram_send(msg["chat"]["id"], await _wa_reply(telegram_to_form(msg), fetch_media=_telegram_media))
+    except Exception as e:
+        log.warning("telegram reply failed (%s): %s", type(e).__name__, e)
+
+
+@app.post("/api/telegram")
+async def telegram_webhook(request: Request, background: BackgroundTasks):
+    secret = os.environ.get("TELEGRAM_SECRET")
+    if secret and not hmac.compare_digest(secret, request.headers.get("X-Telegram-Bot-Api-Secret-Token", "")):
+        raise HTTPException(status_code=403, detail="bad secret")
+    try:
+        update = await request.json()
+    except ValueError:
+        _bad("not json")
+    msg = update.get("message")
+    if msg and msg.get("chat"):
+        background.add_task(_telegram_answer, msg)
     return {"ok": True}

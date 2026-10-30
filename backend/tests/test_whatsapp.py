@@ -175,3 +175,40 @@ def test_meta_webhook_text_then_photo(client, monkeypatch):
     sig = "sha256=" + hmac.new(b"app-secret", body, hashlib.sha256).hexdigest()
     ok = client.post("/api/whatsapp/meta", content=body, headers={"Content-Type": "application/json", "X-Hub-Signature-256": sig})
     assert ok.status_code == 200 and len(sent) == 3
+
+
+def test_telegram_bot_text_then_photo(client, monkeypatch):
+    import main
+    monkeypatch.delenv("TELEGRAM_SECRET", raising=False)
+    monkeypatch.setattr(main.S, "predict", lambda img: classifier(("potato__late_blight", 0.99999), ("potato__early_blight", 0.0)))
+    sent = []
+
+    async def send(chat_id, body):
+        sent.append((chat_id, body))
+
+    async def media(file_id):
+        assert file_id == "BIG"
+        return jpeg_bytes()
+    monkeypatch.setattr(main, "_telegram_send", send)
+    monkeypatch.setattr(main, "_telegram_media", media)
+
+    chat = {"id": 555}
+    me = {"id": 777}
+    assert client.post("/api/telegram", json={"message": {"message_id": 1, "chat": chat, "from": me, "text": "/start"}}).status_code == 200
+    assert client.post("/api/telegram", json={"message": {"message_id": 2, "chat": chat, "from": me, "text": "potato"}}).status_code == 200
+    photo = {"message_id": 3, "chat": chat, "from": me, "photo": [{"file_id": "SMALL"}, {"file_id": "BIG"}]}
+    assert client.post("/api/telegram", json={"message": photo}).status_code == 200
+    assert [s[0] for s in sent] == [555, 555, 555]
+    assert "late blight" in sent[2][1].lower()
+    assert client.post("/api/telegram", json={"edited_message": {}}).status_code == 200  # ignored
+    assert len(sent) == 3
+
+    monkeypatch.setenv("TELEGRAM_SECRET", "s3")
+    assert client.post("/api/telegram", json={"message": photo}).status_code == 403
+    ok = client.post("/api/telegram", json={"message": photo}, headers={"X-Telegram-Bot-Api-Secret-Token": "s3"})
+    assert ok.status_code == 200 and len(sent) == 4
+
+
+def test_telegram_html_keeps_bold_and_escapes():
+    import main
+    assert main.telegram_html("*Late blight* <spray> & go") == "<b>Late blight</b> &lt;spray&gt; &amp; go"
