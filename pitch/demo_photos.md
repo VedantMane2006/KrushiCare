@@ -5,7 +5,7 @@ This document defines the official 10-photo demonstration dataset for **AgriSens
 **Location of Photos:** `pitch/demo_photos/`  
 **Evaluation Date:** 2026-10-30  
 **Model Version:** `v1` (`ml/models/model.onnx`, MobileNetV3-Large, calibrated temperature $T = 0.4026$)  
-**Active Thresholds:** `unknown_photo: 0.45`, `likely_medium: 0.9999`, `likely_high: 1.0`, `likely_high_margin: 1.0` (from `ml/models/thresholds.json`)  
+**Active Thresholds:** `unknown_photo: 0.45`, `likely_high: 0.9999`, `likely_high_margin: 0.999`, `likely_medium: 0.99` (from `ml/models/thresholds.json`; verdicts below re-run through the app's backend on 2026-10-30)  
 
 ---
 
@@ -14,13 +14,13 @@ This document defines the official 10-photo demonstration dataset for **AgriSens
 | # | Filename | Crop | Ground-Truth Label | Quality Result | Model Top-1 Prediction (Prob) | Margin | Application Verdict | Demonstration Purpose |
 |---|---|---|---|---|---|---|---|---|
 | **01** | `demo_01_tomato_late_blight.png` | Tomato | `tomato__late_blight` | **OK** (`blur: 666.01`) | `tomato__late_blight` (`1.0000`) | `1.0000` | **`likely` (`high`)** | Clear late blight detection; demonstrates high-confidence diagnosis, weather risk, and cited disease treatment steps. |
-| **02** | `demo_02_tomato_septoria.png` | Tomato | `tomato__septoria_leaf_spot` | **OK** (`blur: 1311.60`) | `tomato__septoria_leaf_spot` (`0.9998`) | `0.9997` | **`uncertain` (`low`)** | Demonstrates conservative thresholding: score is 0.9998 (just below 0.9999 threshold), showing honest confidence, top-3 closest matches, and Kisan Call Centre (KCC) button. |
+| **02** | `demo_02_tomato_septoria.png` | Tomato | `tomato__septoria_leaf_spot` | **OK** (`blur: 1311.60`) | `tomato__septoria_leaf_spot` (`0.9998`) | `0.9997` | **`likely` (`medium`)** | Septoria diagnosed at medium confidence (0.9998 is above 0.99 but below 0.9999): the app shows the diagnosis with a softer banner and advice. |
 | **03** | `demo_03_tomato_spider_mites.png` | Tomato | `tomato__spider_mites` | **OK** (`blur: 1957.09`) | `tomato__spider_mites` (`1.0000`) | `1.0000` | **`likely` (`high`)** | Pest infestation diagnosis showing distinct stippling/bronzing, cultural sanitation, and non-chemical pest management. |
 | **04** | `demo_04_tomato_healthy.png` | Tomato | `tomato__healthy` | **OK** (`blur: 830.04`) | `tomato__healthy` (`1.0000`) | `1.0000` | **`likely` (`high`)** | Reassures the farmer that the crop is healthy; provides Good Agricultural Practices (GAP) and preventive tips. |
-| **05** | `demo_05_tomato_target_spot.png` | Tomato | `tomato__target_spot` | **OK** (`blur: 1728.44`) | `tomato__target_spot` (`0.9994`) | `0.9988` | **`uncertain` (`low`)** | Concentric lesion pattern; triggers cautious uncertainty mode, demonstrating expert referral and secondary matches. |
+| **05** | `demo_05_tomato_target_spot.png` | Tomato | `tomato__target_spot` | **OK** (`blur: 1728.44`) | `tomato__target_spot` (`0.9994`) | `0.9988` | **`likely` (`medium`)** | Concentric target-spot lesions diagnosed at medium confidence (0.9994): shows the softer medium banner with advice. |
 | **06** | `demo_06_potato_early_blight.jpg` | Potato | `potato__early_blight` | **OK** (`blur: 6564.60`) | `potato__early_blight` (`1.0000`) | `1.0000` | **`likely` (`high`)** | Core potato disease diagnosis; exhibits concentric bull's-eye rings and triggers potato-specific crop advice and insurance links. |
 | **07** | `demo_07_potato_late_blight.jpg` | Potato | `potato__late_blight` | **OK** (`blur: 1550.70`) | `potato__late_blight` (`1.0000`) | `1.0000` | **`likely` (`high`)** | Critical potato late blight infection; triggers high-priority fungicide timing, haulm-cutting guidance, and 3-day weather risk alert. |
-| **08** | `demo_08_potato_healthy.jpg` | Potato | `potato__healthy` | **OK** (`blur: 8886.74`) | `potato__healthy` (`0.9996`) | `0.9993` | **`uncertain` (`low`)** | Realistic potato foliage; scores 0.9996, demonstrating safe referral and prevention tips without false certainty. |
+| **08** | `demo_08_potato_healthy.jpg` | Potato | `potato__healthy` | **OK** (`blur: 8886.74`) | `potato__healthy` (`0.9996`) | `0.9993` | **`likely` (`medium`)** | Healthy potato at medium confidence (0.9996): reassurance plus prevention tips, without overclaiming. |
 | **09** | `demo_09_tomato_bacterial_spot.jpg` | Tomato | `tomato__bacterial_spot` | **OK** (`blur: 742.37`) | `tomato__spider_mites` (`0.7174`) | `0.4377` | **`uncertain` (`low`)** | Challenging field sample with dual visual symptoms (spotting + chlorosis); model honestly defers to low confidence and presents top-3 options. |
 | **10** | `demo_10_poor_quality_blurry.png` | Tomato | `tomato__late_blight` | **FAILED** (`blur: 1.63 < 60`) | *Skipped by quality gate* | *N/A* | **`retake` (`None`)** | Quality gate rejection test: blur is below threshold (1.63 < 60.0), model execution is skipped, and user receives clear retake advice in chosen language (`quality.too_blurry`). |
 
@@ -70,7 +70,7 @@ This document defines the official 10-photo demonstration dataset for **AgriSens
     2. `tomato__early_blight` (`prob: 0.0001`)
     3. `potato__early_blight` (`prob: 0.0000`)
   * `margin`: `0.9997`
-  * `verdict`: `{"status": "uncertain", "label": "tomato__septoria_leaf_spot", "confidence": "low"}`
+  * `verdict`: `{"status": "likely", "label": "tomato__septoria_leaf_spot", "confidence": "medium"}`
 
 ---
 
@@ -139,7 +139,7 @@ This document defines the official 10-photo demonstration dataset for **AgriSens
     2. `tomato__septoria_leaf_spot` (`prob: 0.0006`)
     3. `tomato__late_blight` (`prob: 0.0000`)
   * `margin`: `0.9988`
-  * `verdict`: `{"status": "uncertain", "label": "tomato__target_spot", "confidence": "low"}`
+  * `verdict`: `{"status": "likely", "label": "tomato__target_spot", "confidence": "medium"}`
 
 ---
 
@@ -208,7 +208,7 @@ This document defines the official 10-photo demonstration dataset for **AgriSens
     2. `tomato__early_blight` (`prob: 0.0003`)
     3. `tomato__yellow_leaf_curl_virus` (`prob: 0.0000`)
   * `margin`: `0.9993`
-  * `verdict`: `{"status": "uncertain", "label": "potato__healthy", "confidence": "low"}`
+  * `verdict`: `{"status": "likely", "label": "potato__healthy", "confidence": "medium"}`
 
 ---
 
@@ -260,7 +260,7 @@ This document defines the official 10-photo demonstration dataset for **AgriSens
    - All 10 images are ready in `pitch/demo_photos/`.
    - The set tests all 3 main verdict branches:
      - `likely` (high confidence with full treatment & prevention steps): `demo_01`, `demo_03`, `demo_04`, `demo_06`, `demo_07`.
-     - `uncertain` (honest low confidence with top 3 closest matches and KCC hotline button): `demo_02`, `demo_05`, `demo_08`, `demo_09`.
+     - `uncertain` (honest low confidence with top 3 closest matches and KCC hotline button): `demo_09`. (`demo_02`, `demo_05` and `demo_08` show `likely` at `medium` confidence.)
      - `retake` (quality gate rejection with i18n retake instruction): `demo_10`.
 2. **For Krisha (Model Calibration & Quantization)**:
    - When quantized INT8 model (`model_int8.onnx`) is exported at H9, re-verify inference on this manifest.
