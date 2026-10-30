@@ -1,4 +1,4 @@
-# KrushiCare ML Evaluation Report — v1
+# KrushiCare ML Evaluation Report — v1 (patched 2026-10-30)
 
 **Model:** MobileNetV3-Large (timm `mobilenetv3_large_100`)  
 **Version:** v1 (calibrated)  
@@ -23,10 +23,12 @@ PlantVillage images are photographed under controlled lighting against plain bac
 
 PlantDoc is a publicly available benchmark of real-world plant disease images collected from the web. It is substantially harder than PlantVillage due to cluttered backgrounds, variable lighting, and mixed image quality.
 
-| Split | Purpose | Samples |
-|---|---|---|
-| Development validation | Threshold selection | 165 |
-| **Official final test** | **Held-out evaluation** | **85** |
+| Split | Purpose | Samples | Record file |
+|---|---|---|---|
+| Development validation | Threshold selection + reliability evaluation | 165 | `final_v1_field_validation.csv` |
+| **Official final test** | **Held-out evaluation** | **85** | `final_plantdoc_test_predictions.csv` |
+
+Both files contain per-image records with columns: `path`, `label`, `predicted_label`, `confidence`, `margin`, `correct`, `crop_match`, `verdict`.
 
 > **Critical limitation:** The PlantDoc final test contains only **10 of the 13 model classes**. The three absent classes are `tomato__spider_mites`, `tomato__target_spot`, and `potato__healthy`. Results for these classes cannot be evaluated from this benchmark.
 
@@ -146,14 +148,43 @@ See chart: `ml/evaluation/confidence_bucket_table.png`
 
 ## 6. Charts
 
-| File | Description |
-|---|---|
-| `confusion_matrix.png` | Diagonal TPs per class on PlantDoc test. Off-diagonal counts are not available from summary statistics and are shown as blank — not fabricated. |
-| `per_class_metrics.png` | Precision / Recall / F1 bar chart for all 10 present classes. |
-| `model_comparison.png` | Side-by-side accuracy: v0 controlled, v1 PlantVillage val, v1 PlantDoc dev-val, v1 PlantDoc final test. |
-| `confidence_bucket_table.png` | Verdict distribution and precision on the 85-sample final test. |
+| File | Description | Source |
+|---|---|---|
+| `confusion_matrix.png` | Full 13×13 confusion matrix with real off-diagonal errors. 3 absent-class rows/cols shaded grey. Colour = row-normalised recall; numbers = raw counts. | `final_plantdoc_test_predictions.csv` |
+| `per_class_metrics.png` | Precision / Recall / F1 bar chart for all 10 present classes. | `final_plantdoc_test_per_class.csv` |
+| `model_comparison.png` | Side-by-side accuracy: v0 controlled, v1 PlantVillage val, v1 PlantDoc dev-val, v1 PlantDoc final test. | multiple JSONs |
+| `confidence_bucket_table.png` | Verdict distribution and precision on the 85-sample final test. | `final_plantdoc_test_metrics.json` |
+| `reliability_diagram.png` | Post-calibration reliability diagram. 10 equal-width confidence bins, empirical accuracy vs mean confidence, ideal y=x line, ECE annotation. | `final_v1_field_validation.csv` |
 
-A **reliability / calibration plot** was not generated because per-image softmax probabilities paired with true labels are not stored in this repository. Any ECE or calibration curve computed from only aggregate statistics would be fabricated.
+---
+
+## 6b. Reliability (Calibration) on Field Images
+
+**Source:** `ml/evaluation/final_v1_field_validation.csv` — 165 per-image records from the PlantDoc development-validation split.
+
+**Method:** 10 equal-width confidence bins [0.0, 0.1), …, [0.9, 1.0]. For each non-empty bin, accuracy = fraction of `correct == True` images; mean confidence = mean top-1 softmax probability. ECE computed as:
+
+```
+ECE = Σ_b  (|bin_b| / N)  ×  |acc_b − conf_b|
+```
+
+| Bin | n | Mean conf | Accuracy | Gap |
+|---|---|---|---|---|
+| [0.3, 0.4) | 2 | 0.322 | 1.000 | 0.678 |
+| [0.4, 0.5) | 7 | 0.454 | 0.143 | 0.311 |
+| [0.5, 0.6) | 13 | 0.559 | 0.385 | 0.175 |
+| [0.6, 0.7) | 12 | 0.647 | 0.250 | 0.397 |
+| [0.7, 0.8) | 19 | 0.738 | 0.316 | 0.422 |
+| [0.8, 0.9) | 15 | 0.846 | 0.533 | 0.312 |
+| [0.9, 1.0] | 97 | 0.978 | 0.515 | 0.462 |
+
+**ECE = 0.4127** (post-calibration, PlantDoc dev-val, 165 images)
+
+> ⚠ This is **post-calibration only**. An uncalibrated reliability curve is not shown because the raw pre-calibration logits are not stored in this repository; plotting a fabricated uncalibrated curve would misrepresent performance.
+
+> The high ECE (0.41) indicates the model remains significantly overconfident on PlantDoc field images even after temperature scaling — consistent with calibration being measured on PlantVillage (in-distribution) images.
+
+See chart: `ml/evaluation/reliability_diagram.png`
 
 ---
 
@@ -167,7 +198,7 @@ A **reliability / calibration plot** was not generated because per-image softmax
 
 4. **Non-leaf rejection not evaluated.** The `unsupported` threshold (0.45) was not tested against images that are not plant leaves. It may fail to reject animal photos, blank images, etc.
 
-5. **Calibration not verified on field data.** Temperature scaling was tuned on PlantVillage validation. Calibration quality on field or web images is unknown.
+5. **Calibration not verified on field data.** Temperature scaling was tuned on PlantVillage validation (in-distribution). ECE on PlantDoc field images is 0.41, indicating significant residual overconfidence on out-of-distribution inputs.
 
 6. **Quality gate not evaluated.** The blur/brightness/leaf-ratio quality check (`ml/preprocessing/quality.py`) was not run on the PlantDoc benchmark, so combined pipeline performance is not measured here.
 
@@ -177,8 +208,9 @@ A **reliability / calibration plot** was not generated because per-image softmax
 
 ## 8. Conclusion
 
-KrushiCare's MobileNetV3-Large v1 model achieves near-perfect accuracy on controlled PlantVillage-style images (~99%) but **43.53% accuracy on the PlantDoc real-field benchmark**. This gap is expected and common for models trained on clean datasets. The calibrated probability output (T=0.4026) improves NLL significantly on PlantVillage data. The conservative threshold (likely_medium=0.9999) limits automatic diagnosis coverage to ~7% of inputs but maintains 83% precision on that subset in the held-out test. The system is designed to escalate uncertain and unsupported cases to the KCC helpline, so low coverage is an acceptable safety trade-off for a first deployment.
+KrushiCare's MobileNetV3-Large v1 model achieves near-perfect accuracy on controlled PlantVillage-style images (~99%) but **43.53% accuracy on the PlantDoc real-field benchmark**. This gap is expected and common for models trained on clean datasets. The calibrated probability output (T=0.4026) improves NLL significantly on PlantVillage data (0.1137 → 0.0367), but the ECE on PlantDoc field images remains high (0.41), indicating residual overconfidence on out-of-distribution inputs. The conservative threshold (likely_medium=0.9999) limits automatic diagnosis coverage to ~7% of inputs but maintains 83% precision on that subset in the held-out test. The system is designed to escalate uncertain and unsupported cases to the KCC helpline, so low coverage is an acceptable safety trade-off for a first deployment.
 
 ---
 
-*Generated from real evaluation artifacts only. No metrics were fabricated or estimated.*
+*Generated from real evaluation artifacts only. No metrics were fabricated or estimated.*  
+*Patched 2026-10-30: full confusion matrix and reliability diagram added from `final_plantdoc_test_predictions.csv` and `final_v1_field_validation.csv` (extracted from `KrushiCare_Krisha_ML_Handoff.zip`).*

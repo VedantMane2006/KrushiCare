@@ -1,0 +1,15 @@
+{
+  "model": "mobilenetv3_large_100",
+  "version": "v0_clean",
+  "best_epoch": 5,
+  "test_samples": 2608,
+  "correct": 2594,
+  "incorrect": 14,
+  "accuracy": 0.9946319018404908,
+  "macro_precision": 0.9942636940152751,
+  "macro_recall": 0.9961012340736238,
+  "macro_f1": 0.9951573785052569,
+  "dataset": "New Plant Diseases (Augmented)",
+  "split": "source-grouped held-out test",
+  "calibrated": false
+}

@@ -1,0 +1,8 @@
+{
+  "total_images": 26195,
+  "source_groups": 17384,
+  "exact_cross_split_matches": 0,
+  "near_duplicate_pairs": 0,
+  "audit_passed": true,
+  "phash_distance_threshold": 2
+}

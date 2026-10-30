@@ -76,7 +76,25 @@
 | After temperature scaling (T = 0.403) | **0.0367** |
 | Improvement | **68% reduction in NLL** |
 
-*Calibration measured on PlantVillage validation (2 608 samples). Field calibration not yet verified.*
+*Calibration (NLL) measured on PlantVillage validation (2 608 samples).*
+
+---
+
+## Slide: Reliability on Field Images (Honest Assessment)
+
+**Source:** 165-image PlantDoc development-validation set (per-image confidence records)
+
+| Metric | Value |
+|---|---|
+| ECE (post-calibration, field images) | **0.4127** |
+| Confidence bins with data | 7 / 10 |
+| Dominant bin [0.9–1.0] | 97 images, 51.5% accurate |
+
+- Model outputs **high confidence (>0.9) on 59% of field images** but is correct only 51.5% of the time in that range
+- Temperature scaling improved NLL on PlantVillage but did not transfer calibration to field images
+- ECE = 0.41 means the model is overconfident by ~41 percentage points on average
+
+> Interpretation: a farmer seeing a confident-looking result should still treat it as a suggestion, not a diagnosis.
 
 ---
 
@@ -109,11 +127,14 @@
 | `ml/evaluation/model_comparison.png` | "Why the gap?" slide |
 | `ml/evaluation/per_class_metrics.png` | Per-class highlights slide |
 | `ml/evaluation/confidence_bucket_table.png` | "What the model does in the field" slide |
-| `ml/evaluation/confusion_matrix.png` | Technical appendix / backup slide |
+| `ml/evaluation/reliability_diagram.png` | Calibration / honest assessment slide |
+| `ml/evaluation/confusion_matrix.png` | Technical appendix / backup slide (full 13×13 real matrix) |
 
 ---
 
 *All numbers from `ml/evaluation/final_plantdoc_test_metrics.json`,
 `ml/evaluation/final_plantdoc_test_per_class.csv`,
+`ml/evaluation/final_plantdoc_test_predictions.csv`,
+`ml/evaluation/final_v1_field_validation.csv`,
 `ml/evaluation/threshold_validation_report.json`,
 `ml/models/calibration_report.json`.*

@@ -1,0 +1,142 @@
+{
+  "created_at": "2026-10-29T20:55:23+00:00",
+  "model_version": "v1",
+  "file_count": 27,
+  "files": [
+    {
+      "path": "ml/models/model.onnx",
+      "bytes": 16865119,
+      "sha256": "846a010953e72e4d64e059ff73b33b162ab35a54352a68a8f4c6098bb3b4f1e8"
+    },
+    {
+      "path": "ml/models/model_meta.json",
+      "bytes": 865,
+      "sha256": "1a7d30ba4bc03f4881ec84b08dae5f96e0ef89d084c0f857fa7ad54edb8481da"
+    },
+    {
+      "path": "ml/models/labels.json",
+      "bytes": 342,
+      "sha256": "8ab6deec82a4d79aca76774bf2133667e6759a0fad249cb963e61123f366e30b"
+    },
+    {
+      "path": "ml/models/thresholds.json",
+      "bytes": 105,
+      "sha256": "e16cf91373beb8b22e27f57d07c8e94bcf11d55578d03db91a2b4e337e5b1c00"
+    },
+    {
+      "path": "ml/models/calibration_report.json",
+      "bytes": 245,
+      "sha256": "814bb9722df938545cb927b659aff6c89031a53cd8b53a4843af05d827716973"
+    },
+    {
+      "path": "ml/parity/expected.json",
+      "bytes": 2154,
+      "sha256": "1acd53b766bb2526a67fc4cf2e9ec44810c96ede225ffe202330abd4c8ba79de"
+    },
+    {
+      "path": "ml/evaluation/final_plantdoc_test_metrics.json",
+      "bytes": 627,
+      "sha256": "873422d6e0e67800f9b1f0bb1d72609178a0f7f2a003bf99bc26808b7def41b8"
+    },
+    {
+      "path": "ml/evaluation/final_plantdoc_test_predictions.csv",
+      "bytes": 17902,
+      "sha256": "8868784d00162ab0d7369b12499de413392ba754b6280a994d75eeec951e08a4"
+    },
+    {
+      "path": "ml/evaluation/final_plantdoc_test_per_class.csv",
+      "bytes": 943,
+      "sha256": "f0fcf21065530777e324d0c754fa7b9959de14a4767ccb7ef2eba6fbec2dbbf4"
+    },
+    {
+      "path": "ml/evaluation/final_plantdoc_test_confusion.png",
+      "bytes": 150726,
+      "sha256": "44049b78b8b3beaeac6c6e2d5cd7d048b8a989b93125c7670afbd674ae41b742"
+    },
+    {
+      "path": "ml/evaluation/threshold_validation_report.json",
+      "bytes": 612,
+      "sha256": "54e5a078f88f5f5b16bcd20687ba2eb10df3757ade5e0268f7234dd0c3e9078f"
+    },
+    {
+      "path": "ml/parity/p1.png",
+      "bytes": 82075,
+      "sha256": "c02aed6a1eb8b65b27f78357aeac89d49118053db8e17725779bfc5e7f9e0fdc"
+    },
+    {
+      "path": "ml/parity/p2.png",
+      "bytes": 83497,
+      "sha256": "e6e6a40b7a5403e088221f9f5908ec89b4059d41415f08f68df85135f35aaeda"
+    },
+    {
+      "path": "ml/parity/p3.png",
+      "bytes": 93537,
+      "sha256": "a446535cb922b78611b35baf57772da682a964fe486770f42a54d78466abfed9"
+    },
+    {
+      "path": "ml/parity/p4.png",
+      "bytes": 69822,
+      "sha256": "a7f2428c0cbf7a166c4bb6c42c0f899eeb0f56661d6cd0c4a13792c295345628"
+    },
+    {
+      "path": "ml/parity/p5.png",
+      "bytes": 93774,
+      "sha256": "305e67ec5b96a70a389ae0326d412db7bbf90ae35e0b1de90ac342177aca1212"
+    },
+    {
+      "path": "ml/training/checkpoints/mobilenetv3_v1_clean_best.pth",
+      "bytes": 17086059,
+      "sha256": "8f85e401f66c429860c56d849c5de5c7e18488f408690cdf148bbc45014c583b"
+    },
+    {
+      "path": "ml/training/v1_clean_history.csv",
+      "bytes": 360,
+      "sha256": "a90f5f0902613f3f4420c8586f0ce71da241d10e5950625d66ac11088a013808"
+    },
+    {
+      "path": "ml/training/splits_clean.csv",
+      "bytes": 7759863,
+      "sha256": "c99a5664282779b4af5d4181650dbf65392183b010d68cbe3f3ad20b1c849a72"
+    },
+    {
+      "path": "ml/evaluation/v0_clean_test_metrics.json",
+      "bytes": 404,
+      "sha256": "3b7f7a5186d827af10b8b2072a0fc6941b439bbdff73e3d6e4700a8bd246ddf1"
+    },
+    {
+      "path": "ml/evaluation/v0_clean_per_class.csv",
+      "bytes": 826,
+      "sha256": "da7dbca33068ad4baf1cdf2275e19c004b8003d03f6ceb73f77dcfe4f94d32a0"
+    },
+    {
+      "path": "ml/evaluation/v0_clean_confusion_matrix.png",
+      "bytes": 196960,
+      "sha256": "f5068c6a5cb4014192aa4dd2698e57d08de0f78de5c5a4ae26e8a6ff49cdf06a"
+    },
+    {
+      "path": "ml/evaluation/clean_split_audit.json",
+      "bytes": 173,
+      "sha256": "a1778d74e621dd304aa637bf52a1924abc78a402cc1fa4630996d22c77e31efe"
+    },
+    {
+      "path": "ml/evaluation/final_v1_field_validation.csv",
+      "bytes": 36220,
+      "sha256": "3639337b6c59c7a40f786bdddd08f40b83f22470879587d2703347124c9f5ef6"
+    },
+    {
+      "path": "ml/evaluation/threshold_validation_audit.csv",
+      "bytes": 675,
+      "sha256": "2a7c34bf59437b42dd4bbe4bdc296c5000037ca922a2200c11d0f4188acf533f"
+    },
+    {
+      "path": "ml/evaluation/plantdoc_full_duplicate_audit.csv",
+      "bytes": 10903,
+      "sha256": "f3925c6c69005393fd5f5b4610038ce97dbdec71f9423f2dc04e154107b15088"
+    },
+    {
+      "path": "ml/evaluation/plantdoc_label_conflicts.csv",
+      "bytes": 6501,
+      "sha256": "e096301c98e43249b47a5ab1a9ca61b6b4bd8a101533350ae064a73bd5b5e0dc"
+    }
+  ]
+}
