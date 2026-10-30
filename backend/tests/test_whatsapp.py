@@ -100,3 +100,32 @@ def test_signed_webhook_replies_through_the_messages_api(client, monkeypatch):
     r = client.post("/api/whatsapp", data=form, headers={"X-Twilio-Signature": sig})
     assert r.status_code == 200 and "<Message>" not in r.text
     assert len(sent) == 1 and sent[0][0] == form["From"] and sent[0][1]
+
+
+def test_send_falls_back_to_a_template_when_twilio_wants_one(monkeypatch):
+    import asyncio
+    import json
+
+    import httpx
+    import main
+    monkeypatch.setenv("TWILIO_ACCOUNT_SID", "ACtest")
+    monkeypatch.setenv("TWILIO_AUTH_TOKEN", "tok")
+    monkeypatch.delenv("TWILIO_CONTENT_SID", raising=False)
+    monkeypatch.setattr(main, "_wa_content_sid", None)
+    calls = []
+
+    def handler(req):
+        calls.append(req)
+        if req.url.host == "content.twilio.com":
+            return httpx.Response(201, json={"sid": "HXabc"})
+        if b"ContentSid" not in req.content:
+            return httpx.Response(400, json={"code": 21654, "message": "ContentSid Required"})
+        return httpx.Response(201, json={"sid": "SMok"})
+    real = httpx.AsyncClient
+    monkeypatch.setattr(main.httpx, "AsyncClient", lambda **kw: real(transport=httpx.MockTransport(handler), **kw))
+
+    asyncio.run(main._twilio_send({"From": "whatsapp:+91", "To": "whatsapp:+1"}, "फसल ठीक है"))
+    assert [c.url.host for c in calls] == ["api.twilio.com", "content.twilio.com", "api.twilio.com"]
+    sent = dict(httpx.QueryParams(calls[-1].content.decode()))
+    assert sent["ContentSid"] == "HXabc" and json.loads(sent["ContentVariables"]) == {"1": "फसल ठीक है"}
+    assert sent["To"] == "whatsapp:+91"

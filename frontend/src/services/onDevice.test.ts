@@ -26,7 +26,7 @@ describe('offline check on the phone', () => {
   });
 
   it('applies the verdict rules and tags the result as a device result', async () => {
-    model.predict.mockResolvedValue({ model_version: 'v1-int8', top3: [{ label: 'tomato__late_blight', prob: 0.9 }, { label: 'tomato__early_blight', prob: 0.05 }], margin: 0.85 });
+    model.predict.mockResolvedValue({ model_version: 'v1-int8', top3: [{ label: 'tomato__late_blight', prob: 0.99995 }, { label: 'tomato__early_blight', prob: 0.00004 }], margin: 0.99991 });
     const c = await createCheck({ blob, crop: 'tomato', lang: 'en', lat: null, lon: null });
     const r = await offlineCheck(c);
     expect(r?.source).toBe('device');

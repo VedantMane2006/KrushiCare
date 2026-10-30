@@ -394,12 +394,35 @@ async def _twilio_media(url: str) -> bytes:
         return r.content[: MAX_IMAGE_BYTES + 1]
 
 
+_wa_content_sid: str | None = None
+
+
+async def _twilio_content_sid(c: httpx.AsyncClient) -> str:
+    """A one-variable text template ("{{1}}"). Twilio's WhatsApp trial number only sends templates
+    (error 21654 for a plain Body), so the reply goes in as the variable. Created once per process,
+    or set TWILIO_CONTENT_SID to reuse one."""
+    global _wa_content_sid
+    _wa_content_sid = _wa_content_sid or os.environ.get("TWILIO_CONTENT_SID")
+    if not _wa_content_sid:
+        r = await c.post("https://content.twilio.com/v1/Content", json={
+            "friendly_name": "agrisense_reply", "language": "en", "variables": {"1": "reply"},
+            "types": {"twilio/text": {"body": "{{1}}"}}})
+        r.raise_for_status()
+        _wa_content_sid = r.json()["sid"]
+        log.info("created Twilio content template %s", _wa_content_sid)
+    return _wa_content_sid
+
+
 async def _twilio_send(form: dict, body: str) -> None:
     """Sends the reply through Twilio's Messages API, back to whoever wrote, from the number they wrote to."""
     sid, token = os.environ["TWILIO_ACCOUNT_SID"], os.environ["TWILIO_AUTH_TOKEN"]
+    url = f"https://api.twilio.com/2010-04-01/Accounts/{sid}/Messages.json"
+    to = {"From": form.get("To", ""), "To": form.get("From", "")}
     async with httpx.AsyncClient(timeout=15, auth=(sid, token)) as c:
-        r = await c.post(f"https://api.twilio.com/2010-04-01/Accounts/{sid}/Messages.json",
-                         data={"From": form.get("To", ""), "To": form.get("From", ""), "Body": body})
+        r = await c.post(url, data={**to, "Body": body})
+        if r.status_code == 400 and r.json().get("code") == 21654:  # "ContentSid Required"
+            r = await c.post(url, data={**to, "ContentSid": await _twilio_content_sid(c),
+                                        "ContentVariables": json.dumps({"1": body}, ensure_ascii=False)})
         if r.status_code >= 400:
             log.warning("twilio send failed %s: %s", r.status_code, r.text[:300])
 
