@@ -458,10 +458,14 @@ async def whatsapp(request: Request, background: BackgroundTasks):
     return Response(wa.twiml(await _wa_reply(form)), media_type="application/xml")
 
 
+def _wa_user_key(form: dict) -> str:
+    salt = os.environ.get("WA_SALT", "agrisense")
+    return hashlib.sha256((salt + form.get("From", "")).encode()).hexdigest()
+
+
 async def _wa_reply(form: dict, fetch_media=None) -> str:
     """The bot's answer to one message, in Twilio's form fields (the Meta webhook maps onto them)."""
-    salt = os.environ.get("WA_SALT", "agrisense")
-    user_key = hashlib.sha256((salt + form.get("From", "")).encode()).hexdigest()
+    user_key = _wa_user_key(form)
     prefs = db.wa_get(user_key)
     first_time = prefs["lang"] is None and prefs["crop"] is None
     prefs.update(wa.parse_command(form.get("Body", "")))
@@ -613,9 +617,28 @@ def telegram_html(text: str) -> str:
     return re.sub(r"\*([^*\n]+)\*", r"<b>\1</b>", html.escape(text, quote=False))
 
 
-async def _telegram_send(chat_id: int, body: str) -> None:
+TG_LOCATION_BUTTON = {"en": "📍 Share my location", "hi": "📍 मेरी लोकेशन भेजें", "mr": "📍 माझे लोकेशन पाठवा"}
+
+
+def telegram_keyboard(prefs: dict) -> dict:
+    """Tap buttons so a farmer never has to type: crop, language, location (the button sends GPS on a phone).
+    Labels are words parse_command already knows, in the user's language."""
+    lang = prefs.get("lang") or "en"
+    t = wa.Text(S.wa_strings, lang)
+    crops = [("✓ " if prefs.get("crop") == c else "") + icon + " " + t(f"home.crop_{c}")
+             for c, icon in (("tomato", "🍅"), ("potato", "🥔"))]
+    return {"keyboard": [[{"text": c} for c in crops],
+                         [{"text": "English"}, {"text": "हिन्दी"}, {"text": "मराठी"}],
+                         [{"text": TG_LOCATION_BUTTON.get(lang, TG_LOCATION_BUTTON["en"]), "request_location": True}]],
+            "resize_keyboard": True, "is_persistent": True}
+
+
+async def _telegram_send(chat_id: int, body: str, keyboard: dict | None = None) -> None:
+    payload = {"chat_id": chat_id, "text": telegram_html(body), "parse_mode": "HTML"}
+    if keyboard:
+        payload["reply_markup"] = keyboard
     async with httpx.AsyncClient(timeout=15) as c:
-        r = await c.post(_tg_url("sendMessage"), data={"chat_id": chat_id, "text": telegram_html(body), "parse_mode": "HTML"})
+        r = await c.post(_tg_url("sendMessage"), json=payload)
         if r.status_code >= 400:
             log.warning("telegram send failed %s: %s", r.status_code, r.text[:300])
 
@@ -635,7 +658,9 @@ def telegram_to_form(msg: dict) -> dict:
 
 async def _telegram_answer(msg: dict) -> None:
     try:
-        await _telegram_send(msg["chat"]["id"], await _wa_reply(telegram_to_form(msg), fetch_media=_telegram_media))
+        form = telegram_to_form(msg)
+        reply = await _wa_reply(form, fetch_media=_telegram_media)
+        await _telegram_send(msg["chat"]["id"], reply, telegram_keyboard(db.wa_get(_wa_user_key(form))))
     except Exception as e:
         log.warning("telegram reply failed (%s): %s", type(e).__name__, e)
 

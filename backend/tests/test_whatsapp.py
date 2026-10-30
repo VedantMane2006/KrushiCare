@@ -183,8 +183,8 @@ def test_telegram_bot_text_then_photo(client, monkeypatch):
     monkeypatch.setattr(main.S, "predict", lambda img: classifier(("potato__late_blight", 0.99999), ("potato__early_blight", 0.0)))
     sent = []
 
-    async def send(chat_id, body):
-        sent.append((chat_id, body))
+    async def send(chat_id, body, keyboard=None):
+        sent.append((chat_id, body, keyboard))
 
     async def media(file_id):
         assert file_id == "BIG"
@@ -200,6 +200,15 @@ def test_telegram_bot_text_then_photo(client, monkeypatch):
     assert client.post("/api/telegram", json={"message": photo}).status_code == 200
     assert [s[0] for s in sent] == [555, 555, 555]
     assert "late blight" in sent[2][1].lower()
+    rows = sent[2][2]["keyboard"]
+    assert rows[0][1]["text"] == "✓ 🥔 Potato" and rows[2][0]["request_location"] is True
+    # Tapping buttons sets crop and language; the keyboard follows the language.
+    client.post("/api/telegram", json={"message": {"message_id": 4, "chat": chat, "from": me, "text": "मराठी"}})
+    client.post("/api/telegram", json={"message": {"message_id": 5, "chat": chat, "from": me, "text": sent[-1][2]["keyboard"][0][0]["text"]}})
+    assert sent[-1][2]["keyboard"][0][0]["text"].startswith("✓ 🍅")
+    client.post("/api/telegram", json={"message": {"message_id": 6, "chat": chat, "from": me, "location": {"latitude": 18.5, "longitude": 73.8}}})
+    assert sent[-1][2]["keyboard"][2][0]["text"].startswith("📍 माझे")
+    del sent[3:]
     assert client.post("/api/telegram", json={"edited_message": {}}).status_code == 200  # ignored
     assert len(sent) == 3
 
